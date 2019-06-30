@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:03:51 by abarthel          #+#    #+#              #
-#    Updated: 2019/06/25 18:49:44 by abarthel         ###   ########.fr        #
+#    Updated: 2019/06/30 15:21:36 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: $(NAME)
 
 $(NAME)	: $(OBJECTS)
 	@make lib -j -C $(PATH_LIB)
-	@$(CC) $(WARNING) $(CFLAGS) $(SANITIZE) $^ -o $@ $(LIB)
+	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $^ -o $@ $(LIB)
 	@printf "\n\e[38;5;44m%4s [\e[1m$(NAME) built]\n\n\e[0m"
 
 clean:
