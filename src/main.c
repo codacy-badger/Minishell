@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 16:58:12 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:04:50 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,24 @@ int	main(int argc, char **argv, char **env)
 	int		ret_fork;
 	char	*buf;
 
+	if (!env)
+		if (!*env)
+			exit(1);
 	while (write(STDOUT_FILENO, "$> ", 3) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
+		/* Built-ins start here: put this in a dispatcher */
 		if (!ft_strcmp(buf, "exit"))
 		{
 			ft_memdel((void**)&buf);
 			return (0);
 		}
+		else if (!ft_strcmp(buf, "env"))
+		{
+			ft_print_tables(env);
+			ft_memdel((void**)&buf);
+		}
+		/* End built-ins*/
+
 		stat = 0;
 		if (fork() == 0)
 		{
