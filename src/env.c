@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:56:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 17:53:37 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/02 17:54:14 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/02 18:37:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include <stdlib.h>
+#include "libft.h"
 
-const struct s_error_desc	g_errordesc[] =
+char	*ft_getenv(const char *name)
 {
-	{ e_success, "No error" },
-	{ e_invalid_input, "Invalid input" },
-	{ e_file_not_found, "File not found" }
-};
+	extern char **environ;
+
+	if (!name)
+		ft_print_tables(environ);
+	else
+	{
+		(void)name;
+	}
+	return (NULL);
+}
