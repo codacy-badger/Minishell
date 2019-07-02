@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 17:04:50 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:06:15 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 			ft_memdel((void**)&buf);
 			return (0);
 		}
-		else if (!ft_strcmp(buf, "env"))
+		else if (!ft_strcmp(buf, "env")) // get arg and go to getenv() ft
 		{
 			ft_print_tables(env);
 			ft_memdel((void**)&buf);
