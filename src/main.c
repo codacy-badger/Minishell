@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 18:27:18 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:26:55 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	main(int argc, char **argv, char **env)
 	if (!env)
 		if (!*env)
 			exit(1);
-	ft_getenv("LOGNAME");
+//	ft_getenv(NULL); /* For env command */
+//	ft_getenv("LOGNAME"); /* When env has arguments*/
 //	ft_printf("%s\n", ft_getenv("LOGNAME")); /* Tests ft_getenv */
 	while (write(STDOUT_FILENO, "$> ", 3) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
