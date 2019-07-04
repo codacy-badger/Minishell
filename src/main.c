@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 20:26:55 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:40:15 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int	main(int argc, char **argv, char **env)
 			exit(1);
 //	ft_getenv(NULL); /* For env command */
 //	ft_getenv("LOGNAME"); /* When env has arguments*/
-//	ft_printf("%s\n", ft_getenv("LOGNAME")); /* Tests ft_getenv */
+	ft_printf("%s\n", ft_getenv("HOMEBREW")); /* Tests ft_getenv */
+	ft_printf("%s\n", ft_getenv("DOESNOTEXIST")); /* Tests ft_getenv */
+	ft_printf("%s\n", ft_getenv("USER")); /* Tests ft_getenv */
+	ft_printf("%s\n", ft_getenv("LOGNAME")); /* Tests ft_getenv */
 	while (write(STDOUT_FILENO, "$> ", 3) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		/* Built-ins start here: put this in a dispatcher */
