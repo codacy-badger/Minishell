@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 20:34:13 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/04 21:07:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	extern char	**environ;
-	int		stat;
-	int		ret_fork;
-	char	*buf;
+	int			stat;
+	int			ret_fork;
+	char		*buf;
 
 	if (!environ)
 		if (!*environ)
@@ -33,9 +33,6 @@ int	main(int argc, char **argv)
 	environ = env_cpy(environ);
 	while (ft_printf("\e[92m➜ \e[96m[\e[0m%s\e[96m] \e[0m%s\e[96m$ \e[0m", ft_getenv("USER"), ft_getenv("PWD")) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
-		ft_setenv("USER", buf, 1); // test
-	//	ft_printf("%s", ft_getenv(NULL));
-	//	continue ;
 		/* Built-ins start here: put this in a dispatcher */
 		if (!ft_strcmp(buf, "exit"))
 		{
