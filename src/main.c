@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 21:07:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/04 21:46:24 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int	main(int argc, char **argv)
 	int			stat;
 	int			ret_fork;
 	char		*buf;
+	char		*pwd;
 
 	if (!environ)
 		if (!*environ)
 			exit(1);
 	environ = env_cpy(environ);
-	while (ft_printf("\e[92m➜ \e[96m[\e[0m%s\e[96m] \e[0m%s\e[96m$ \e[0m", ft_getenv("USER"), ft_getenv("PWD")) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
+	while (ft_printf("\e[1m\e[96m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
+		free(pwd);
 		/* Built-ins start here: put this in a dispatcher */
 		if (!ft_strcmp(buf, "exit"))
 		{
