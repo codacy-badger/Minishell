@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 17:54:14 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 18:32:52 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/04 17:27:52 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/04 18:34:22 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 
-char	*ft_getenv(const char *name)
+char	**env_cpy(char **envp)
 {
-	extern char **environ;
-	int			i;
-	int			j;
+	char	**env;
+	int		nb;
 
-	if (!name)
-		ft_print_tables(environ);
-	else
+	env = NULL;
+	nb = 0;
+	while (envp[nb])
 	{
-		i = 0;
-		while (environ[i])
-		{
-			j = 0;
-			while (name[j] && environ[i][j] && name[j] == environ[i][j])
-				++j;
-			if (environ[i][j] != '=' || name[j])
-				++i;
-			else
-			{
-				++j;
-				return (&environ[i][j]);
-			}
-		}
+		++nb;
 	}
-	return (NULL);
+	env = (char**)ft_memalloc(sizeof(char**) * (nb + 1));
+	--nb;
+	while (nb >= 0)
+	{
+		env[nb] = ft_strdup(envp[nb]);
+		--nb;
+	}
+	return (env);
 }

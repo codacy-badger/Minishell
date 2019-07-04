@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 15:40:15 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:33:26 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,22 @@
 #include "error.h"
 #include "env.h"
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	(void)env;
+	extern char	**environ;
 	int		stat;
 	int		ret_fork;
 	char	*buf;
 
-	if (!env)
-		if (!*env)
+	if (!environ)
+		if (!*environ)
 			exit(1);
-//	ft_getenv(NULL); /* For env command */
-//	ft_getenv("LOGNAME"); /* When env has arguments*/
-	ft_printf("%s\n", ft_getenv("HOMEBREW")); /* Tests ft_getenv */
-	ft_printf("%s\n", ft_getenv("DOESNOTEXIST")); /* Tests ft_getenv */
-	ft_printf("%s\n", ft_getenv("USER")); /* Tests ft_getenv */
-	ft_printf("%s\n", ft_getenv("LOGNAME")); /* Tests ft_getenv */
-	while (write(STDOUT_FILENO, "$> ", 3) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
+	environ = env_cpy(environ);
+	while (ft_printf("[%s]$ ", ft_getenv("USER")) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
+	//	ft_setenv("USER", buf, 1); // test
 		/* Built-ins start here: put this in a dispatcher */
 		if (!ft_strcmp(buf, "exit"))
 		{
@@ -46,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else if (!ft_strcmp(buf, "env")) // get arg and go to getenv() ft
 		{
-			ft_print_tables(env);
+			ft_print_tables(environ);
 			ft_memdel((void**)&buf);
 		}
 		/* End built-ins*/
@@ -54,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 		stat = 0;
 		if (fork() == 0)
 		{
-			ret_fork = execve(buf, argv, env);
+			ret_fork = execve(buf, argv, environ);
 			ft_memdel((void**)&buf);
 			return (ret_fork);
 		}
