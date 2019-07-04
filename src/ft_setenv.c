@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 15:49:03 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 18:29:12 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:43:56 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "env.h"
 
-static char	*getenvvar(const char *name)
+static char	**getenvvar(const char *name)
 {
 	extern char **environ;
 	int			i;
@@ -35,7 +35,7 @@ static char	*getenvvar(const char *name)
 			else
 			{
 				++j;
-				return (environ[i]);
+				return (&environ[i]);
 			}
 		}
 	}
@@ -44,40 +44,24 @@ static char	*getenvvar(const char *name)
 
 int				ft_setenv(const char *name, const char *value, int overwrite)
 {
-	extern char	**g_env;
-	char		*env_name;
+	char		**env_var;
 	char		*tmp;
 	size_t		len;
 
-	env_name = NULL;
 	if (overwrite)
 	{
-		/* Set arg */
-		if ((env_name = ft_getenv(name)))
+		if ((env_var = getenvvar(name)))
 		{
-			len = ft_strlen(value);
-			if (len <= ft_strlen(env_name))
-			{
-				ft_strcpy(env_name, value);
-			}
-			else
-			{
-			//	ft_printf("L");
-				env_name = getenvvar(name);
-			//	ft_printf("|%s|\n", environ[getenvvar(name)]);
-		//		ft_printf("|%s,", env_name);
-			//	free(environ);
-			//	environ[16] = ft_memalloc(ft_strlen(name) + ft_strlen(value) + 2); /* 2 correspond to '=' and '\0' */
-				tmp = ft_strcpy(env_name, "welkfjwalekfjwefwefew");
-				tmp = ft_strcpy(tmp, "=");
-				tmp = ft_strcpy(tmp, value);
-				ft_printf("|%s,", env_name);
-			}
+			len = ft_strlen(value) + ft_strlen(name) + 2;
+			free(*env_var);
+			*env_var = ft_memalloc(len);
+			tmp = ft_strendcpy(*env_var, name);
+			tmp = ft_strendcpy(tmp, "=");
+			tmp = ft_strendcpy(tmp, value);
+			return (0);
 		}
-		return (0);
-	}
-	else
-	{
 		return (-1);
 	}
+	else
+		return (-1);
 }
