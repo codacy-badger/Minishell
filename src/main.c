@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	char		*pwd;
 
 	environ = env_cpy(environ);
-	while (ft_printf("\e[1m\e[96m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
+	while (ft_printf("\e[1m\e[38;5;44m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		free(pwd);
 		/* Built-ins start here: put this in a dispatcher */
