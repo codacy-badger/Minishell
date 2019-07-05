@@ -28,9 +28,6 @@ int	main(int argc, char **argv)
 	char		*buf;
 	char		*pwd;
 
-	if (!environ)
-		if (!*environ)
-			exit(1);
 	environ = env_cpy(environ);
 	while (ft_printf("\e[1m\e[96m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
@@ -41,7 +38,7 @@ int	main(int argc, char **argv)
 			ft_memdel((void**)&buf);
 			return (0);
 		}
-		else if (!ft_strcmp(buf, "env")) // get arg and go to getenv() ft
+		else if (!ft_strcmp(buf, "env")) /* get arg and go to getenv() ft */
 		{
 			ft_print_tables(environ);
 			ft_memdel((void**)&buf);
