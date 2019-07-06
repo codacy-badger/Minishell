@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 14:27:02 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:58:09 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "error.h"
-#include "env.h"
+#include "path.h"
 
 int	main(int argc, char **argv)
 {
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	char		*buf;
 	char		*pwd;
 
-	environ = env_cpy(environ);
+	environ = ft_envcpy(environ);
 	while (ft_printf("\e[1m\e[38;5;44m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		free(pwd);
