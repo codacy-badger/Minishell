@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 19:01:45 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:11:49 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 #include "minishell.h"
 #include "error.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
 	extern char	**environ;
 	int			stat;
 	int			ret_fork;
 	char		*buf;
+	char		**arg;
 
 	environ = ft_envcpy(environ);
 	stat = 0;
+	arg = NULL;
 	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		stat = 0;
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 
 		else if (fork() == 0)
 		{
-			ret_fork = execve(buf, argv, environ);
+			ret_fork = execve(buf, arg, environ);
 			ft_memdel((void**)&buf);
 			ft_tabdel(&environ);
 			exit (ret_fork);
