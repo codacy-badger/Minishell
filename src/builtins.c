@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 21:18:01 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:50:17 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ _Bool	builtins_select(char **buf)
 
 	if (!ft_strcmp(*buf, "exit"))
 	{
+		ft_tabdel(&environ);
 		ft_memdel((void**)buf);
 		exit (0);
 	}
