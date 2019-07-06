@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/06 15:48:30 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/06 16:51:10 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SOURCES_PATH := ./src/
 
 SOURCES :=	main.c \
 			error.c \
-			ft_setenv.c \
 			path.c \
+			prompt.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 

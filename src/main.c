@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 15:58:09 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:53:19 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "minishell.h"
 #include "error.h"
-#include "path.h"
 
 int	main(int argc, char **argv)
 {
@@ -26,12 +26,12 @@ int	main(int argc, char **argv)
 	int			stat;
 	int			ret_fork;
 	char		*buf;
-	char		*pwd;
 
 	environ = ft_envcpy(environ);
-	while (ft_printf("\e[1m\e[38;5;44m%s\e[38;5;82m ➠ \e[0m", short_path(&pwd)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
+	stat = 0;
+	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
-		free(pwd);
+		stat = 0;
 		/* Built-ins start here: put this in a dispatcher */
 		if (!ft_strcmp(buf, "exit"))
 		{
@@ -45,8 +45,7 @@ int	main(int argc, char **argv)
 		}
 		/* End built-ins*/
 
-		stat = 0;
-		if (fork() == 0)
+		else if (fork() == 0)
 		{
 			ret_fork = execve(buf, argv, environ);
 			ft_memdel((void**)&buf);
