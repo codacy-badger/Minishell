@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 18:31:01 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:01:45 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	int			ret_fork;
 	char		*buf;
 
-//	environ = ft_envcpy(environ);
+	environ = ft_envcpy(environ);
 	stat = 0;
 	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 		{
 			ret_fork = execve(buf, argv, environ);
 			ft_memdel((void**)&buf);
+			ft_tabdel(&environ);
 			exit (ret_fork);
 		}
 		else
@@ -57,5 +58,6 @@ int	main(int argc, char **argv)
 			ft_memdel((void**)&buf);
 		}
 	}
+	ft_tabdel(&environ);
 	return (0);
 }
