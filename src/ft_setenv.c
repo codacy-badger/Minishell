@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 15:49:03 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/04 21:11:50 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:17:19 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,33 @@ static char	**getenvvar(const char *name)
 	return (NULL);
 }
 
-int				ft_setenv(const char *name, const char *value, int overwrite)
+static void	append_environ(const char *name, const char *value)
+{
+	extern char	**environ;
+	char		**new_env;
+	char		*tmp;
+	int			nb;
+
+	nb = 0;
+	new_env = NULL;
+	while (environ[nb])
+		++nb;
+	new_env = (char**)ft_memalloc(sizeof(char**) * (nb + 2));
+	--nb;
+	while (nb >= 0)
+	{
+		new_env[nb + 1] = environ[nb];
+		--nb;
+	}
+	new_env[0] = (char*)ft_memalloc(ft_strlen(name) + 1 + ft_strlen(value));
+	tmp = ft_strendcpy(new_env[0], name);
+	tmp = ft_strendcpy(tmp, "=");
+	tmp = ft_strendcpy(tmp, value);
+	free(environ);
+	environ = new_env;
+}
+
+int			ft_setenv(const char *name, const char *value, int overwrite)
 {
 	char		**env_var;
 	char		*tmp;
@@ -61,8 +87,7 @@ int				ft_setenv(const char *name, const char *value, int overwrite)
 		}
 		else
 		{
-		/* add new var */	
-
+			append_environ(name, value);
 		}
 		return (0);
 	}

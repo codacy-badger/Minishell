@@ -6,13 +6,14 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:03:51 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/04 16:22:05 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/06 14:12:58 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 -include minishell.mk
 
-SANITIZE := -fsanitize=address
+#SANITIZE := -fsanitize=address
+SANITIZE := 
 
 OPTIMIZATION := -O2 -fno-builtin
 
