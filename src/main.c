@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 19:11:49 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:15:32 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,24 @@ int	main(void)
 	int			stat;
 	int			ret_fork;
 	char		*buf;
-	char		**arg;
+	char		**argv;
 
 	environ = ft_envcpy(environ);
 	stat = 0;
-	arg = NULL;
+	argv = NULL;
 	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		stat = 0;
-		/* Built-ins start here: put this in a dispatcher */
-		if (!ft_strcmp(buf, "exit"))
-		{
-			ft_memdel((void**)&buf);
-			return (0);
-		}
-		else if (!ft_strcmp(buf, "env")) /* get arg and go to getenv() ft */
-		{
-			ft_print_tables(environ);
-			ft_memdel((void**)&buf);
-		}
-		/* End built-ins*/
-
+		if (builtins_select(&buf))
+			continue ;
 		else if (fork() == 0)
 		{
-			ret_fork = execve(buf, arg, environ);
+			if (access(buf, 1000))
+			{
+				ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", argv[0], buf);
+				exit (127);
+			}
+			ret_fork = execve(buf, argv, environ);
 			ft_memdel((void**)&buf);
 			ft_tabdel(&environ);
 			exit (ret_fork);

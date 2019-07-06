@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 18:33:04 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 20:58:06 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/06 21:18:01 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stdlib.h>
+#include "libft.h"
 
-_Bool	prompt_display(int status);
+_Bool	builtins_select(char **buf)
+{
+	extern char	**environ;
 
-_Bool	builtins_select(char **buf);
-
-#endif
+	if (!ft_strcmp(*buf, "exit"))
+	{
+		ft_memdel((void**)buf);
+		exit (0);
+	}
+	else if (!ft_strcmp(*buf, "env")) /* get arg and go to getenv() ft */
+	{
+		ft_print_tables(environ);
+		ft_memdel((void**)buf);
+		return (1);
+	}
+	else
+		return (0);
+}
