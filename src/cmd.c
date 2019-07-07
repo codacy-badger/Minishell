@@ -1,32 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/07 14:20:11 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:21:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+#include "minishell.h"
+#include "error.h"
 
-int	cmd_exit(char **buf)
+static const t_builtins	g_builtins[] =
 {
-	extern char **environ;
+	{ "exit", &cmd_exit},
+	{ "env", &cmd_env}
+};
 
-	ft_tabdel(&environ);
-	ft_memdel((void**)buf);
-	exit(0);
+static int	*dispatcher(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < 2 && ft_strcmp(cmd, g_builtins[i].key))
+	{
+		++i;
+	}
+	if (i == 2)
+	{
+		return (NULL);
+	}
+	else
+	{
+		return ((int*)g_builtins[i].f);
+	}
 }
 
-int	cmd_env(char **buf)
+int			builtins_select(char **buf)
 {
-	extern char **environ;
+	extern char	**environ;
+	int			*(*f)(char**);
 
-	ft_print_tables(environ);
-	ft_memdel((void**)buf);
-	return (0);
+	if ((f = (int *(*)(char**))dispatcher(*buf)))
+	{
+		return (*f(buf));
+	}
+	else
+	{
+		return (e_command_not_found);
+	}
 }

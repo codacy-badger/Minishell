@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:51:41 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/02 16:57:38 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/07 13:28:12 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ enum	e_minishell_error
 {
 	e_success = 0,
 	e_invalid_input = -1,
-	e_file_not_found = -2
+	e_file_not_found = -2,
+	e_command_not_found = 127
 };
 
 typedef enum e_minishell_error	t_error;

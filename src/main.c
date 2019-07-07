@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/06 21:59:01 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/07 13:27:35 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 {
 	extern char			**environ;
 	int			stat;
-	int			ret_fork;
+	int			ret;
 	char		*buf;
 	char		**argv;
 
@@ -32,7 +32,7 @@ int	main(void)
 	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
 	{
 		stat = 0;
-		if (builtins_select(&buf))
+		if ((ret = builtins_select(&buf)) != e_command_not_found)
 			continue ;
 		else if (fork() == 0)
 		{
@@ -43,10 +43,10 @@ int	main(void)
 				ft_memdel((void**)&buf);
 				exit (127);
 			}
-			ret_fork = execve(buf, argv, environ);
+			ret = execve(buf, argv, environ);
 			ft_memdel((void**)&buf);
 			ft_tabdel(&environ);
-			exit (ret_fork);
+			exit (ret);
 		}
 		else
 		{
