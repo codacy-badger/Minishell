@@ -6,20 +6,22 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:03:51 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/06 21:51:06 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/07 14:26:37 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 -include minishell.mk
 
-#SANITIZE := -fsanitize=address
-SANITIZE := 
+SANITIZE := -fsanitize=address
+#SANITIZE := 
 
 OPTIMIZATION := -O2 -fno-builtin
 
 DEBUGGING := -g
 
 WARNING := -Wall -Wextra -Werror
+
+ANSI := -ansi
 
 .PHONY: all clean fclean re
 
@@ -43,5 +45,5 @@ re: fclean $(NAME)
 -include $(DEPENDS)
 
 %.o: %.c Makefile
-	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $(SANITIZE) $(INCLUDES) -MMD -MP -c $< -o $@
+	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $(ANSI) $(SANITIZE) $(INCLUDES) -MMD -MP -c $< -o $@
 	@printf "\e[38;5;155m%-20s \e[38;5;37mobject built\n\e[0m" $(notdir $(basename $@))

@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/07 13:27:35 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:37:49 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int	main(void)
 	{
 		stat = 0;
 		if ((ret = builtins_select(&buf)) != e_command_not_found)
+		{
 			continue ;
+		}
 		else if (fork() == 0)
 		{
 			if (access(buf, 1000))
 			{
-				ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", argv[0], buf);
-				ft_tabdel(&environ);
+			/*	ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", argv[0], buf);
+			*/	ft_tabdel(&environ);
 				ft_memdel((void**)&buf);
 				exit (127);
 			}

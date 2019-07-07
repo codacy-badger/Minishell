@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/07 14:21:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:36:02 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			builtins_select(char **buf)
 
 	if ((f = (int *(*)(char**))dispatcher(*buf)))
 	{
-		return (*f(buf));
+		return ((int)f(buf));
 	}
 	else
 	{
