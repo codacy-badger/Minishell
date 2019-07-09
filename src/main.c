@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/09 12:44:09 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:09:35 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(void)
 		}
 		else if (fork() == 0)
 		{
+			/* should check access via a dispatcher, then if access allow, go to fork */
 			if (access(buf, 1000))
 			{
 			/*	ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", argv[0], buf);
@@ -52,7 +53,14 @@ int	main(void)
 		}
 		else
 		{
+			/* should capture both built-ins and fork ret */
 			wait(&stat);
+			ret = WEXITSTATUS(stat);
+			if (ret)
+			{
+				ft_printf("%d\n", ret);
+				/* stderror error msg, hereby call ft_errno */
+			}
 			ft_memdel((void**)&buf);
 		}
 	}
