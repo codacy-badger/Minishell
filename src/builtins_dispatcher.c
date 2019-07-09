@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   builtins_dispatcher.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/07 14:36:02 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:35:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int			builtins_select(char **buf)
 	}
 	else
 	{
-		return (e_command_not_found);
+		/*write(STDOUT_FILENO, , ft_strlen());
+	*/	return (e_command_not_found);
 	}
 }
