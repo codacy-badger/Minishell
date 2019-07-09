@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:03:51 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/09 12:08:02 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/09 13:45:53 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,9 @@ fclean:
 	@make fclean -C $(PATH_LIB)
 
 re: fclean $(NAME)
+
+test: all
+	@./$(NAME) < $(TOOLS_PATH)$(TESTS_FILE)
 
 -include $(DEPENDS)
 

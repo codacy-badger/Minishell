@@ -1,0 +1,4 @@
+env ;
+ls ; /bin/ls
+commanddoesnotexsist arg1 arg2 -- -t option ; env
+hello ; exit; toto

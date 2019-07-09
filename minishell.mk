@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/09 12:02:37 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/09 13:44:48 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,3 +30,7 @@ PATH_LIB = ./libft/
 LIB = $(PATH_LIB)libft.a
 
 DEPENDS := $(patsubst %.c,%.d,$(addprefix $(SOURCES_PATH), $(SOURCES)))
+
+TOOLS_PATH := ./tools/
+
+TESTS_FILE := tests-minishell.txt
