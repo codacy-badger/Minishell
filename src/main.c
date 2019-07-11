@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/09 14:09:35 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/11 18:47:00 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 	environ = ft_envcpy(environ);
 	stat = 0;
 	argv = NULL;
-	while (prompt_display(WEXITSTATUS(stat)) && ft_fgetline(STDIN_FILENO, &buf, '\n') >= 0)
+	while (prompt_display(WEXITSTATUS(stat)) && get_stdin(&buf) >= 0)
 	{
 		stat = 0;
 		if ((ret = builtins_select(&buf)) != e_command_not_found)
