@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:48:52 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/11 21:01:53 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/11 21:37:17 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 char		is_quote_open(char c, char mask)
 {
 	if (c == '`')
-		mask = '`';
+		mask ^= '`';
 	else if (c == '\"')
-		mask = '\"';
+		mask ^= '\"';
 	else if (c == '{' && c != '{' ^ ((1 << 1) | (1 << 2)))
-		mask = ((1 << 1) | (1 << 2));
+		mask ^= ((1 << 1) | (1 << 2));
 	else if (c == '(' && c != '(' ^ (1 << 0))
-		mask = (1 << 0);
+		mask ^= (1 << 0);
 	else if (c == '\'')
-		mask = '\'';
+		mask ^= '\'';
 	return (mask);
 }
 
