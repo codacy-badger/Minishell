@@ -6,12 +6,12 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/09 14:10:00 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/09 14:11:28 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/11 16:24:45 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+4. lexe
+5. ft_getopt
 1. Dispatcher that check access and if command exists, else return 127.
 2. System that Capture both Builtins and fork return value then call >
 3. ft_errno error msg of my own implementation.
-4. lexe
-5. ft_getopt

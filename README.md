@@ -8,7 +8,18 @@ It implies to code in the cleanest and simplest manner.
 
 ---
 
+#### Architecture
 
----
+> Input stream
+
+> Lexical analysis
+
+> Parsing
+
+> Dispatcher
+
+> Input Stream
+
+
 
 
