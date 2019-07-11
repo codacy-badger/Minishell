@@ -8,11 +8,11 @@ It implies to code in the cleanest and simplest manner.
 
 ---
 
-#### Architecture
+### Architecture
 
 > Input stream
 
-> ##### Lexical analysis
+> #### Lexical analysis
 
 > Parsing
 
