@@ -29,21 +29,34 @@ The following is the main steps in the minishell workflow:
 ## General Architecture
 
 ```
+hello
 ```
 
 
 ## Lexical Analysis
 
-	After the input stream has been capture. A raw string is passed to `function` for a lexical analysis. A process of tokenization takes place.
+After the input stream has been capture. A raw string is passed to `function` for a lexical analysis. A process of tokenization takes place.
 
-	> Each token is stored in a node of a linked-list.
-	> Each token will be executed in a fork or as a builtin after been dispatched.
+> Each token is stored in a node of a linked-list.
+> Each token will be executed in a fork or as a builtin after been dispatched.
 
-	Linked-list containing the tokens :
-	```mermaid
-	```
+input sample : ls -l -- file repo ; echo $? ; env -i ls ; coco ";s;s'"
+
+Linked-list containing the tokens :
+```
+		 ---------------------------------
+		|		Command 1
+		| bin:
+		|
+		|
+		|
+		 ---------------------------------
 
 
-	And this will produce a flow chart:
+
+
+```
+
+And this will produce a flow chart:
 
 
