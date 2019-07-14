@@ -27,9 +27,9 @@ char		is_quote_open(char c, char mask)
 		mask ^= '`';
 	else if (c == '\"')
 		mask ^= '\"';
-	else if (c == '{' && c != '{' ^ ((1 << 1) | (1 << 2)))
+	else if (c == '{' || (c == '}' && mask == ((1 << 1) | (1 << 2))))
 		mask ^= ((1 << 1) | (1 << 2));
-	else if (c == '(' && c != '(' ^ (1 << 0))
+	else if (c == '(' || (c == ')' && mask == (1 << 0)))
 		mask ^= (1 << 0);
 	else if (c == '\'')
 		mask ^= '\'';
