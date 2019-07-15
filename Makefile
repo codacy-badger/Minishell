@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:03:51 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/11 18:10:01 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/15 17:06:45 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@
 #SANITIZE := -fsanitize=address
 SANITIZE := 
 
-OPTIMIZATION := -O2 -fno-builtin
+OPTIMIZATION :=
+#OPTIMIZATION := -O2 -fno-builtin
 
 DEBUGGING := -g
 

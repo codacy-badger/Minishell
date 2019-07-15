@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/11 18:47:00 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:56:34 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "minishell.h"
+#include "builtins.h"
+#include "prompt.h"
+#include "input.h"
 #include "error.h"
 
 int	main(void)

@@ -6,13 +6,13 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/11 18:48:46 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:39:14 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-#include "minishell.h"
+#include "builtins.h"
 #include "error.h"
 
 static const t_builtins	g_builtins[] =
@@ -51,7 +51,6 @@ int			builtins_select(char **buf)
 	}
 	else
 	{
-		/*write(STDOUT_FILENO, , ft_strlen());
-	*/	return (e_command_not_found);
+		return (e_command_not_found);
 	}
 }
