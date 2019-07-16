@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   job.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 17:59:53 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 13:46:33 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/16 13:12:45 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/16 13:49:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef JOB_H
+# define JOB_H
 
-char	**lexer(char *input);
+int	job(char **argv, char **envp);
 
 #endif
