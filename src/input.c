@@ -6,9 +6,16 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:48:52 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/15 17:11:51 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:02:27 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** Physical Module handling inputs in a zsh style.
+** It does not include termcaps.
+** Files: input.c, input.h
+** Use: call get_stdin in your program in a get_next_line alike fashion.
+*/
 
 #include <stdlib.h>
 #include "libft.h"
