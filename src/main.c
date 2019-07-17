@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 15:58:52 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 20:06:37 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(void)
 	char		*input;
 	char		**argv;
 
-	environ = ft_envcpy(environ);
+	environ = ft_tabcpy(environ);
 	stat = 0;
 	argv = NULL;
 	while (prompt_display(WEXITSTATUS(stat)) && get_stdin(&input) >= 0)
