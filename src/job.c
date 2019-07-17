@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 16:49:19 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 17:36:41 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	check_access(char *arg)
 {
 	if (access(arg, F_OK) == -1)
 	{
-		ft_printf("path1,2...\n");
+		exit (0);
 	/* concat the path and command name to PATH and test it */
 	}
 	else if (access(arg, X_OK))
@@ -70,15 +70,12 @@ int	job(char **argv, char **envp)
 	{
 		return (ret);
 	}
+	else if (check_access(argv[0]) == 1)
+	{
+		return (e_permission_denied);
+	}
 	else if (fork() == 0)
 	{
-		if (!check_access(argv[0]))
-		{
-			ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", "Minishell", argv[0]);
-			ft_tabdel(&envp);
-			ft_tabdel(&argv);
-			exit (e_command_not_found);
-		}
 		ret = execve(argv[0], argv, envp);
 		ft_tabdel(&argv);
 		ft_tabdel(&envp);
@@ -88,11 +85,8 @@ int	job(char **argv, char **envp)
 	{
 		wait(&stat);
 		ret = WEXITSTATUS(stat);
-		if (ret)
-		{
-			ft_printf("%d\n", ret);
-		}
-		ft_memdel((void**)argv[0]);
+		ft_printf("%d\n", ret);
+		ft_tabdel(&argv);
 		return (ret);
 	}
 }
