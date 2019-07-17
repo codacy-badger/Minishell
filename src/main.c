@@ -6,12 +6,11 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 18:29:55 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 15:58:52 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <sys/wait.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"

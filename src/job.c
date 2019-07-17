@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 18:30:13 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 15:58:46 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <errno.h>
 #include "ft_errno.h"
 #include <stdio.h>
+#include <sys/wait.h>
 
 /*
  ** Module "job" handles the execution of commands

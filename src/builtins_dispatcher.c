@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 19:26:05 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 15:57:59 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ static int	*dispatcher(char *cmd)
 
 int			builtins_select(char **buf)
 {
-	extern char	**environ;
 	int			*(*f)(char**);
 
 	if ((f = (int *(*)(char**))dispatcher(*buf)))
 	{
-		return ((int)f(buf));
+		return (1);
 	}
 	else
 	{
