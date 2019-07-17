@@ -1,14 +1,4 @@
 env
-/bin/ls
-ls
-commanddoesnotexsist arg1 arg2 -- -t option
-env ;
-ls ; /bin/ls
-minishell
-commanddoesnotexsist arg1 arg2 -- -t option ; env
-minishell
-env
-exit
-hello ; exit; toto
+./minishell
 exit
 exit
