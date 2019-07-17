@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 13:48:24 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/16 18:29:55 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	main(void)
 	argv = NULL;
 	while (prompt_display(WEXITSTATUS(stat)) && get_stdin(&input) >= 0)
 	{
-		/* call lexer for  argv
-		 * from intput to **argv */
 		argv = lexer(input);
 		free(input);
 		stat = job(argv, environ);

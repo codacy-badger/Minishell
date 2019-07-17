@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/07 14:28:09 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/16 18:24:21 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ int	cmd_exit(char **buf)
 }
 
 int	cmd_env(char **buf)
+{
+	extern char **environ;
+
+	ft_print_tables(environ);
+	ft_memdel((void**)buf);
+	return (0);
+}
+
+int cmd_history(char **buf)
 {
 	extern char **environ;
 
