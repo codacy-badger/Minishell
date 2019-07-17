@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 15:57:59 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:56:20 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static const t_builtins	g_builtins[] =
 	{ "env", &cmd_env}
 };
 
-static int	*dispatcher(char *cmd)
+static void	*dispatcher(char *cmd)
 {
 	int	i;
 
@@ -36,20 +36,19 @@ static int	*dispatcher(char *cmd)
 	}
 	else
 	{
-		return ((int*)g_builtins[i].f);
+		return ((void*)g_builtins[i].f);
 	}
 }
 
 int			builtins_select(char **buf)
 {
-	int			*(*f)(char**);
+	int			(*f)(char**);
+	int			ret;
 
-	if ((f = (int *(*)(char**))dispatcher(*buf)))
+	ret = e_command_not_found;
+	if ((f = dispatcher(*buf)))
 	{
-		return (1);
+		ret = f(buf);
 	}
-	else
-	{
-		return (e_command_not_found);
-	}
+	return (ret);
 }
