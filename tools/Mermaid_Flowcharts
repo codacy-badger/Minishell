@@ -1,0 +1,24 @@
+Module Job.c
+
+graph TD
+A(Input: *argv)
+B{Is builtin ?}
+C[Execute builtin]
+D{Has path ?}
+E{Cmd exists ?}
+Z(End Job module: return value)
+A --> B
+B --> |Yes|C
+B-->|No|D
+D-->|No|H[Concat PATHs]
+D-->|Yes|E
+E-->|No|I[e_command_not_found]
+I-->|return value|Z
+E-->|Yes|F{Has access to bin ?}
+F-->|No|J[e_permission_denied]
+J-->|return value|Z
+F-->|Yes|G[Execve bin]
+G-->|Return value|Z
+C --> |Return value|Z
+
+
