@@ -14,6 +14,8 @@ It implies to code in the cleanest and simplest manner
 
 ## Architecture
 
+Organized in modules.
+
 The following is the main steps in the minishell workflow:
 
 - Input Stream
@@ -65,8 +67,3 @@ And this will produce a flow chart:
 git clone --recurse-submodules https://github.com/Ant0wan/Minishell.git
 ```
 
-
-## Modules
-
-> #### Job
-> ![Job Module Flowchart](./tools/Flowcharts/Job_Flowchart.png)

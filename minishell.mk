@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/16 13:46:47 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/18 20:40:37 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ SOURCES_PATH := ./src/
 
 SOURCES :=	main.c \
 			error.c \
-			path.c \
-			prompt.c \
-			builtins.c \
-			builtins_dispatcher.c \
-			input.c \
-			job.c \
-			lexer.c \
+			input/path.c \
+			input/prompt.c \
+			input/input.c \
+			lexer/lexer.c \
+			job/builtins.c \
+			job/builtins_dispatcher.c \
+			job/job.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 

@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 19:15:06 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/18 20:46:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,6 @@
 #include "ft_errno.h"
 #include <stdio.h>
 #include <sys/wait.h>
-
-/*
- ** Module "job" handles the execution of commands
- ** Thereby, it checks if access to the cmd is possible, access(), builtins and
- ** then fork it or return an error msg.
- ** On call of the module execute one command with its options.
- ** to call the module -> job(char** argv, char **envip), it returns the return
- ** value of the execute command. In case command is not found it returns the
- ** value defined by the enum. e.g "command not found = 127"
- */
-
-/*
- *
- *
- * F_OK
- *     Tests whether the file exists.
- * R_OK
- *     Tests whether the file can be accessed for reading.
- * W_OK
- *     Tests whether the file can be accessed for writing.
- * X_OK
- *     Tests whether the file can be accessed for executio
-*/
 
 static int	check_access(char *arg)
 {
@@ -66,18 +43,13 @@ int	job(char **argv, char **envp)
 {
 	int		ret;
 	int		stat;
-	char	*path;
+	/*char	*path;*/
 
 	ret = 0;
 	stat = 0;
 	if ((ret = builtins_select(&argv[0])) != e_command_not_found)
 	{
 		return (ret);
-	}
-	
-	while ()
-	{
-
 	}
 	else if (check_access(argv[0]) == 1)
 	{
