@@ -59,4 +59,8 @@ Linked-list containing the tokens :
 
 And this will produce a flow chart:
 
+## Usage
 
+```shell=
+git clone --recurse-submodules https://github.com/Ant0wan/Minishell.git
+```
