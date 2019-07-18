@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/18 20:40:37 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/18 20:55:09 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = minishell
 SOURCES_PATH := ./src/
 
 SOURCES :=	main.c \
-			error.c \
+			transv/error.c \
 			input/path.c \
 			input/prompt.c \
 			input/input.c \
-			lexer/lexer.c \
+			lex/lexer.c \
 			job/builtins.c \
 			job/builtins_dispatcher.c \
 			job/job.c \
