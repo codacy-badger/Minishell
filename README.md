@@ -10,7 +10,22 @@ It implies to code in the cleanest and simplest manner
 
 ## Description
 
+```
+./include:
+builtins.h error.h    input.h    job.h      lexer.h    path.h     prompt.h
 
+./src:
+error.c input   job     lexer   main.c
+
+./src/input:
+input.c  path.c   prompt.c
+
+./src/job:
+README.md             builtins.c            builtins_dispatcher.c job.c
+
+./src/lexer:
+lexer.c
+```
 
 ## Architecture
 
