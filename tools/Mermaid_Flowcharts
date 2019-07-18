@@ -11,6 +11,8 @@ A --> B
 B --> |Yes|C
 B-->|No|D
 D-->|No|H[Concat PATHs]
+H-->|path+cmd|E
+E-->|No|H
 D-->|Yes|E
 E-->|No|I[e_command_not_found]
 I-->|return value|Z
@@ -20,5 +22,6 @@ J-->|return value|Z
 F-->|Yes|G[Execve bin]
 G-->|Return value|Z
 C --> |Return value|Z
+
 
 

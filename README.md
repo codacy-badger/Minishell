@@ -64,3 +64,9 @@ And this will produce a flow chart:
 ```shell=
 git clone --recurse-submodules https://github.com/Ant0wan/Minishell.git
 ```
+
+
+## Modules
+
+> Job.c Module
+> ![Job Flowchart](./tools/job_flowchart.svg)<img src="./tools/job_flowchart.svg">

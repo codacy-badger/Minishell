@@ -74,6 +74,7 @@ int	job(char **argv, char **envp)
 	{
 		return (ret);
 	}
+	
 	while ()
 	{
 
