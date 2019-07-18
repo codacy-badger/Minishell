@@ -69,4 +69,4 @@ git clone --recurse-submodules https://github.com/Ant0wan/Minishell.git
 ## Modules
 
 > Job.c Module
-> ![Job Flowchart](./tools/job_flowchart.svg =600*1800)<img src="./tools/job_flowchart.svg" width="600" height="1800">
+> ![Job Flowchart](./tools/job_flowchart.svg =600x1800)<img src="./tools/job_flowchart.svg" width="600" height="1800">
