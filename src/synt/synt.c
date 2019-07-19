@@ -14,12 +14,11 @@
 #include "error.h"
 #include "synt_const.h"
 
-const struct s_operator	g_operator[] =
-{ {"||"}, {"&&"}, {">>"}, {"|"}, {"&"}, {"<"}, {">"}, {"\0"} };
-
 int	operator_check(char *token)
 {
 	int	i;
+	const struct s_operator	g_operator[] =
+	{ {"||"}, {"&&"}, {">>"}, {"|"}, {"&"}, {"<"}, {">"}, {"\0"} };
 	
 	i = 0;
 	while (g_operator[i].gram_op[0])
