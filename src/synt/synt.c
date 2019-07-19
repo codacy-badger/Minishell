@@ -12,8 +12,28 @@
 
 #include "libft.h"
 #include "error.h"
+#include "synt_const.h"
 
-#include <unistd.h>
+const struct s_operator	g_operator[] =
+{ {"||"}, {"&&"}, {">>"}, {"|"}, {"&"}, {"<"}, {">"}, {"\0"} };
+
+int	operator_check(char *token)
+{
+	int	i;
+	
+	i = 0;
+	while (g_operator[i].gram_op[0])
+	{
+		if (ft_strstr(token, g_operator[i].gram_op))
+		{
+			psherror(e_syntax_error, g_operator[i].gram_op);
+			return (e_syntax_error);
+		}
+		++i;
+	}
+	return (0);
+}
+
 int	synt(char **cmd_line)
 {
 	int i;
@@ -26,11 +46,8 @@ int	synt(char **cmd_line)
 	}
 	while (cmd_line[i])
 	{
-		if (ft_strstr(cmd_line[i], "|"))
-		{
-			psherror(e_syntax_error, "|");
+		if (operator_check(cmd_line[i]))
 			return (e_syntax_error);
-		}
 		++i;
 	}
 	return (e_success);
