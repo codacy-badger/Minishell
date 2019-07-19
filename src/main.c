@@ -24,18 +24,18 @@
 int	main(void)
 {
 	extern char			**environ;
-	int			stat;
+	int			ret;
 	char		*input;
 	char		**argv;
 
 	environ = ft_tabcpy(environ);
-	stat = 0;
+	ret = 0;
 	argv = NULL;
-	while (prompt_display(WEXITSTATUS(stat)) && get_stdin(&input) >= 0)
+	while (prompt_display(ret) && get_stdin(&input) >= 0)
 	{
 		argv = lexer(input);
 		free(input);
-		stat = job(argv, environ);
+		ret = job(argv, environ);
 	}
 	ft_tabdel(&environ);
 	return (0);
