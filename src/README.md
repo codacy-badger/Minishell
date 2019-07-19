@@ -2,4 +2,4 @@
 
 
 ## Flowchart
-![Modules Flowchart](../tools/Flowcharts/Modules_Flowchart.png)
+![Modules Flowchart](../tools/Flowcharts/Modules_Flowchart.jpg)
