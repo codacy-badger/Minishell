@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   jcont.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:56:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 17:32:51 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/16 18:46:00 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "libft.h"
+#include "job.h"
 
-const struct s_error_desc	g_errordesc[] =
+int	jcont(char **cmd, char **envp)
 {
-	{ e_success, "No error" },
-	{ e_syntax_error, "syntax error near unexpected token"},
-	{ e_invalid_input, "Invalid input" },
-	{ e_file_not_found, "File not found" },
-	{ e_command_not_found, "command not found"}
-};
+	int	ret;
+
+	ret = job(cmd, envp);
+	return (ret);
+}

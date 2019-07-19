@@ -19,7 +19,8 @@
 #include "input.h"
 #include "error.h"
 #include "lexer.h"
-#include "job.h"
+#include "jcont.h"
+#include "synt.h"
 
 int	main(void)
 {
@@ -35,7 +36,10 @@ int	main(void)
 	{
 		argv = lexer(input);
 		free(input);
-		ret = job(argv, environ);
+		ret = synt(argv);
+		if (ret != e_success)
+			continue;
+		ret = jcont(argv, environ);
 	}
 	ft_tabdel(&environ);
 	return (0);

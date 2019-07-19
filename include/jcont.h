@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   job.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:56:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 17:32:51 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/16 13:12:45 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/16 13:49:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#ifndef JCONT_H
+# define JCONT_H
 
-const struct s_error_desc	g_errordesc[] =
-{
-	{ e_success, "No error" },
-	{ e_syntax_error, "syntax error near unexpected token"},
-	{ e_invalid_input, "Invalid input" },
-	{ e_file_not_found, "File not found" },
-	{ e_command_not_found, "command not found"}
-};
+int	jcont(char **cmd, char **envp);
+
+#endif

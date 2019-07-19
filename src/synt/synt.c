@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   synt.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:56:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 17:32:51 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/16 18:46:00 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "error.h"
 
-const struct s_error_desc	g_errordesc[] =
+int	synt(char **cmd_line)
 {
-	{ e_success, "No error" },
-	{ e_syntax_error, "syntax error near unexpected token"},
-	{ e_invalid_input, "Invalid input" },
-	{ e_file_not_found, "File not found" },
-	{ e_command_not_found, "command not found"}
-};
+	int i;
+
+	i = 0;
+	while (cmd_line[i])
+	{
+		if (ft_strstr(cmd_line[i], "|"))
+		{
+			ft_dprintf(2, "Minishell: %s \'%s\'\n", g_errordesc[e_syntax_error].message, "|");
+			return (e_syntax_error);
+		}
+		++i;
+	}
+	return (e_success);
+}

@@ -15,9 +15,10 @@
 
 enum	e_minishell_error
 {
-	e_success = 0,
-	e_invalid_input = -1,
 	e_file_not_found = -2,
+	e_invalid_input = -1,
+	e_success = 0,
+	e_syntax_error = 1,
 	e_permission_denied = 126,
 	e_command_not_found = 127
 };

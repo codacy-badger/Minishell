@@ -20,6 +20,8 @@ SOURCES :=	main.c \
 			input/prompt.c \
 			input/input.c \
 			lex/lexer.c \
+			synt/synt.c \
+			jcont/jcont.c \
 			job/builtins.c \
 			job/builtins_dispatcher.c \
 			job/job.c \
