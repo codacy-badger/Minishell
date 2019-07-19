@@ -32,5 +32,8 @@ struct	s_error_desc
 };
 
 extern const struct s_error_desc	g_errordesc[];
+extern char	*g_progname;
+
+void	psherror(int e_error, char *str);
 
 #endif

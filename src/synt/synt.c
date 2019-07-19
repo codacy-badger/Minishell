@@ -18,13 +18,17 @@ int	synt(char **cmd_line)
 	int i;
 
 	i = 0;
+	if (cmd_line == NULL)
+	{		ft_dprintf(2, "Minishell: %s \'%s\'\n", g_errordesc[e_invalid_input].message, "|");
+		return (e_invalid_input);
+	}
 	while (cmd_line[i])
 	{
-		if (ft_strstr(cmd_line[i], "|"))
+	/*	if (ft_strstr(cmd_line[i], "|"))
 		{
 			ft_dprintf(2, "Minishell: %s \'%s\'\n", g_errordesc[e_syntax_error].message, "|");
 			return (e_syntax_error);
-		}
+		}*/
 		++i;
 	}
 	return (e_success);

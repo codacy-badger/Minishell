@@ -22,24 +22,26 @@
 #include "jcont.h"
 #include "synt.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	extern char			**environ;
 	int			ret;
 	char		*input;
-	char		**argv;
+	char		**args;
 
+	(void)argc;
+	g_progname = argv[0];
 	environ = ft_tabcpy(environ);
 	ret = 0;
-	argv = NULL;
+	args = NULL;
 	while (prompt_display(ret) && get_stdin(&input) >= 0)
 	{
-		argv = lexer(input);
-		free(input);
-		ret = synt(argv);
+		args = lexer(input);
+		ft_memdel((void**)&input);
+		ret = synt(args);
 		if (ret != e_success)
 			continue;
-		ret = jcont(argv, environ);
+		ret = jcont(args, environ);
 	}
 	ft_tabdel(&environ);
 	return (0);
