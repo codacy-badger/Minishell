@@ -20,7 +20,13 @@ static char	**ft_sequence(char ***cmd)
 
 	i = 0;
 	seq = NULL;
-	while ((*cmd)[i] && !ft_strstr((*cmd)[i], ";"))
+	if (!(*cmd)[i])
+		return (NULL);
+	else if (*((*cmd)[i]) == ';' && !(*cmd)[i + 1])
+		return (NULL);
+	else
+		++i;
+	while ((*cmd)[i] && *((*cmd)[i]) != ';')
 	{
 		++i;
 	}
@@ -31,7 +37,6 @@ static char	**ft_sequence(char ***cmd)
 		seq[i] = ft_strdup((*cmd)[i]);
 		++i;
 	}
-	++i;
 	*cmd = &(*cmd)[i];
 	return (seq);
 }
@@ -40,15 +45,9 @@ int	jcont(char **cmd, char **envp)
 {
 	char	**argv;
 	int	ret;
-	int	len;
-	int	i;
 
-	len = ft_tablen(cmd);
-	i = 0;
-	while (i < len)
+	while ((argv = ft_sequence(&cmd)))
 	{
-		++i;
-		argv = ft_sequence(&cmd);
 		ret = job(argv, envp);
 	}
 	/*ft_tabdel(&argv);*/
