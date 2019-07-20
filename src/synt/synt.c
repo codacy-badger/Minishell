@@ -14,7 +14,7 @@
 #include "error.h"
 #include "synt_const.h"
 
-int	operator_check(char *token)
+static int	operator_check(char *token)
 {
 	int	i;
 	const struct s_operator	g_operator[] =
