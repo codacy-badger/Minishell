@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 19:17:09 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 20:18:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	check_access(char *arg)
 	else if (access(arg, X_OK))
 	{
 		psherror(e_permission_denied, arg);
+		return (e_permission_denied);
 	}
 	else
 		return (0);
-	return (1);
 }
 
 int	job(char **argv, char **envp)
@@ -64,9 +64,9 @@ int	job(char **argv, char **envp)
 	{
 		return (ret);
 	}
-	else if (check_access(argv[0]) == 1)
+	else if ((ret = check_access(argv[0])))
 	{
-		return (g_errordesc[e_command_not_found].code);
+		return (g_errordesc[ret].code);
 	}
 	else if (fork() == 0)
 	{
