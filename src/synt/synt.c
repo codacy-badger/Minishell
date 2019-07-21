@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 11:49:33 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:02:47 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	operator_check(char *token)
 		if (ft_strstr(token, g_operator[i].gram_op))
 		{
 			psherror(e_syntax_error, g_operator[i].gram_op);
-			return (e_syntax_error);
+			return (g_errordesc[e_syntax_error].code);
 		}
 		++i;
 	}
@@ -39,13 +39,13 @@ int			synt(char **cmd_line)
 	if (cmd_line == NULL)
 	{
 		psherror(e_invalid_input, NULL);
-		return (e_invalid_input);
+		return (g_errordesc[e_invalid_input].code);
 	}
 	while (cmd_line[i])
 	{
 		if (operator_check(cmd_line[i]))
-			return (e_syntax_error);
+			return (g_errordesc[e_syntax_error].code);
 		++i;
 	}
-	return (e_success);
+	return (g_errordesc[e_success].code);
 }

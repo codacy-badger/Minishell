@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 17:58:52 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:00:11 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "ft_errno.h"
 #include "builtins.h"
 #include "error.h"
 #include "libft.h"
@@ -31,8 +30,7 @@ static int	check_access(char *arg)
 	}
 	else if (access(arg, X_OK))
 	{
-		g_errno = E_EACCES;
-		ft_perror(arg);
+		psherror(e_permission_denied, arg);
 	}
 	else
 		return (0);
@@ -52,19 +50,24 @@ int	job(char **argv, char **envp)
 	if (!ft_strcmp(argv[0], "builtin"))
 	{
 		++i;
-		if (argv[i] && (ret = builtins_select(&argv[i])) == e_command_not_found)
+		if (argv[i] && (ret = builtins_select(&argv[i])) != e_command_not_found)
+		{
+			return (ret);
+		}
+		else
 		{
 			psherror(e_no_builtin, argv[i]);
+			return (g_errordesc[e_no_builtin].code);
 		}
-		return (ret);
 	}
 	if ((ret = builtins_select(&argv[i])) != e_command_not_found)
 	{
+		psherror(e_command_not_found, argv[i]);
 		return (ret);
 	}
 	else if (check_access(argv[0]) == 1)
 	{
-		return (e_permission_denied);
+		return (g_errordesc[e_command_not_found].code);
 	}
 	else if (fork() == 0)
 	{

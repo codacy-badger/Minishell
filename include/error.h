@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:51:41 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 17:56:03 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 18:54:34 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 enum	e_minishell_error
 {
-	e_file_not_found = -2,
-	e_invalid_input = -1,
-	e_success = 0,
-	e_syntax_error = 1,
-	e_no_builtin = 2,
-	e_permission_denied = 126,
-	e_command_not_found = 127
+	e_success,
+	e_invalid_input,
+	e_syntax_error,
+	e_no_builtin,
+	e_permission_denied,
+	e_command_not_found
 };
 
 typedef enum e_minishell_error	t_error;

@@ -1,6 +1,10 @@
 env
 ./minishell
 echo ok too
-builtin 
-exit
+builtin ls
+builtin
+ls
+/bin/ls
+/dev/urandom
+/bin/ls ; echo ok ; env ; echo "HERE I QUIIIT\n\n" ; exit
 exit
