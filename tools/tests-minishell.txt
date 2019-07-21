@@ -1,4 +1,6 @@
 env
 ./minishell
+echo ok too
+builtin 
 exit
 exit

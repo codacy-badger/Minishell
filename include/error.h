@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:51:41 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 17:33:21 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:56:03 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ enum	e_minishell_error
 	e_invalid_input = -1,
 	e_success = 0,
 	e_syntax_error = 1,
+	e_no_builtin = 2,
 	e_permission_denied = 126,
 	e_command_not_found = 127
 };

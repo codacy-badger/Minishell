@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:56:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 17:32:51 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:55:18 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ const struct s_error_desc	g_errordesc[] =
 {
 	{ e_success, "No error" },
 	{ e_syntax_error, "syntax error near unexpected token"},
-	{ e_invalid_input, "Invalid input" },
+	{ e_no_builtin, "no such builtin" },
 	{ e_file_not_found, "File not found" },
 	{ e_command_not_found, "command not found"}
 };

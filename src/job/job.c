@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 17:48:49 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:58:52 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ int	job(char **argv, char **envp)
 	if (!ft_strcmp(argv[0], "builtin"))
 	{
 		++i;
+		if (argv[i] && (ret = builtins_select(&argv[i])) == e_command_not_found)
+		{
+			psherror(e_no_builtin, argv[i]);
+		}
+		return (ret);
 	}
 	if ((ret = builtins_select(&argv[i])) != e_command_not_found)
 	{
