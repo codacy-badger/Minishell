@@ -1,6 +1,7 @@
 env
 ./minishell
 echo ok too
+pwd
 builtin ls
 builtin
 ls

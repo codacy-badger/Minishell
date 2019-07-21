@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/21 11:49:50 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/21 19:14:38 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,11 @@ SOURCES :=	main.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \
-			job/builtins.c \
+			job/builtins_cd.c \
+			job/builtins_echo.c \
+			job/builtins_env.c \
+			job/builtins_exit.c \
+			job/builtins_pwd.c \
 			job/builtins_dispatcher.c \
 			job/job.c \
 
