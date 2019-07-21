@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 12:00:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:23:31 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	jcont(char **cmd, char **envp)
  	{
 		argv = ft_sequence(cmd);
 		ret = job(argv, envp);
+		ft_tabdel(&argv);
 		cmd = position_token(cmd);
 	}
-	/*	ft_tabdel(argv);*/
 	return (ret);
 }

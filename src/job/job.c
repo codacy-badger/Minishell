@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 12:21:25 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:23:06 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	job(char **argv, char **envp)
 	stat = 0;
 	if ((ret = builtins_select(argv)) != e_command_not_found)
 	{
-		ft_tabdel(&argv);
 		return (ret);
 	}
 	else if (check_access(argv[0]) == 1)
@@ -67,7 +66,6 @@ int	job(char **argv, char **envp)
 	{
 		wait(&stat);
 		ret = WEXITSTATUS(stat);
-		ft_tabdel(&argv);
 		return (ret);
 	}
 }
