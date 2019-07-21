@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 11:55:32 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 12:00:54 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,17 @@ static char **position_token(char **cmd)
 	return (&(cmd[i]));
 }
 
-/*
 static char **jump_sep(char **cmd)
 {
-	while (cmd && cmd[i])
+	int	i;
+
+	i = 0;
+	while (cmd && cmd[i] && *(cmd[i]) == ';')
 	{
-		if (*(cmd[i]) == ';')
+		++i;
 	}
-}*/
+	return (&cmd[i]);
+}
 
 static char	**ft_sequence(char **cmd)
 {
@@ -71,7 +74,9 @@ int	jcont(char **cmd, char **envp)
 	char	**argv;
 	int		ret;
 
-	while (cmd)
+	ret = 0;
+	cmd = jump_sep(cmd);
+	while (cmd && *cmd)
  	{
 		argv = ft_sequence(cmd);
 		ret = job(argv, envp);
