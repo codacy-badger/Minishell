@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:48:52 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 13:02:27 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 20:43:38 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void		print_quote(char mask)
 
 static char		is_quote_open(char c, char mask)
 {
-	if (c == '`')
+	if (c == '`' && (mask == '`' || !mask))
 		mask ^= '`';
-	else if (c == '\"')
+	else if (c == '\"' && (mask == '\"' || !mask))
 		mask ^= '\"';
-	else if (c == '{' || (c == '}' && mask == ((1 << 1) | (1 << 2))))
+	else if ((c == '{' && !mask) || (c == '}' && mask == ((1 << 1) | (1 << 2))))
 		mask ^= ((1 << 1) | (1 << 2));
-	else if (c == '(' || (c == ')' && mask == (1 << 0)))
+	else if ((c == '(' && !mask) || (c == ')' && mask == (1 << 0)))
 		mask ^= (1 << 0);
-	else if (c == '\'')
+	else if (c == '\'' && (mask == '\'' || !mask))
 		mask ^= '\'';
 	return (mask);
 }
@@ -93,7 +93,7 @@ static char		*create_new_line(char *str, int *len)
 }
 
 /*
-** Gets characters from standard inputs as zsh does. Do not contains termcaps
+** Gets characters from standard inputs as zsh does. Do not contain termcaps
 ** '\n' needs to be define as separator by default when called.
 */
 
