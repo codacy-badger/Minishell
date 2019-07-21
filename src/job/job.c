@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 14:05:26 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:48:49 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ int	job(char **argv, char **envp)
 {
 	int		ret;
 	int		stat;
+	int		i;
 	/*char	*path;*/
 
+	i = 0;
 	ret = 0;
 	stat = 0;
-	if ((ret = builtins_select(argv)) != e_command_not_found)
+	if (!ft_strcmp(argv[0], "builtin"))
+	{
+		++i;
+	}
+	if ((ret = builtins_select(&argv[i])) != e_command_not_found)
 	{
 		return (ret);
 	}
