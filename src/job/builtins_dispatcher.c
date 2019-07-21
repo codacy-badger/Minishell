@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 12:18:24 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:19:13 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 
 static const t_builtins	g_builtins[] =
 {
+	{ "echo", &cmd_echo},
 	{ "exit", &cmd_exit},
 	{ "env", &cmd_env},
-	{ "cd", &cmd_cd}
+	{ "cd", &cmd_cd},
+	{ "\0", NULL}
 };
 
 static void	*dispatcher(char *cmd)
@@ -27,11 +29,11 @@ static void	*dispatcher(char *cmd)
 	int	i;
 
 	i = 0;
-	while (i < 3 && ft_strcmp(cmd, g_builtins[i].key))
+	while (g_builtins[i].key[0] && ft_strcmp(cmd, g_builtins[i].key))
 	{
 		++i;
 	}
-	if (i == 3)
+	if (!(g_builtins[i].key[0]))
 	{
 		return (NULL);
 	}

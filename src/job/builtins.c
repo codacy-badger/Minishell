@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 12:22:49 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:21:17 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ int	cmd_cd(char **argv)
 	extern char	**environ;
 
 	(void)argv;
+	(void)environ;
+	return (0);
+}
+
+int	cmd_echo(char **argv)
+{
+	extern char	**environ;
+
+	ft_print_tables(&argv[1]);
 	(void)environ;
 	return (0);
 }

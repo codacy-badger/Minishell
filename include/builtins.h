@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:33:04 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 12:19:13 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:19:28 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /*
 ** Functions in builtins.c
 */
+int				cmd_echo(char **argv);
 int				cmd_exit(char **argv);
 int				cmd_env(char **argv);
 int				cmd_cd(char **argv);
