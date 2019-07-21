@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 18:46:00 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 11:49:33 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 static int	operator_check(char *token)
 {
 	int	i;
-	const struct s_operator	g_operator[] =
-	{ {"||"}, {"&&"}, {">>"}, {"|"}, {"&"}, {"<"}, {">"}, {"\0"} };
-	
+
 	i = 0;
 	while (g_operator[i].gram_op[0])
 	{
@@ -33,7 +31,7 @@ static int	operator_check(char *token)
 	return (0);
 }
 
-int	synt(char **cmd_line)
+int			synt(char **cmd_line)
 {
 	int i;
 

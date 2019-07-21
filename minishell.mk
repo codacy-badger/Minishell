@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/18 20:55:09 by abarthel         ###   ########.fr        #
+#    Updated: 2019/07/21 11:49:50 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SOURCES :=	main.c \
 			input/input.c \
 			lex/lexer.c \
 			synt/synt.c \
+			synt/synt_const.c \
 			jcont/jcont.c \
 			job/builtins.c \
 			job/builtins_dispatcher.c \

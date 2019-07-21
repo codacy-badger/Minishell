@@ -6,17 +6,44 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 10:36:56 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 11:55:32 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "job.h"
 
-/*
 static char **position_token(char **cmd)
 {
+	int	i;
 
+	i = 0;
+	while (cmd[i] && *(cmd[i]) == ';')
+	{
+		++i;
+	}
+	while (cmd[i] && *(cmd[i]) != ';')
+	{
+		++i;
+	}
+	while (cmd[i] && *(cmd[i]) == ';')
+	{
+		++i;
+	}
+	if (!(cmd[i]))
+	{
+		return (NULL);
+	}
+	return (&(cmd[i]));
+}
+
+/*
+static char **jump_sep(char **cmd)
+{
+	while (cmd && cmd[i])
+	{
+		if (*(cmd[i]) == ';')
+	}
 }*/
 
 static char	**ft_sequence(char **cmd)
@@ -44,11 +71,12 @@ int	jcont(char **cmd, char **envp)
 	char	**argv;
 	int		ret;
 
-	argv = ft_sequence(cmd);
-/*	while ((argv = ft_sequence(cmd)))
-	{*/
+	while (cmd)
+ 	{
+		argv = ft_sequence(cmd);
 		ret = job(argv, envp);
-/*	}*/
-	/*ft_tabdel(&argv);*/
+		cmd = position_token(cmd);
+	}
+	/*	ft_tabdel(argv);*/
 	return (ret);
 }

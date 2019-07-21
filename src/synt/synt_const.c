@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   synt_const.h                                       :+:      :+:    :+:   */
+/*   synt_const.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 16:51:41 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 11:54:26 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/21 11:48:10 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/21 11:54:56 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYNT_CONST_H
-# define SYNT_CONST_H
+#include "synt_const.h"
 
-struct	s_operator
-{
-	char	*gram_op;
-};
-
-extern const struct s_operator	g_operator[];
-
-#endif
+const struct s_operator	g_operator[] =
+{ {"||"}, {"&&"}, {">>"}, {"|"}, {"&"}, {"<"}, {">"}, {"\0"} };
