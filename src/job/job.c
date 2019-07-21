@@ -6,18 +6,18 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 13:23:06 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 14:05:26 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <stdio.h>
 #include <unistd.h>
+#include <sys/wait.h>
+#include "ft_errno.h"
 #include "builtins.h"
 #include "error.h"
 #include "libft.h"
-#include <errno.h>
-#include "ft_errno.h"
-#include <stdio.h>
-#include <sys/wait.h>
 
 static int	check_access(char *arg)
 {
@@ -32,7 +32,7 @@ static int	check_access(char *arg)
 	else if (access(arg, X_OK))
 	{
 		g_errno = E_EACCES;
-		ft_perror(NULL);
+		ft_perror(arg);
 	}
 	else
 		return (0);

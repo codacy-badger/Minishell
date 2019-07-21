@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 13:19:13 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:32:20 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static const t_builtins	g_builtins[] =
 	{ "echo", &cmd_echo},
 	{ "exit", &cmd_exit},
 	{ "env", &cmd_env},
+	{ "pwd", &cmd_pwd},
 	{ "cd", &cmd_cd},
 	{ "\0", NULL}
 };

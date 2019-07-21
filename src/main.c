@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/17 20:06:37 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 13:25:43 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 int	main(int argc, char **argv)
 {
-	extern char			**environ;
+	extern char	**environ;
 	int			ret;
 	char		*input;
 	char		**args;

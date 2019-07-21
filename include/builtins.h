@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:33:04 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 13:19:28 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:32:41 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int				cmd_echo(char **argv);
 int				cmd_exit(char **argv);
 int				cmd_env(char **argv);
+int				cmd_pwd(char **argv);
 int				cmd_cd(char **argv);
 
 /*
