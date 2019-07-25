@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/25 20:39:07 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:00:11 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static int	check_access(char *arg)
 {
-	if (access(arg, F_OK) == -1)
+	if (access(arg, F_OK))
 	{
 		return (e_command_not_found);
 	/* concat the path and command name to PATH and test it */
@@ -38,8 +38,9 @@ static int	check_access(char *arg)
 
 static int	builtin_keyword_exec(char **argv)
 {
-	int ret;
-	
+	int	ret;
+
+	ret = 0;	
 	if (argv[1] && (ret = builtins_select(&argv[1])) != e_command_not_found)
 	{
 		return (ret);
@@ -51,32 +52,40 @@ static int	builtin_keyword_exec(char **argv)
 	}
 }
 
+static int	process_launch(char **argv, char **envp)
+{
+	int stat;
+	int	ret;
+
+	stat = 0;
+	ret = 0;
+	if (fork() == 0)
+	{
+		ret = execve(argv[0], argv, envp);
+		ft_tabdel(&argv);
+		ft_tabdel(&envp);
+		exit (ret);
+	}
+	else
+	{
+		wait(&stat);
+		ret = WEXITSTATUS(stat);
+		return (ret);
+	}
+}
+
 int	job(char **argv, char **envp)
 {
 	int		ret;
-	int		stat;
 	int		i;
 
 	i = 0;
 	ret = 0;
-	stat = 0;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
 	else if (!(ret = check_access(argv[0])))
 	{
-		if (fork() == 0)
-		{
-			ret = execve(argv[0], argv, envp);
-			ft_tabdel(&argv);
-			ft_tabdel(&envp);
-			exit (ret);
-		}
-		else
-		{
-			wait(&stat);
-			ret = WEXITSTATUS(stat);
-			return (ret);
-		}
+		ret = process_launch(argv, envp);
 		return (g_errordesc[ret].code);
 	}
 	else
