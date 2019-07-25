@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 20:18:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:15:47 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,42 @@ static int	check_access(char *arg)
 		return (0);
 }
 
+static int	builtin_keyword_exec(char **argv)
+{
+	int ret;
+	
+	if (argv[1] && (ret = builtins_select(&argv[1])) != e_command_not_found)
+	{
+		return (ret);
+	}
+	else
+	{
+		psherror(e_no_builtin, argv[1]);
+		return (g_errordesc[e_no_builtin].code);
+	}
+}
+
 int	job(char **argv, char **envp)
 {
 	int		ret;
 	int		stat;
 	int		i;
-	/*char	*path;*/
 
 	i = 0;
 	ret = 0;
 	stat = 0;
-	if (!ft_strcmp(argv[0], "builtin"))
-	{
-		++i;
-		if (argv[i] && (ret = builtins_select(&argv[i])) != e_command_not_found)
-		{
-			return (ret);
-		}
-		else
-		{
-			psherror(e_no_builtin, argv[i]);
-			return (g_errordesc[e_no_builtin].code);
-		}
-	}
-	if ((ret = builtins_select(&argv[i])) != e_command_not_found)
-	{
-		return (ret);
-	}
+	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
+		return (builtin_keyword_exec(argv));
 	else if ((ret = check_access(argv[0])))
 	{
 		return (g_errordesc[ret].code);
 	}
-	else if (fork() == 0)
+	else if ((ret = builtins_select(&argv[i])) == e_command_not_found)
+	{
+		psherror(e_command_not_found, argv[i]);
+		return (g_errordesc[e_command_not_found].code);
+	}
+	if (fork() == 0)
 	{
 		ret = execve(argv[0], argv, envp);
 		ft_tabdel(&argv);
