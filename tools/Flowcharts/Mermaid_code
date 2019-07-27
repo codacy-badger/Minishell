@@ -2,17 +2,14 @@ Module Job.c
 https://mermaidjs.github.io/
 
 graph TD
-A(Input: *argv)
-B{Is builtin ?}
-C[Execute builtin]
-D{Has path ?}
-E{Cmd exists ?}
-Z(End Job module: return value)
-A --> B
-B --> |Yes|C
-B-->|No|D
-D-->|No|H[Concat PATHs]
-H-->|path+cmd|E
+A(Input: *argv TOKENS)
+A --> B{Has builtin cmd ?}
+B --> |Yes|B2[Builtin exist ??]
+B2 --> |Yes|C[Execute builtin]
+B2 --> |No|I
+B -->|No|D
+D{Has path ?}-->|No|H[Concat PATHs]
+H-->|path+cmd|E{Cmd exists ?}
 E-->|No|H
 D-->|Yes|E
 E-->|No|I[e_command_not_found]
@@ -22,7 +19,6 @@ F-->|No|J[e_permission_denied]
 J-->|return value|Z
 F-->|Yes|G[Execve bin]
 G-->|Return value|Z
-C --> |Return value|Z
-
+C --> |Return value|Z(End Job module: return value)
 
 
