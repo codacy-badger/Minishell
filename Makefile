@@ -12,9 +12,11 @@
 
 -include minishell.mk
 
-SANITIZE := -fsanitize=address
+#SANITIZE := -fsanitize=address
+SANITIZE := 
 
-OPTIMIZATION := -O2 -fno-builtin
+#OPTIMIZATION := -O2 -fno-builtin
+OPTIMIZATION :=
 
 DEBUGGING := -g
 

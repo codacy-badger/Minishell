@@ -71,9 +71,12 @@ static char	**ft_sequence(char **cmd)
 
 int	jcont(char **cmd, char **envp)
 {
+	static char	**cmd_start;
 	char	**argv;
 	int		ret;
 
+	if (!cmd_start)
+		cmd_start = cmd;
 	ret = 0;
 	cmd = jump_sep(cmd);
 	while (cmd && *cmd)
