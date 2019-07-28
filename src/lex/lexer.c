@@ -17,11 +17,5 @@
 
 char	**lexer(char *input)
 {
-	char **tokens;
-	char **retsplit;
-
-	retsplit = ft_strsplit(input, ' ');
-	tokens = ft_tabcpy(retsplit);
-	ft_tabdel(&retsplit);
-	return (tokens);
+	return (ft_strsplit(input, ' '));
 }

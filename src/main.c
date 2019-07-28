@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	g_progname = argv[0];
 	environ = ft_tabcpy(environ);
-	ret = 0;
+	ret = e_success;
 	args = NULL;
 	while (prompt_display(ret) && get_stdin(&input) >= 0)
 	{
