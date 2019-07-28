@@ -25,7 +25,7 @@ int				cmd_cd(char **argv);
 /*
 ** Functions in builtins_dispatcher.c
 */
-int				builtins_select(char **argv);
+int				builtins_dispatcher(char **argv);
 typedef struct	s_builtins
 {
 	char	*key;

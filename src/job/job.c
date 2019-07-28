@@ -26,20 +26,20 @@ static int 	check_type(char *arg)
 	int		ret;
 	_Bool		more_path;
 
+	buf = (struct stat){0};
 	ret = 0;
 	more_path = 1;
 	if ((ret = stat(arg, &buf)) == -1 && more_path)
 	{
 		ft_dprintf(STDERR_FILENO, "'stat' could not find the argi, check path.\n");
-	/* concat the path and command name to PATH and test it */
-		return (ret);
+		/* concat the path and command name to PATH and retest it in while till no more path*/
 	}
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
 	else if (ret && *arg == '/')
 		return (e_no_such_file_or_directory);
 	else if (ret)
-		return (e_command_not_found);
+		return (e_command_not_found); /* e_command_found to continue and check if it is a builtin */
 	else
 		return (e_success);
 }
@@ -66,7 +66,7 @@ static int	builtin_keyword_exec(char **argv)
 	int	ret;
 
 	ret = 0;	
-	if (argv[1] && (ret = builtins_select(&argv[1])) != e_command_not_found)
+	if (argv[1] && (ret = builtins_dispatcher(&argv[1])) != e_command_not_found)
 	{
 		return (ret);
 	}
@@ -102,39 +102,35 @@ static int	process_launch(char **argv, char **envp)
 int	job(char **argv, char **envp)
 {
 	int		ret;
-/*	int		i;
 
-	i = 0;*/
 	(void)envp;
 	ret = 0;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
-	if ((ret = check_type(argv[0]))) /* check type of the argument */
+	if ((ret = check_type(argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
 	{
 		psherror(ret, argv[0], e_cmd_type);
 		return (g_errordesc[ret].code);
 	}
 	if (ret == e_success)
-		ft_printf("check access and execute it");
-	return (ret);
+	{
+		ft_printf("Check access and execute it\n"); /* check access here and then execute bin */
+		return (0);
+	}
+	else /* behave like it is a builtin */
+	{
+		ret = builtins_dispatcher(&argv[0]);
+	   	if (ret == e_command_not_found)
+		{
+			psherror(e_command_not_found, argv[0], e_cmd_type);
+			return (g_errordesc[e_command_not_found].code);
+		}
+		return (ret);
+	}
 /*	ret = check_access(argv[0]);
 	if (!ret)
 	{
 		ret = process_launch(argv, envp);
-		return (ret);
-	}
-	else if (ret)
-	{
-		return (g_errordesc[ret].code);
-	}
-	else
-	{
-		ret = builtins_select(&argv[i]);
-	   	if (ret == e_command_not_found)
-		{
-			psherror(e_command_not_found, argv[i], e_cmd_type);
-			return (g_errordesc[e_command_not_found].code);
-		}
 		return (ret);
 	}*/
 }

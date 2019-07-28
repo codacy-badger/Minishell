@@ -44,7 +44,7 @@ static void	*dispatcher(char *cmd)
 	}
 }
 
-int			builtins_select(char **argv)
+int			builtins_dispatcher(char **argv)
 {
 	int			(*f)(char**);
 	int			ret;
