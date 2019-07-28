@@ -27,7 +27,7 @@ static int 	check_type(char *arg)
 	_Bool		more_path;
 
 	buf = (struct stat){0};
-	ret = 0;
+	ret = e_success;
 	more_path = 1;
 	if ((ret = stat(arg, &buf)) == -1 && more_path)
 	{
@@ -43,29 +43,25 @@ static int 	check_type(char *arg)
 	else
 		return (e_success);
 }
-/*
+
 static int	check_access(char *arg)
 {
 	int ret;
 
-	ret = 0;
-	if ((ret = access(arg, F_OK)))
-	{
-		return (ret);
-	}
-	else if ((ret = access(arg, X_OK)))
+	ret = e_success;
+	if ((ret = access(arg, X_OK)))
 	{
 		psherror(e_permission_denied, arg, e_cmd_type);
-		return (ret);
+		return (e_permission_denied);
 	}
-	return (0);
+	return (e_success);
 }
-*/
+
 static int	builtin_keyword_exec(char **argv)
 {
 	int	ret;
 
-	ret = 0;	
+	ret = e_success;
 	if (argv[1] && (ret = builtins_dispatcher(&argv[1])) != e_command_not_found)
 	{
 		return (ret);
@@ -76,14 +72,14 @@ static int	builtin_keyword_exec(char **argv)
 		return (g_errordesc[e_no_builtin].code);
 	}
 }
-/*
+
 static int	process_launch(char **argv, char **envp)
 {
-	int stat;
+	int	stat;
 	int	ret;
 
 	stat = 0;
-	ret = 0;
+	ret = e_success;
 	if (fork() == 0)
 	{
 		ret = execve(argv[0], argv, envp);
@@ -98,13 +94,12 @@ static int	process_launch(char **argv, char **envp)
 		return (ret);
 	}
 }
-*/
+
 int	job(char **argv, char **envp)
 {
-	int		ret;
+	int	ret;
 
-	(void)envp;
-	ret = 0;
+	ret = e_success;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
 	if ((ret = check_type(argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
@@ -114,8 +109,10 @@ int	job(char **argv, char **envp)
 	}
 	if (ret == e_success)
 	{
-		ft_printf("Check access and execute it\n"); /* check access here and then execute bin */
-		return (0);
+		if (!check_access(argv[0]))
+			return (process_launch(argv, envp));
+		else
+			return (g_errordesc[e_permission_denied].code);
 	}
 	else /* behave like it is a builtin */
 	{
@@ -127,10 +124,4 @@ int	job(char **argv, char **envp)
 		}
 		return (ret);
 	}
-/*	ret = check_access(argv[0]);
-	if (!ret)
-	{
-		ret = process_launch(argv, envp);
-		return (ret);
-	}*/
 }
