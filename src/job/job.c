@@ -19,33 +19,29 @@
 #include "error.h"
 #include "libft.h"
 
+/* Best example on how module functions have to use enum*/
 static int 	check_type(char *arg)
 {
-	int		ret;
 	struct stat	buf;
+	int		ret;
+	_Bool		more_path;
 
 	ret = 0;
-	if ((ret = stat(arg, &buf)) == -2)
+	more_path = 1;
+	if ((ret = stat(arg, &buf)) == -1 && more_path)
 	{
 		ft_dprintf(STDERR_FILENO, "'stat' could not find the argi, check path.\n");
 	/* concat the path and command name to PATH and test it */
 		return (ret);
 	}
-	else if (S_ISDIR(buf.st_mode)) 
-	{
-		psherror(e_is_a_directory, arg, e_cmd_type);
-		return (g_errordesc[e_is_a_directory].code);
-	}
-	if (*arg == '/')
-	{
-		psherror(e_no_such_file_or_directory, arg, e_cmd_type);
-		return (g_errordesc[e_no_such_file_or_directory].code);
-	}
+	if (S_ISDIR(buf.st_mode)) 
+		return (e_is_a_directory);
+	else if (ret && *arg == '/')
+		return (e_no_such_file_or_directory);
+	else if (ret)
+		return (e_command_not_found);
 	else
-	{
-		psherror(e_command_not_found, arg, e_cmd_type);
-		return (g_errordesc[e_command_not_found].code);
-	}
+		return (e_success);
 }
 /*
 static int	check_access(char *arg)
@@ -113,7 +109,13 @@ int	job(char **argv, char **envp)
 	ret = 0;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
-	ret = check_type(argv[0]); /* check type of the argument */
+	if ((ret = check_type(argv[0]))) /* check type of the argument */
+	{
+		psherror(ret, argv[0], e_cmd_type);
+		return (g_errordesc[ret].code);
+	}
+	if (ret == e_success)
+		ft_printf("check access and execute it");
 	return (ret);
 /*	ret = check_access(argv[0]);
 	if (!ret)
