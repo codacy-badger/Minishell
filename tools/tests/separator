@@ -1,0 +1,1 @@
+/bin/ls ; echo ok ; env ; echo "HERE I QUIIIT\n\n" ; exit

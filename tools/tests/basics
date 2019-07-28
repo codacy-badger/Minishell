@@ -1,11 +1,10 @@
 env
 ./minishell
 echo ok too
-pwd
 builtin ls
 builtin
 ls
+/bin
 /bin/ls
 /dev/urandom
-/bin/ls ; echo ok ; env ; echo "HERE I QUIIIT\n\n" ; exit
 exit
