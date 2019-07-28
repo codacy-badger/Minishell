@@ -5,3 +5,4 @@
 /dev/mqueue
 /dev/vfio
 /run/initctl
+exit
