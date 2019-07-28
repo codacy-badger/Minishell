@@ -22,8 +22,11 @@ const struct s_error_desc	g_errordesc[] =
 	{ 1, "invalid input" },
 	{ 1, "syntax error near unexpected token" },
 	{ 1, "no such builtin" },
+	{ 2, "cannot allocate memory" },
 	{ 126, "permission denied" },
-	{ 127, "command not found" }
+	{ 126, "is a directory" },
+	{ 127, "command not found" },
+	{ 128, "resource temporarily unavailable" }
 };
 
 void	psherror(int e_error, char *str)

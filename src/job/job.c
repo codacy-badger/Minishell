@@ -24,10 +24,20 @@ static int	check_access(char *arg)
 	int ret;
 	struct stat buf;
 
-	if (lstat(arg, &buf) != -1)
+	ret = 0;
+	if ((ret = stat(arg, &buf)) == -1)
 	{
-		if (buf)
-		/* code generic function that return the type of the arg using lstat or fstat or stat*/
+		ft_dprintf(STDERR_FILENO, "'stat' failed.\n");
+		return (ret);
+	}
+	else if (!ret) 
+	{
+		ft_printf(">> %d\n", S_ISREG(buf.st_mode));
+		ft_printf(">> %d\n", S_ISDIR(buf.st_mode));
+		ft_printf(">> %d\n", S_ISCHR(buf.st_mode));
+		ft_printf(">> %d\n", S_ISBLK(buf.st_mode));
+		ft_printf(">> %d\n", S_ISFIFO(buf.st_mode));
+		ft_printf(">> %d\n", S_ISLNK(buf.st_mode));
 	}
 	else if ((ret = access(arg, F_OK)))
 	{
@@ -92,11 +102,13 @@ int	job(char **argv, char **envp)
 	else if (!(ret = check_access(argv[0])))
 	{
 		ret = process_launch(argv, envp);
-		ft_printf("ret:%d\n", ret);
-		perror(NULL);
 		return (ret);
 		/*return (g_errordesc[ret].code);
 */	}
+	else if (ret == e_is_a_directory)
+	{
+
+	}
 	else
 	{
 		ret = builtins_select(&argv[i]);

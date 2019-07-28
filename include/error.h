@@ -19,8 +19,11 @@ enum	e_minishell_error
 	e_invalid_input,
 	e_syntax_error,
 	e_no_builtin,
+	e_cannot_allocate_memory,
 	e_permission_denied,
-	e_command_not_found
+	e_is_a_directory,
+	e_command_not_found,
+	e_resource_tmp_unavailable
 };
 
 typedef enum e_minishell_error	t_error;
