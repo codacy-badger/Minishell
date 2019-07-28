@@ -17,4 +17,4 @@ Concat path in order to find the binary
 
 
 ## Flowchart
-![Job Module Flowchart](../../tools/Flowcharts/Job_Flowchart.png)
+![Job Module Flowchart](../../tools/flowcharts/job_flowchart.png)
