@@ -23,6 +23,7 @@ enum	e_minishell_error
 	e_permission_denied,
 	e_is_a_directory,
 	e_command_not_found,
+	e_no_such_file_or_directory,
 	e_resource_tmp_unavailable
 };
 

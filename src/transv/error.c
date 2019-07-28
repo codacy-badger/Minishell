@@ -26,6 +26,7 @@ const struct s_error_desc	g_errordesc[] =
 	{ 126, "permission denied" },
 	{ 126, "is a directory" },
 	{ 127, "command not found" },
+	{ 127, "no such file or directory" },
 	{ 128, "resource temporarily unavailable" }
 };
 

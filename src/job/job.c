@@ -27,20 +27,25 @@ static int 	check_type(char *arg)
 	ret = 0;
 	if ((ret = stat(arg, &buf)) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "'stat' could not find the arg.\n");
+		ft_dprintf(STDERR_FILENO, "'stat' could not find the argi, check path.\n");
+	/* concat the path and command name to PATH and test it */
 		return (ret);
 	}
-	else if (!ret) 
+	else if (S_ISDIR(buf.st_mode)) 
 	{
-		ft_printf(">> %d\n", S_ISREG(buf.st_mode));
-		ft_printf(">> %d\n", S_ISDIR(buf.st_mode));
-		ft_printf(">> %d\n", S_ISCHR(buf.st_mode));
-		ft_printf(">> %d\n", S_ISBLK(buf.st_mode));
-		ft_printf(">> %d\n", S_ISFIFO(buf.st_mode));
-		ft_printf(">> %d\n", S_ISLNK(buf.st_mode));
+		psherror(e_is_a_directory, arg);
+		return (g_errordesc[e_is_a_directory].code);
 	}
-	/* concat the path and command name to PATH and test it */
-	return (ret);
+	if (*arg == '\')
+	{
+		psherror(e_no_such_file_or_directory, arg);
+		return (g_errordesc[e_no_such_file_or_directory].code);
+	}
+	else
+	{
+		psherror(e_command_not_found, arg);
+		return (g_errordesc[e_command_not_found].code);
+	}
 }
 /*
 static int	check_access(char *arg)
@@ -101,13 +106,15 @@ static int	process_launch(char **argv, char **envp)
 int	job(char **argv, char **envp)
 {
 	int		ret;
-	int		i;
+/*	int		i;
 
-	i = 0;
+	i = 0;*/
+	(void)envp;
 	ret = 0;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
 	ret = check_type(argv[0]); /* check type of the argument */
+	return (ret);
 /*	ret = check_access(argv[0]);
 	if (!ret)
 	{
