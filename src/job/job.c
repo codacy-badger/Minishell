@@ -19,15 +19,15 @@
 #include "error.h"
 #include "libft.h"
 
-static int	check_access(char *arg)
+static int 	check_type(char *arg)
 {
-	int ret;
-	struct stat buf;
+	int		ret;
+	struct stat	buf;
 
 	ret = 0;
 	if ((ret = stat(arg, &buf)) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "'stat' failed.\n");
+		ft_dprintf(STDERR_FILENO, "'stat' could not find the arg.\n");
 		return (ret);
 	}
 	else if (!ret) 
@@ -39,10 +39,18 @@ static int	check_access(char *arg)
 		ft_printf(">> %d\n", S_ISFIFO(buf.st_mode));
 		ft_printf(">> %d\n", S_ISLNK(buf.st_mode));
 	}
-	else if ((ret = access(arg, F_OK)))
+	/* concat the path and command name to PATH and test it */
+	return (ret);
+}
+/*
+static int	check_access(char *arg)
+{
+	int ret;
+
+	ret = 0;
+	if ((ret = access(arg, F_OK)))
 	{
 		return (ret);
-	/* concat the path and command name to PATH and test it */
 	}
 	else if ((ret = access(arg, X_OK)))
 	{
@@ -51,7 +59,7 @@ static int	check_access(char *arg)
 	}
 	return (0);
 }
-
+*/
 static int	builtin_keyword_exec(char **argv)
 {
 	int	ret;
@@ -67,7 +75,7 @@ static int	builtin_keyword_exec(char **argv)
 		return (g_errordesc[e_no_builtin].code);
 	}
 }
-
+/*
 static int	process_launch(char **argv, char **envp)
 {
 	int stat;
@@ -89,7 +97,7 @@ static int	process_launch(char **argv, char **envp)
 		return (ret);
 	}
 }
-
+*/
 int	job(char **argv, char **envp)
 {
 	int		ret;
@@ -99,15 +107,16 @@ int	job(char **argv, char **envp)
 	ret = 0;
 	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
 		return (builtin_keyword_exec(argv));
-	else if (!(ret = check_access(argv[0])))
+	ret = check_type(argv[0]); /* check type of the argument */
+/*	ret = check_access(argv[0]);
+	if (!ret)
 	{
 		ret = process_launch(argv, envp);
 		return (ret);
-		/*return (g_errordesc[ret].code);
-*/	}
-	else if (ret == e_is_a_directory)
+	}
+	else if (ret)
 	{
-
+		return (g_errordesc[ret].code);
 	}
 	else
 	{
@@ -118,5 +127,5 @@ int	job(char **argv, char **envp)
 			return (g_errordesc[e_command_not_found].code);
 		}
 		return (ret);
-	}
+	}*/
 }
