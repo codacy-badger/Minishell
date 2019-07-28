@@ -28,7 +28,7 @@ static int	operator_check(char *token)
 		}
 		++i;
 	}
-	return (0);
+	return (e_success);
 }
 
 int			synt(char **cmd_line)
@@ -36,7 +36,7 @@ int			synt(char **cmd_line)
 	int i;
 
 	i = 0;
-	if (cmd_line == NULL)
+	if (!cmd_line)
 	{
 		psherror(e_invalid_input, NULL, e_invalid_type);
 		return (g_errordesc[e_invalid_input].code);

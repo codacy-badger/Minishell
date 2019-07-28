@@ -71,14 +71,11 @@ static char	**ft_sequence(char **cmd)
 
 int	jcont(char **cmd, char **envp)
 {
-	static char	**cmd_start;
 	char	**argv;
 	int		ret;
 
-	if (!cmd_start)
-		cmd_start = cmd;
 	ret = 0;
-	cmd = jump_sep(cmd);
+	cmd = jump_sep(cmd); /* make leak */
 	while (cmd && *cmd)
  	{
 		argv = ft_sequence(cmd);
