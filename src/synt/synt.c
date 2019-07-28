@@ -23,7 +23,7 @@ static int	operator_check(char *token)
 	{
 		if (ft_strstr(token, g_operator[i].gram_op))
 		{
-			psherror(e_syntax_error, g_operator[i].gram_op);
+			psherror(e_syntax_error, g_operator[i].gram_op, e_parsing_type);
 			return (g_errordesc[e_syntax_error].code);
 		}
 		++i;
@@ -38,7 +38,7 @@ int			synt(char **cmd_line)
 	i = 0;
 	if (cmd_line == NULL)
 	{
-		psherror(e_invalid_input, NULL);
+		psherror(e_invalid_input, NULL, e_invalid_type);
 		return (g_errordesc[e_invalid_input].code);
 	}
 	while (cmd_line[i])

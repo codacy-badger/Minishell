@@ -30,14 +30,19 @@ const struct s_error_desc	g_errordesc[] =
 	{ 128, "resource temporarily unavailable" }
 };
 
-void	psherror(int e_error, char *str)
+void	psherror(int e_error, char *str, int e_message_type)
 {
-	if (str)
+	if (e_message_type == e_parsing_type)
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s \'%s\'\n", \
 				g_progname, g_errordesc[e_error].message, str);
 	}
-	else
+	else if (e_message_type == e_cmd_type)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s: %s\n", \
+				g_progname, str, g_errordesc[e_error].message);
+	}
+	else if (e_message_type == e_invalid_type)
 	{
 		ft_dprintf(STDERR_FILENO, "%s: %s\n", \
 				g_progname, g_errordesc[e_error].message);

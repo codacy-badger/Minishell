@@ -27,6 +27,13 @@ enum	e_minishell_error
 	e_resource_tmp_unavailable
 };
 
+enum	e_error_message_types
+{
+	e_invalid_type,
+	e_parsing_type,
+	e_cmd_type
+};
+
 typedef enum e_minishell_error	t_error;
 
 struct	s_error_desc
@@ -38,6 +45,6 @@ struct	s_error_desc
 extern const struct s_error_desc	g_errordesc[];
 extern char	*g_progname;
 
-void	psherror(int e_error, char *str);
+void	psherror(int e_error, char *str, int e_message_type);
 
 #endif
