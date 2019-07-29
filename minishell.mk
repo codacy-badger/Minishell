@@ -29,6 +29,8 @@ SOURCES :=	main.c \
 			job/builtins_exit.c \
 			job/builtins_pwd.c \
 			job/builtins_dispatcher.c \
+			job/builtins_dispatcher.c \
+			job/token_env_paths.c \
 			job/job.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))
