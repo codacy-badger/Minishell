@@ -14,6 +14,6 @@
 # define JOB_H
 
 int	job(char **argv, char **envp);
-char	*ft_concat_path(char *str, _Bool *more_path);
+char	*ft_concat_path(char *str);
 
 #endif

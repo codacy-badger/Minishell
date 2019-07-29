@@ -25,14 +25,13 @@ static int 	check_type(char **arg)
 	struct stat	buf;
 	char		*cmd;
 	int		ret;
-	_Bool		more_path;
 
 	buf = (struct stat){.st_mode = 0};
 	cmd = *arg;
 	ret = e_success;
-	more_path = 1;
-	while ((ret = stat(*arg, &buf)) && more_path)
-		*arg = ft_concat_path(cmd, &more_path);
+	while ((ret = stat(*arg, &buf)) && *arg)
+		*arg = ft_concat_path(cmd);
+	ft_concat_path(NULL); /* reset the statics in the function */
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
 	else if (ret && *cmd == '/')
@@ -116,10 +115,9 @@ int	job(char **argv, char **envp)
 		else
 			return (g_errordesc[e_permission_denied].code);
 	}
-	else /* behave like it is a builtin */
+	else
 	{
 		argv[0] = cmd;
-		ft_printf("%s\n", argv[0]);
 		ret = builtins_dispatcher(&argv[0]);
 	   	if (ret == e_command_not_found)
 		{

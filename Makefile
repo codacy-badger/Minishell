@@ -12,8 +12,8 @@
 
 -include minishell.mk
 
-#SANITIZE := -fsanitize=address
-ANITIZE :=
+SANITIZE := -fsanitize=address
+#SANITIZE :=
 
 #OPTIMIZATION := -O2 -fno-builtin
 OPTIMIZATION :=

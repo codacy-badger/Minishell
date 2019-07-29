@@ -33,25 +33,24 @@ static char	**ft_token_path(void)
 	return (path_tokens);
 }
 
-char		*ft_concat_path(char *str, _Bool *more_path)
+char		*ft_concat_path(char *str)
 {
 	static char	**ptok;
 	static int	nb;
 	static int	i;
 	char		*full_path;
 
-	if (!ptok)
-	{
-		ptok = ft_token_path();
-		while (ptok && ptok[nb])/* heap buff overflow here*/
-			++nb;
-	}
-	if (!ptok || i >= nb)
+	if (!ptok && str)
 	{
 		i = 0;
 		nb = 0;
+		ptok = ft_tabcpy(ft_token_path());
+		while (ptok && ptok[nb])/* heap buff overflow here*/
+			++nb;
+	}
+	if (!ptok || i >= nb || !str)
+	{
 		ptok = NULL;
-		*more_path = 0;
 		return (NULL);
 	}
 	full_path = ft_strnjoin(3, ptok[i] , "/", str);
