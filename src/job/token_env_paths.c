@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-/*
+
 static char	**ft_tokenv(char *name)
 {
 	char	*env_path;
@@ -32,9 +32,33 @@ static char	**ft_token_path(void)
 	path_tokens = ft_tokenv("PATH");
 	return (path_tokens);
 }
-*/
+
 char		*ft_concat_path(char *str, _Bool *more_path)
 {
-	*more_path = 0;
-	return (str);
+	static char	**ptok;
+	static int	nb;
+	static int	i;
+	char		*full_path;
+
+	if (!ptok)
+	{
+		ptok = ft_token_path();
+		while (ptok && ptok[nb])
+		{
+	/*		ft_printf("%s\n", ptok[nb]);
+	*/		++nb;
+		}
+	}
+	if (!ptok || i >= nb)
+	{
+		i = 0;
+		nb = 0;
+		ptok = NULL;
+		*more_path = 0;
+		return (NULL);
+	}
+	full_path = ft_strjoin(ptok[i] ,"/");
+	full_path = ft_strjoin(full_path , str);
+	++i;
+	return (full_path);
 }
