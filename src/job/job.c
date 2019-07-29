@@ -39,7 +39,7 @@ static int 	check_type(char *arg)
 	}
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
-	else if (ret && arg && *arg == '/')
+	else if (ret && *f_arg == '/')
 		return (e_no_such_file_or_directory);
 	else if (ret)
 		return (e_command_not_found); /* e_command_found to continue and check if it is a builtin */
