@@ -20,29 +20,25 @@
 #include "libft.h"
 #include "job.h"
 
-/* Best example on how module functions have to use enum*/
-static int 	check_type(char *arg)
+static int 	check_type(char **arg)
 {
 	struct stat	buf;
-	char		*f_arg;
+	char		*cmd;
 	int		ret;
 	_Bool		more_path;
 
 	buf = (struct stat){.st_mode = 0};
-	f_arg = arg;
+	cmd = *arg;
 	ret = e_success;
 	more_path = 1;
-	while ((ret = stat(arg, &buf)) == -1 && more_path)
-	{
-		arg = ft_concat_path(f_arg, &more_path);
-		/* concat the path and command name to PATH and retest it in while till no more path*/
-	}
+	while ((ret = stat(*arg, &buf)) && more_path)
+		*arg = ft_concat_path(cmd, &more_path);
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
-	else if (ret && *f_arg == '/')
+	else if (ret && *cmd == '/')
 		return (e_no_such_file_or_directory);
 	else if (ret)
-		return (e_command_not_found); /* e_command_found to continue and check if it is a builtin */
+		return (e_command_not_found);
 	else
 		return (e_success);
 }
@@ -76,16 +72,17 @@ static int	builtin_keyword_exec(char **argv)
 	}
 }
 
-static int	process_launch(char **argv, char **envp)
+static int	process_launch(char **argv, char **envp, char *cmd)
 {
 	int	stat;
 	int	ret;
 
 	stat = 0;
 	ret = e_success;
+	ft_swap((void**)&argv[0], (void**)&cmd);
 	if (fork() == 0) /*add fork protection, check SHLVL and resources */
 	{
-		ret = execve(argv[0], argv, envp);
+		ret = execve(cmd, argv, envp);
 		ft_tabdel(&argv);
 		ft_tabdel(&envp);
 		exit (ret);
@@ -101,19 +98,21 @@ static int	process_launch(char **argv, char **envp)
 int	job(char **argv, char **envp)
 {
 	int	ret;
+	char	*cmd;
 
 	ret = e_success;
-	if (!ft_strcmp(argv[0], "builtin")) /* execute builtin if builtin keyword is used */
+	if (!ft_strcmp(argv[0], "builtin"))
 		return (builtin_keyword_exec(argv));
-	if ((ret = check_type(argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
+	cmd = argv[0];
+	if ((ret = check_type(&argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
 	{
-		psherror(ret, argv[0], e_cmd_type);
+		psherror(ret, cmd, e_cmd_type);
 		return (g_errordesc[ret].code);
 	}
 	if (ret == e_success)
 	{
 		if (!check_access(argv[0]))
-			return (process_launch(argv, envp));
+			return (process_launch(argv, envp, cmd));
 		else
 			return (g_errordesc[e_permission_denied].code);
 	}
