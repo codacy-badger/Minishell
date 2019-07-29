@@ -28,7 +28,7 @@ static int 	check_type(char *arg)
 	int		ret;
 	_Bool		more_path;
 
-	buf = (struct stat){.st_mode = 0};
+	buf = (struct stat){0};
 	f_arg = arg;
 	ret = e_success;
 	more_path = 1;
