@@ -29,7 +29,7 @@ all: $(NAME)
 
 $(NAME)	: $(OBJECTS)
 	@make lib -j -C $(PATH_LIB)
-	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $(SANITIZE) $^ -o $@ $(LIB)
+	@$(CC) $(ANSI) $(WARNING) $(CFLAGS) $(DEBUGGING) $(SANITIZE) $^ -o $@ $(LIB)
 	@printf "\n\e[38;5;44m%4s [\e[1m$(NAME) built]\n\n\e[0m"
 
 clean:

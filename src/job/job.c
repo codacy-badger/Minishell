@@ -28,15 +28,14 @@ static int 	check_type(char *arg)
 	int		ret;
 	_Bool		more_path;
 
-	buf = (struct stat){0};
+	buf = (struct stat){.st_mode = 0};
 	f_arg = arg;
 	ret = e_success;
 	more_path = 1;
 	while ((ret = stat(arg, &buf)) == -1 && more_path)
 	{
 		arg = ft_concat_path(f_arg, &more_path);
-	/*	ft_dprintf(STDERR_FILENO, "'stat' could not find the argi, check path.\n");
-	*/	/* concat the path and command name to PATH and retest it in while till no more path*/
+		/* concat the path and command name to PATH and retest it in while till no more path*/
 	}
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
