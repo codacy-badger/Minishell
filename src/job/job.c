@@ -118,6 +118,8 @@ int	job(char **argv, char **envp)
 	}
 	else /* behave like it is a builtin */
 	{
+		argv[0] = cmd;
+		ft_printf("%s\n", argv[0]);
 		ret = builtins_dispatcher(&argv[0]);
 	   	if (ret == e_command_not_found)
 		{

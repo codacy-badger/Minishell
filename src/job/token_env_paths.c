@@ -17,6 +17,7 @@ static char	**ft_tokenv(char *name)
 	if (env_path)
 	{
 		path_tokens = ft_strsplit(env_path, ':');
+		ft_memdel((void**)&env_path);
 		return (path_tokens);
 	}
 	else
@@ -43,12 +44,9 @@ char		*ft_concat_path(char *str, _Bool *more_path)
 	if (!ptok)
 	{
 		ptok = ft_token_path();
-		while (ptok && ptok[nb])
-		{
-	/*		ft_printf("%s\n", ptok[nb]);
-	*/		++nb;
-		}
-	}
+		/*while (ptok && ptok[nb])
+			++nb;
+*/	}
 	if (!ptok || i >= nb)
 	{
 		i = 0;
@@ -57,6 +55,7 @@ char		*ft_concat_path(char *str, _Bool *more_path)
 		*more_path = 0;
 		return (NULL);
 	}
+	ft_printf("OKOK\n");
 	full_path = ft_strjoin(ptok[i] ,"/");
 	full_path = ft_strjoin(full_path , str);
 	++i;

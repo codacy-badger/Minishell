@@ -37,7 +37,6 @@ int	main(int argc, char **argv)
 	while (prompt_display(ret) && get_stdin(&input) >= 0)
 	{
 		args = lexer(input);
-		ft_print_tables(args);
 		ft_memdel((void**)&input);
 		ret = synt(args);
 		if (ret != e_success)
