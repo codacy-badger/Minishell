@@ -33,7 +33,6 @@ int	path_concat(char **bin)
 	(void)bin;
 	if (access(*bin, F_OK))
 	{
-		
 		return (e_success);
 	}
 	return (e_success);
