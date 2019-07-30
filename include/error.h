@@ -19,6 +19,7 @@ enum	e_minishell_error
 	e_invalid_input,
 	e_syntax_error,
 	e_no_builtin,
+	e_filename_arg_required,
 	e_cannot_allocate_memory,
 	e_permission_denied,
 	e_is_a_directory,

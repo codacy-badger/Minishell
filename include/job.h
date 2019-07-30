@@ -15,5 +15,6 @@
 
 int	job(char **argv, char **envp);
 char	*ft_concat_path(char *str);
+int	path_concat(char *bin);
 
 #endif

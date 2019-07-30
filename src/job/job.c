@@ -29,11 +29,14 @@ static int 	check_type(char **arg)
 	buf = (struct stat){.st_mode = 0};
 	cmd = *arg;
 	ret = e_success;
-	/* Need to create a way to check if no such fiel or dir or if access or if command exists after check no '/' in it */
-	/* Needs to handle "." too */
-	while ((ret = stat(*arg, &buf)) && *arg) /* to be reviewed !!! */
-		*arg = ft_concat_path(cmd);
-	ft_concat_path(NULL); /* reset the statics in the function */
+	if (!ft_strcmp(*arg, "."))
+		return (e_filename_arg_required);
+	/* BEG REVIEW 
+	 * Need to create a way to check if no such fiel or dir or if access or if command exists after check no '/' in it */
+		while ((ret = stat(*arg, &buf)) && *arg) /* to be reviewed !!! */
+			*arg = ft_concat_path(cmd);
+		ft_concat_path(NULL); /* reset the statics in the function */
+	/* END REVIEW*/
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
 	else if (ret && ft_strstr(cmd, "/"))

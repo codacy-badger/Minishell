@@ -30,6 +30,7 @@ SOURCES :=	main.c \
 			job/builtins_pwd.c \
 			job/builtins_dispatcher.c \
 			job/builtins_dispatcher.c \
+			job/path_concat.c \
 			job/token_env_paths.c \
 			job/job.c \
 

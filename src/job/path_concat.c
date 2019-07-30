@@ -11,7 +11,10 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "libft.h"
+#include "error.h"
 
+/*
 static int	hasaccess(char *str)
 {
 	int	ret;
@@ -24,10 +27,9 @@ static _Bool	is_path(char *str)
 {
 
 }
-
+*/
 int	path_concat(char *bin)
 {
-	if
-
-
+	(void)bin;
+	return (e_success);
 }
