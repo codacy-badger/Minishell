@@ -112,10 +112,10 @@ int	job(char **argv, char **envp)
 	if (!ft_strcmp(argv[0], "builtin"))
 		return (builtin_keyword_exec(argv));
 	pathname = ft_strdup(argv[0]);
-/*	pathname = argv[0];
-*/	if ((ret = check_type(&argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
+	if ((ret = check_type(&argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
 	{
 		psherror(ret, pathname, e_cmd_type);
+		ft_memdel((void**)&pathname);
 		return (g_errordesc[ret].code);
 	}
 	if (ret == e_success)
