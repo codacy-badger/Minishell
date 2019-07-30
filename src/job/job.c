@@ -40,7 +40,7 @@ static int 	check_type(char **arg)
 	{
 		if (path_concat(arg))
 			*arg = cmd;
-		else if (stat(*arg, &buf))
+		if (stat(*arg, &buf))
 			return (e_command_not_found);
 	}
 	if (S_ISDIR(buf.st_mode)) /* is it necessary to keep this test ? Proove it with a test */

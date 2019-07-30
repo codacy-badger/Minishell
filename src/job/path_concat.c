@@ -14,32 +14,30 @@
 #include "libft.h"
 #include "error.h"
 
-/*
-static int	hasaccess(char *str)
-{
-	int	ret;
-
-	ret = access(str, F_OK);
-}
-
-
-static _Bool	is_path(char *str)
-{
-
-}
-*/
 int	path_concat(char **bin)
 {
+	char	*beg;
 	char	*env;
 	char	*dir;
+	char	*pathname;
 
 	env = ft_strdup(ft_getenv("PATH"));
+	beg = env;
 	while ((dir = ft_strsep(&env, ":")))
-		ft_printf("%s/%s\n", dir, *bin);
-	ft_memdel((void**)&env);
-	if (access(*bin, F_OK))
 	{
+		pathname = ft_strnjoin(3, dir, "/", *bin);
+		if (!access(pathname, F_OK))
+		{
+			ft_printf("%s\n", pathname);
+			break;
+		}
+		ft_memdel((void**)&pathname);
+	}
+	ft_memdel((void**)&beg);
+	if (dir)
+	{
+		*bin = pathname;
 		return (e_success);
 	}
-	return (e_success);
+	return (e_command_not_found);
 }
