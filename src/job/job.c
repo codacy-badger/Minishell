@@ -23,10 +23,10 @@
 static int 	check_type(char **arg)
 {
 	struct stat	buf;
-	char		*cmd;
+	char		*pathname;
 
 	buf = (struct stat){.st_mode = 0};
-	cmd = *arg;
+	pathname = *arg;
 	if (!ft_strcmp(*arg, "."))
 		return (e_filename_arg_required);
 	if (ft_strstr(*arg, "/"))
@@ -39,7 +39,7 @@ static int 	check_type(char **arg)
 	else
 	{
 		if (path_concat(arg))
-			*arg = cmd;
+			*arg = pathname;
 		if (stat(*arg, &buf))
 			return (e_command_not_found);
 	}
@@ -78,27 +78,27 @@ static int	builtin_keyword_exec(char **argv)
 	}
 }
 
-static int	process_launch(char **argv, char **envp, char *cmd)
+static int	process_launch(char **argv, char **envp, char *pathname)
 {
 	int	stat;
 	int	ret;
 
 	stat = 0;
 	ret = e_success;
-	ft_swap((void**)&argv[0], (void**)&cmd);
+	ft_swap((void**)&argv[0], (void**)&pathname);
 	if (fork() == 0) /*add fork protection, check SHLVL and resources */
 	{
-		ret = execve(cmd, argv, envp);
+		ret = execve(pathname, argv, envp);
 		ft_tabdel(&argv);
 		ft_tabdel(&envp);
-		ft_memdel((void**)&cmd);
+		ft_memdel((void**)&pathname);
 		exit (ret);
 	}
 	else
 	{
 		wait(&stat);
 		ret = WEXITSTATUS(stat);
-		ft_memdel((void**)&cmd);
+		ft_memdel((void**)&pathname);
 		return (ret);
 	}
 }
@@ -106,27 +106,28 @@ static int	process_launch(char **argv, char **envp, char *cmd)
 int	job(char **argv, char **envp)
 {
 	int	ret;
-	char	*cmd;
+	char	*pathname;
 
 	ret = e_success;
 	if (!ft_strcmp(argv[0], "builtin"))
 		return (builtin_keyword_exec(argv));
-	cmd = argv[0];
-	if ((ret = check_type(&argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
+	pathname = ft_strdup(argv[0]);
+/*	pathname = argv[0];
+*/	if ((ret = check_type(&argv[0])) != e_command_not_found && ret != e_success) /* check type of the argument */
 	{
-		psherror(ret, cmd, e_cmd_type);
+		psherror(ret, pathname, e_cmd_type);
 		return (g_errordesc[ret].code);
 	}
 	if (ret == e_success)
 	{
 		if (!check_access(argv[0]))
-			return (process_launch(argv, envp, cmd));
+			return (process_launch(argv, envp, pathname));
 		else
 			return (g_errordesc[e_permission_denied].code);
 	}
 	else
 	{
-		argv[0] = cmd;
+		argv[0] = pathname;
 		ret = builtins_dispatcher(&argv[0]);
 	   	if (ret == e_command_not_found)
 		{

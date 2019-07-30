@@ -31,6 +31,7 @@ int	path_concat(char **bin)
 		ft_memdel((void**)&pathname);
 	}
 	ft_memdel((void**)&beg);
+	ft_memdel((void**)bin);
 	if (dir)
 	{
 		*bin = pathname;
