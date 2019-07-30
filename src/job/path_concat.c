@@ -28,8 +28,13 @@ static _Bool	is_path(char *str)
 
 }
 */
-int	path_concat(char *bin)
+int	path_concat(char **bin)
 {
 	(void)bin;
+	if (access(*bin, F_OK))
+	{
+		
+		return (e_success);
+	}
 	return (e_success);
 }

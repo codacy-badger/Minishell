@@ -45,7 +45,7 @@ char		*ft_concat_path(char *str)
 		i = 0;
 		nb = 0;
 		ptok = ft_tabcpy(ft_token_path());
-		while (ptok && ptok[nb])/* heap buff overflow here*/
+		while (ptok && ptok[nb])
 			++nb;
 	}
 	if (!ptok || i >= nb || !str)

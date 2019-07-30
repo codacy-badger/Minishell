@@ -24,25 +24,27 @@ static int 	check_type(char **arg)
 {
 	struct stat	buf;
 	char		*cmd;
-	int		ret;
 
 	buf = (struct stat){.st_mode = 0};
 	cmd = *arg;
-	ret = e_success;
 	if (!ft_strcmp(*arg, "."))
 		return (e_filename_arg_required);
-	/* BEG REVIEW 
-	 * Need to create a way to check if no such fiel or dir or if access or if command exists after check no '/' in it */
-		while ((ret = stat(*arg, &buf)) && *arg) /* to be reviewed !!! */
-			*arg = ft_concat_path(cmd);
-		ft_concat_path(NULL); /* reset the statics in the function */
-	/* END REVIEW*/
-	if (S_ISDIR(buf.st_mode)) 
+	if (ft_strstr(*arg, "/"))
+	{
+		if (access(*arg, F_OK))
+			return (e_no_such_file_or_directory);
+		else if (stat(*arg, &buf))
+			return (e_system_call_error);
+	}
+	else
+	{
+		if (path_concat(arg))
+			*arg = cmd;
+		else if (stat(*arg, &buf))
+			return (e_command_not_found);
+	}
+	if (S_ISDIR(buf.st_mode)) /* is it necessary to keep this test ? Proove it with a test */
 		return (e_is_a_directory);
-	else if (ret && ft_strstr(cmd, "/"))
-		return (e_no_such_file_or_directory);
-	else if (ret)
-		return (e_command_not_found);
 	else
 		return (e_success);
 }

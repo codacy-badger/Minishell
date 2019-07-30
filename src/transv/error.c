@@ -24,6 +24,7 @@ const struct s_error_desc	g_errordesc[] =
 	{ 1, "no such builtin" },
 	{ 2, "filename argument required\n.: usage: . filename [arguments]" },
 	{ 2, "cannot allocate memory" },
+	{ 2, "system call error" },
 	{ 126, "permission denied" },
 	{ 126, "is a directory" },
 	{ 127, "command not found" },

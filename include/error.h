@@ -21,6 +21,7 @@ enum	e_minishell_error
 	e_no_builtin,
 	e_filename_arg_required,
 	e_cannot_allocate_memory,
+	e_system_call_error,
 	e_permission_denied,
 	e_is_a_directory,
 	e_command_not_found,
