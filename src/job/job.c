@@ -29,12 +29,14 @@ static int 	check_type(char **arg)
 	buf = (struct stat){.st_mode = 0};
 	cmd = *arg;
 	ret = e_success;
-	while ((ret = stat(*arg, &buf)) && *arg)
+	/* Need to create a way to check if no such fiel or dir or if access or if command exists after check no '/' in it */
+	/* Needs to handle "." too */
+	while ((ret = stat(*arg, &buf)) && *arg) /* to be reviewed !!! */
 		*arg = ft_concat_path(cmd);
 	ft_concat_path(NULL); /* reset the statics in the function */
 	if (S_ISDIR(buf.st_mode)) 
 		return (e_is_a_directory);
-	else if (ret && *cmd == '/')
+	else if (ret && ft_strstr(cmd, "/"))
 		return (e_no_such_file_or_directory);
 	else if (ret)
 		return (e_command_not_found);
