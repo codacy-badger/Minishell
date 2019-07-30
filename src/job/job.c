@@ -123,7 +123,10 @@ int	job(char **argv, char **envp)
 		if (!check_access(argv[0]))
 			return (process_launch(argv, envp, pathname));
 		else
+		{
+			ft_memdel((void**)&pathname);
 			return (g_errordesc[e_permission_denied].code);
+		}
 	}
 	else
 	{
