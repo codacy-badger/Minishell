@@ -30,7 +30,13 @@ static _Bool	is_path(char *str)
 */
 int	path_concat(char **bin)
 {
-	(void)bin;
+	char	*env;
+	char	*dir;
+
+	env = ft_strdup(ft_getenv("PATH"));
+	while ((dir = ft_strsep(&env, ":")))
+		ft_printf("%s/%s\n", dir, *bin);
+	ft_memdel((void**)&env);
 	if (access(*bin, F_OK))
 	{
 		return (e_success);
