@@ -91,12 +91,14 @@ static int	process_launch(char **argv, char **envp, char *cmd)
 		ret = execve(cmd, argv, envp);
 		ft_tabdel(&argv);
 		ft_tabdel(&envp);
+		ft_memdel((void**)&cmd);
 		exit (ret);
 	}
 	else
 	{
 		wait(&stat);
 		ret = WEXITSTATUS(stat);
+		ft_memdel((void**)&cmd);
 		return (ret);
 	}
 }

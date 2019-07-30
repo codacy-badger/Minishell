@@ -27,10 +27,7 @@ int	path_concat(char **bin)
 	{
 		pathname = ft_strnjoin(3, dir, "/", *bin);
 		if (!access(pathname, F_OK))
-		{
-			ft_printf("%s\n", pathname);
 			break;
-		}
 		ft_memdel((void**)&pathname);
 	}
 	ft_memdel((void**)&beg);
