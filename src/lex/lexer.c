@@ -12,15 +12,14 @@
 
 #include "libft.h"
 
-/* The lexer should token ; and || | or other const.
- * It must lean the tokens from \t and other "blanks" */
-
+/* The lexer should tokenize || ; & && ect even if glued to words
+ * example : echo ok;ls||env */
 char	**lexer(char *input)
 {
 	char **tokens;
 	char **retsplit;
 
-	retsplit = ft_strsplit(input, ' ');
+	retsplit = ft_strsplit_whitespaces(input);
 	tokens = ft_tabcpy(retsplit);
 	ft_tabdel(&retsplit);
 	return (tokens);
