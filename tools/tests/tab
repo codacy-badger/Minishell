@@ -10,12 +10,19 @@ exit
 /dev/urandom
 /bin/../bin///ls
 /ls
+	
+
+
+
+	
+
 /////ls
-../bin/l
+	../bin/l
 .
 /
 ../
 ..
 	echo	ok
-	env				
-exit
+	env
+				
+	exit
