@@ -6,22 +6,44 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 17:07:44 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/01 17:49:02 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:48:23 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "error.h"
+#include "expansion.h"
 
-int	treat_expansions(char **tokens)
+static char	*expansion_loc(char *str)
 {
-	int	i;
+	int					i;
+	char				*loc;
+	struct s_expan_tags	tags[] =
+	{ {"${"}, {"$"}, {"\0"} };
+
+	i = 0;
+	while (*(tags[i].expansion_tag))
+	{
+		if ((loc = ft_strstr(str, "$")))
+			return (loc);
+		else
+			return (NULL);
+		++i;
+	}
+}
+
+int			treat_expansions(char **tokens)
+{
+	char	*ptr;
+	int		i;
 
 	i = 0;
 	if (!tokens)
 		return (e_invalid_input);
 	while (tokens[i])
 	{
+		ptr = ft_strstr(str, );
+		tokens[i] = ft_strrep(&tokens[i], ft_getenv("LOGNAME"), "$LOGNAME");
 		ft_printf("%s\n", tokens[i]);
 		++i;
 	}
