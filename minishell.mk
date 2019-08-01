@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/07/21 19:14:38 by abarthel         ###   ########.fr        #
+#    Updated: 2019/08/01 17:12:53 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SOURCES :=	main.c \
 			input/prompt.c \
 			input/input.c \
 			lex/lexer.c \
+			lex/expansion.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \

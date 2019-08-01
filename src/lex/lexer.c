@@ -6,14 +6,16 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 17:59:39 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/01 09:39:44 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:14:33 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "expansion.h"
 
 /* The lexer should tokenize || ; & && ect even if glued to words
- * example : echo ok;ls||env */
+ * example : echo ok;ls||env 
+ * It manages expansions subsitution in ech tokens*/
 char	**lexer(char *input)
 {
 	char	**tokens;
@@ -27,5 +29,7 @@ char	**lexer(char *input)
 	}
 	tokens = ft_tabcpy(retsplit);
 	ft_tabdel(&retsplit);
+	if (treat_expansions(tokens))
+		return (NULL);
 	return (tokens);
 }
