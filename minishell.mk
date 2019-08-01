@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/08/01 17:12:53 by abarthel         ###   ########.fr        #
+#    Updated: 2019/08/01 17:19:08 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,6 @@ LIB = $(PATH_LIB)libft.a
 
 DEPENDS := $(patsubst %.c,%.d,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 
-TOOLS_PATH := ./tools/
+TEST_PATH := ./tools/tests/
 
-TESTS_FILE := tests-minishell.txt
+TESTS_SCRIPT := launch_test.sh < "launch from makefile"
