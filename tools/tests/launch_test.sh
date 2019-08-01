@@ -18,6 +18,7 @@ make -j -C $MINISHELL_PATH
 
 for file in "${tests_array[@]}"
 do
+	printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
 	$MINISHELL_PATH./minishell < $file
 done
 
