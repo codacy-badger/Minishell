@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/22 15:40:48 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/01 09:37:23 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int argc, char **argv)
 	{
 		args = lexer(input);
 		ft_memdel((void**)&input);
+		if (!args)
+			continue;
 		ret = synt(args);
 		if (ret != e_success)
 			continue;

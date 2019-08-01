@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:48:52 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 20:43:38 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/01 09:52:00 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,11 @@ int				get_block(char **line, int len, char separator)
 	char		c;
 
 	ret = 0;
-	c = 0;
 	while (ret < len)
 	{
 		c = ft_getch();
+		if (c == -1)
+			return (-2);
 		mask = is_quote_open(c, mask);
 		if ((c == separator && !mask) || !c)
 		{
@@ -151,6 +152,8 @@ int				get_stdin(char **line)
 		*line = new_line;
 		if ((ret = get_block(line, len, '\n')) == -1)
 			continue ;
+		if (ret == -2)
+			return (-1);
 		else
 			return (1);
 	}
