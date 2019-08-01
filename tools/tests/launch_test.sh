@@ -11,15 +11,35 @@
 #                                                                              #
 # **************************************************************************** #
 
-MINISHELL_PATH='../../'
-tests_array=(*.test)
+function make_test_launch
+{
+	TESTS_PATH='./tools/tests/'
+	tests_array=(${TESTS_PATH}*.test)
+	make -j
+	for file in "${tests_array[@]}"
+	do
+		printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
+		./minishell < $file
+	done
+	make fclean
+}
 
-make -j -C $MINISHELL_PATH
+function direct_launch
+{
+	MINISHELL_PATH='../../'
+	tests_array=(*.test)
+	make -j -C $MINISHELL_PATH
+	for file in "${tests_array[@]}"
+	do
+		printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
+		$MINISHELL_PATH./minishell < $file
+	done
+	make fclean -C $MINISHELL_PATH
+}
 
-for file in "${tests_array[@]}"
-do
-	printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
-	$MINISHELL_PATH./minishell < $file
-done
-
-make fclean -C $MINISHELL_PATH
+if [ -z "$1" ]
+then
+	direct_launch
+else
+	make_test_launch
+fi
