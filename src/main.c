@@ -42,7 +42,10 @@ int	main(int argc, char **argv)
 			continue;
 		ret = synt(args);
 		if (ret != e_success)
+		{
+			ft_tabdel(&args);
 			continue;
+		}
 		ret = jcont(args, environ);
 		ft_tabdel(&args);
 	}
