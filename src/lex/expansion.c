@@ -26,10 +26,9 @@ static char	*expansion_loc(char *str)
 	{
 		if ((loc = ft_strstr(str, "$")))
 			return (loc);
-		else
-			return (NULL);
 		++i;
 	}
+	return (NULL);
 }
 
 int			treat_expansions(char **tokens)
@@ -42,9 +41,10 @@ int			treat_expansions(char **tokens)
 		return (e_invalid_input);
 	while (tokens[i])
 	{
-		ptr = ft_strstr(str, );
-		tokens[i] = ft_strrep(&tokens[i], ft_getenv("LOGNAME"), "$LOGNAME");
-		ft_printf("%s\n", tokens[i]);
+		ptr = expansion_loc(tokens[i]);
+		ft_printf(">>%s\n", ptr);
+		/*tokens[i] = ft_strrep(&tokens[i], ft_getenv("LOGNAME"), "$LOGNAME");
+		*/ft_printf("|%s\n", tokens[i]);
 		++i;
 	}
 	return (e_success);

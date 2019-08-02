@@ -21,6 +21,11 @@ function make_test_launch
 		printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
 		./minishell < $file
 	done
+#	for file in "${tests_array[@]}"
+#	do
+#		printf "\n\n\e[4m\e[92m"$file" (env -i)\e[0m\n"
+#		env -i ./minishell < $file
+#	done
 	make fclean
 }
 
@@ -34,6 +39,11 @@ function direct_launch
 		printf "\n\n\e[4m\e[92m"$file"\e[0m\n"
 		$MINISHELL_PATH./minishell < $file
 	done
+#	for file in "${tests_array[@]}"
+#	do
+#		printf "\n\n\e[4m\e[92m"$file" (env -i)\e[0m\n"
+#		env -i $MINISHELL_PATH./minishell < $file
+#	done
 	make fclean -C $MINISHELL_PATH
 }
 
