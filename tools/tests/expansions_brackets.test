@@ -1,22 +1,23 @@
-echo /home/${LOGNAME}/${LOGNAME}endf
-echo /home/${LOGNAME}/$LOGNAME}endf
-echo /home/${LOGNAME}/${LOGNAME}endf
-echo /home/${LOGNAME}/{$LOGNAME} endf
-echo /home/${LOGNAME}/${LOGNAME }endf
-echo /home/${LOGNAME}/${LOGNAME}&endf
-echo /home/${LOGNAME}/$[LOGNAME],endf
-echo /home/${LOGNAME}/$LOGNAME }.endf
-echo /home/${LOGNAME}/${LOGNAME{}}endf
-echo /home/${LOGNAME}/${LOGNAMEE}endf
-echo /home/${LOGNAME}
-echo /home/${LOGNAME}/.${LOGNAME}
-echo /home/${LOGNAME}//${LOGNAME}
-echo /home/${LOGNAME}/\${LOGNAME}
-echo /\\${LOGNAME}
-echo $"{LOGNAME}"
-echo ${"LOGNAME"}end
-echo ${LOG_NAME}
-echo ${LOGNAME}""
-echo ${LOGNAME}"endif"
-echo ${LOG""NAME}
-echo ${''LOGNAME}
+echo 1/$LOGNAMEhome/${LOGNAME}/${LOGNAME}endf
+echo 2/$LOGNAMEhome/${LOGNAME}/$LOGNAME}endf
+echo 3/$LOGNAMEhome/${LOGNAME}/${LOGNAME}endf
+echo 4/$LOGNAMEhome/${LOGNAME}/{$LOGNAME} endf
+echo 5/$LOGNAMEhome/${LOGNAME}/${LOGNAME }endf
+echo 6/$LOGNAMEhome/${LOGNAME}/${LOGNAME}&endf
+echo 7/$LOGNAMEhome/${LOGNAME}/$[LOGNAME],endf
+echo 8/$LOGNAMEhome/${LOGNAME}/$LOGNAME }.endf
+echo 9/$LOGNAMEhome/${LOGNAME}/${LOGNAME{}}endf
+echo 10$LOGNAME/home/${LOGNAME}/${LOGNAMEE}endf
+echo 11$LOGNAME/home/${LOGNAME}
+echo 12$LOGNAME/home/${LOGNAME}/.${LOGNAME}
+echo 13$LOGNAME/home/${LOGNAME}//${LOGNAME}
+echo 14$LOGNAME/home/${LOGNAME}/\${LOGNAME}
+echo 15/\\${LOGNAME}
+echo 16$"{LOGNAME}"
+echo 17${"LOGNAME"}end
+echo 18${LOG_NAME}
+echo 19${LOGNAME}""
+echo 20${LOGNAME}"endif"
+echo 21${LOG""NAME}
+echo 22${''LOGNAME}
+echo 23$ {LOGNAME}

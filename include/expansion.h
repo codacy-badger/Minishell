@@ -13,9 +13,10 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-struct	s_expan_tags
+struct	s_opening_tag
 {
-	char	*expansion_tag;
+	char	*tag;
+	int	(*function)(char**);
 };
 
 int		treat_expansions(char **tokens);
