@@ -153,7 +153,10 @@ int				get_stdin(char **line)
 		if ((ret = get_block(line, len, '\n')) == -1)
 			continue ;
 		if (ret == -2)
+		{
+			ft_memdel((void**)line);
 			return (-1);
+		}
 		else
 			return (1);
 	}
