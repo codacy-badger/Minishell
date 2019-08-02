@@ -21,7 +21,12 @@ int	path_concat(char **bin)
 	char	*dir;
 	char	*pathname;
 
-	env = ft_strdup(ft_getenv("PATH"));
+	if (!(beg = ft_getenv("PATH")))
+	{
+		ft_memdel((void**)bin);
+		return (e_command_not_found);
+	}
+	env = ft_strdup(beg);
 	beg = env;
 	while ((dir = ft_strsep(&env, ":")))
 	{
