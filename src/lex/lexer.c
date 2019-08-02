@@ -29,7 +29,7 @@ char	**lexer(char *input)
 	}
 	tokens = ft_tabcpy(retsplit);
 	ft_tabdel(&retsplit);
-/*	if (treat_expansions(tokens))
+	if (treat_expansions(tokens))
 		return (NULL);
-*/	return (tokens);
+	return (tokens);
 }

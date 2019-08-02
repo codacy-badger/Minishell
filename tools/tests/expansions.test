@@ -1,0 +1,27 @@
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAMEendf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME}endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/${LOGNAME}endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME&endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME,endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME.endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME\endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME*endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME@endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME#endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME%endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME^endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME_endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME(endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME)endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME{}endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME:endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME;endf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAMEEendf
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/$LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/ $LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/,$LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/.$LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf//$LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf/\$LOGNAME
+echo /home/$LOGNAME/sfsfasdfasf/safasdf///\\$LOGNAME

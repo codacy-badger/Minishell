@@ -43,8 +43,8 @@ int			treat_expansions(char **tokens)
 	{
 		ptr = expansion_loc(tokens[i]);
 		ft_printf(">>%s\n", ptr);
-		/*tokens[i] = ft_strrep(&tokens[i], ft_getenv("LOGNAME"), "$LOGNAME");
-		*/ft_printf("|%s\n", tokens[i]);
+		tokens[i] = ft_strrep(&tokens[i], ft_getenv("LOGNAME"), "$LOGNAME");
+		ft_printf("|%s\n", tokens[i]);
 		++i;
 	}
 	return (e_success);
