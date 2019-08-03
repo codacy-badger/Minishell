@@ -32,3 +32,5 @@ echo 31$LOGNAME""
 echo 32$LOGNAME"endif"
 echo 33$LOG""NAME
 echo 34$ LOGNAME
+export LAST=\$LAST
+#setenv LAST \$LAST

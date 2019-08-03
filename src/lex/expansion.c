@@ -15,12 +15,50 @@
 #include "error.h"
 #include "expansion.h"
 
+/* not protected by loops made in env such as LAST=\$LAST */
 static int	ft_simple_expansion(char **str)
 {
-	(void)str;
+	char	*word;
+	char	*varname;
+	char	*envvar;
+	size_t	len;
 	
-	
-	*str = ft_strrep(str, ft_getenv("LOGNAME"), "$LOGNAME");
+	while ((word = ft_strchr(*str, '$')))
+	{
+		++word;
+		len = ft_alnumlen(word);
+		++len;
+		if (len)
+		{
+			if (!(varname = (char*)ft_memalloc(sizeof(char) * (len + 1))))
+				return (e_cannot_allocate_memory);
+			--word;
+			while (len)
+			{
+				--len;
+				varname[len] = word[len];
+			}
+			envvar = ft_getenv(&varname[1]);
+			if (!envvar)
+			{
+				if (!(*str = ft_strrep(str, "", varname)))
+				{
+					ft_memdel((void**)&varname);
+					return (e_cannot_allocate_memory);
+				}
+			}
+			else
+			{
+				if (!(*str = ft_strrep(str, envvar, varname)))
+				{
+					ft_memdel((void**)&varname);
+					return (e_cannot_allocate_memory);
+				}
+			}
+			ft_memdel((void**)&varname);
+		}
+
+	}
 	return (e_success);
 }
 
