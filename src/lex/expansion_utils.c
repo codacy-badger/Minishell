@@ -14,6 +14,25 @@
 #include "libft.h"
 #include "error.h"
 
+size_t	ft_alnumlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	if (s)
+	{
+		while (s[len] &&
+				((s[len] >= 'a' && s[len] <= 'z')
+				 || (s[len] >= 'A' && s[len] <= 'Z')
+				 || (s[len] >= '0' && s[len] <= '9')
+				 || s[len] == '_'))
+		{
+			++len;
+		}
+	}
+	return (len);
+}
+
 char	*getenv_content(char *str, const char *closetag)
 {
 	char	*end;

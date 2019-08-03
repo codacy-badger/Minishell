@@ -52,7 +52,7 @@ int			treat_expansions(char **tokens)
 			if ((ret = g_function_list[ref].function(&tokens[i],
 					g_function_list[ref].opentag, g_function_list[ref].closetag)))
 				psherror(ret, tokens[i], e_cmd_type);
-			ft_printf("after|%s\n", tokens[i]); /* check expansion */
+		/*	ft_printf("after|%s\n", tokens[i]);  check expansion */
 		}
 		++i;
 	}
