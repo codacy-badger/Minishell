@@ -21,6 +21,7 @@ SOURCES :=	main.c \
 			input/input.c \
 			lex/lexer.c \
 			lex/expansions.c \
+			lex/expansion_utils.c \
 			lex/dollar_expansion.c \
 			lex/bracket_expansion.c \
 			synt/synt.c \

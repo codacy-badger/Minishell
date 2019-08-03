@@ -21,6 +21,7 @@ struct	s_opening_tag
 };
 
 int		treat_expansions(char **tokens);
+char		*getenv_content(char *str, const char *closetag);
 int		ft_dollar_expansion(char **str, const char *opentag, const char *closetag);
 int		ft_bracket_expansion(char **str, const char *opentag, const char *closetag);
 
