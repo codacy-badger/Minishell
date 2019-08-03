@@ -15,6 +15,60 @@
 #include "error.h"
 #include "expansion.h"
 
+static int	ft_bracket_expansion(char **str)
+{
+	char	*word;
+	char	*varname;
+	char	*envvar;
+	char	*previous;
+	size_t	len;
+
+	previous = NULL;	
+	while ((word = ft_strstr(*str, "${")))
+	{
+		word += 2;
+		len = ft_alnumlen(word);
+		len += 3;
+		if (len)
+		{
+			if (!(varname = (char*)ft_memalloc(sizeof(char) * (len + 1))))
+				return (e_cannot_allocate_memory);
+			word -= 2;
+			while (len)
+			{
+				--len;
+				varname[len] = word[len];
+			}
+			envvar = ft_getenv(&varname[1]);
+			if (envvar == previous)
+			{
+				ft_memdel((void**)&varname);
+				break;
+			}
+			previous = envvar;
+			if (!envvar)
+			{
+				if (!(*str = ft_strrep(str, "", varname)))
+				{
+					ft_memdel((void**)&varname);
+					return (e_cannot_allocate_memory);
+				}
+			}
+			else
+			{
+				if (!(*str = ft_strrep(str, envvar, varname)))
+				{
+					ft_memdel((void**)&varname);
+					return (e_cannot_allocate_memory);
+				}
+			}
+			ft_memdel((void**)&varname);
+		}
+
+	}
+	return (e_success);
+}
+
 static int	ft_simple_expansion(char **str)
 {
 	char	*word;
@@ -71,9 +125,9 @@ static int	ft_simple_expansion(char **str)
 
 const struct s_opening_tag	g_function_list[] =
 {
-	{"${", NULL},
-	{"$", &ft_simple_expansion},
-	{"\0", NULL}
+	{"${", &ft_bracket_expansion, "}"},
+	{"$", &ft_simple_expansion, NULL},
+	{"\0", NULL, NULL}
 };
 
 static void		*expansion_dispatcher(char *str)
@@ -81,9 +135,9 @@ static void		*expansion_dispatcher(char *str)
 	int	i;
 
 	i = 0;
-	while (*(g_function_list[i].tag))
+	while (*(g_function_list[i].opentag))
 	{
-		if (ft_strstr(str, g_function_list[i].tag))
+		if (ft_strstr(str, g_function_list[i].opentag))
 			return (g_function_list[i].function);
 		++i;
 	}

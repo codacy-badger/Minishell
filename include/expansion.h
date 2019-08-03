@@ -15,8 +15,9 @@
 
 struct	s_opening_tag
 {
-	char	*tag;
+	char	*opentag;
 	int	(*function)(char**);
+	char	*closetag;
 };
 
 int		treat_expansions(char **tokens);
