@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.h                                        :+:      :+:    :+:   */
+/*   expansions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANSION_H
-# define EXPANSION_H
+#ifndef EXPANSIONS_H
+# define EXPANSIONS_H
 
 struct	s_opening_tag
 {
 	char	*opentag;
-	int	(*function)(char**);
+	int	(*function)(char**, const char*, const char*);
 	char	*closetag;
 };
 
 int		treat_expansions(char **tokens);
+int		ft_dollar_expansion(char **str, const char *opentag, const char *closetag);
+int		ft_bracket_expansion(char **str, const char *opentag, const char *closetag);
 
 #endif

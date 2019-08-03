@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "expansion.h"
+#include "expansions.h"
 
 /* The lexer should tokenize || ; & && ect even if glued to words
  * example : echo ok;ls||env 

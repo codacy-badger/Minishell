@@ -20,7 +20,9 @@ SOURCES :=	main.c \
 			input/prompt.c \
 			input/input.c \
 			lex/lexer.c \
-			lex/expansion.c \
+			lex/expansions.c \
+			lex/dollar_expansion.c \
+			lex/bracket_expansion.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \
