@@ -15,14 +15,15 @@
 #include "error.h"
 #include "expansion.h"
 
-/* not protected by loops made in env such as LAST=\$LAST */
 static int	ft_simple_expansion(char **str)
 {
 	char	*word;
 	char	*varname;
 	char	*envvar;
+	char	*previous;
 	size_t	len;
-	
+
+	previous = NULL;	
 	while ((word = ft_strchr(*str, '$')))
 	{
 		++word;
@@ -39,6 +40,12 @@ static int	ft_simple_expansion(char **str)
 				varname[len] = word[len];
 			}
 			envvar = ft_getenv(&varname[1]);
+			if (envvar == previous)
+			{
+				ft_memdel((void**)&varname);
+				break;
+			}
+			previous = envvar;
 			if (!envvar)
 			{
 				if (!(*str = ft_strrep(str, "", varname)))

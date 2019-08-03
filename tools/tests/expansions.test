@@ -3,21 +3,21 @@ echo 2/home/$LOGNAME/$LOGNAME}endf
 echo 3/home/$LOGNAME/${LOGNAME}endf
 echo 4/home/$LOGNAME/$LOGNAME endf
 echo 5/home/$LOGNAME/$LOGNAME&endf
-echo 6/home/$LOGNAME/$LOGNAME,endf
-echo 7/home/$LOGNAME/$LOGNAME.endf
-echo 8/home/$LOGNAME/$LOGNAME\endf
-echo 9/home/$LOGNAME/$LOGNAME*endf
-echo 10/home/$LOGNAME/$LOGNAME@endf
-echo 11/home/$LOGNAME/$LOGNAME#endf
-echo 12/home/$LOGNAME/$LOGNAME%endf
-echo 13/home/$LOGNAME/$LOGNAME^endf
+echo 6/home/$/$LOGNAME,endf
+echo 7/home/$/$LOGNAME.endf
+echo 8/home/$/$LOGNAME\endf
+echo 9/home/$/$LOGNAME*endf
+echo 10/home/$USER/$LOGNAME@endf
+echo 11/home/$USER/$LOGNAME#endf
+echo 12/home/$USER/$LOGNAME%endf
+echo 13/home/$USER/$LOGNAME^endf
 echo 14/home/$LOGNAME/$LOGNAME_endf
 echo 15/home/$LOGNAME/$LOGNAME(endf
-echo 16/home/$LOGNAME/$LOGNAME)endf
-echo 17/home/$LOGNAME/$LOGNAME{}endf
-echo 18/home/$LOGNAME/$LOGNAME:endf
-echo 19/home/$LOGNAME/$LOGNAME;endf
-echo 20/home/$LOGNAME/$LOGNAMEEendf
+echo 16/home/$MAIL/$LOGNAME)endf
+echo 17/home/$MAIL/$LOGNAME{}endf
+echo 18/home/$MAIL/$LOGNAME:endf
+echo 19/home/$MAIL/$LOGNAME;endf
+echo 20/home/$MAIL/$LOGNAMEEendf
 echo 21/home/$LOGNAME/$LOGNAME
 echo 22/home/$LOGNAME/ $LOGNAME
 echo 23/home/$LOGNAME/,$LOGNAME
@@ -34,3 +34,8 @@ echo 33$LOG""NAME
 echo 34$ LOGNAME
 export LAST=\$LAST
 #setenv LAST \$LAST
+echo $LAST
+env LAST=\$LAST ./minishell
+echo $LAST
+echo $LAST$LAST
+exit
