@@ -26,7 +26,7 @@ function make_test_launch
 		printf "\n\n\e[4m\e[36m"$file" (env -i)\e[0m\n"
 		env -i ./minishell < $file
 	done
-	make fclean
+	#make fclean
 }
 
 function direct_launch
@@ -44,7 +44,7 @@ function direct_launch
 		printf "\n\n\e[4m\e[36m"$file" (env -i)\e[0m\n"
 		env -i $MINISHELL_PATH./minishell < $file
 	done
-	make fclean -C $MINISHELL_PATH
+	#make fclean -C $MINISHELL_PATH
 }
 
 if [ -z "$1" ]
