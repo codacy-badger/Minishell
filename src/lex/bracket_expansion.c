@@ -25,11 +25,11 @@ int	ft_bracket_expansion(char **str, const char *opentag, const char *closetag)
 
 	(void)closetag;
 	(void)opentag;
-	previous = NULL;	
+	previous = NULL;
 	while ((word = ft_strstr(*str, "${")))
 	{
 		word += 2;
-		len = ft_alnumlen(word);
+		len = ft_varlen(word);
 		len += 3;
 		if (len)
 		{

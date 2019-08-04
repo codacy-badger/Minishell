@@ -22,7 +22,7 @@ struct	s_opening_tag
 
 int		treat_expansions(char **tokens);
 char		*getenv_content(char *str, const char *closetag);
-size_t		ft_alnumlen(const char *s);
+size_t		ft_varlen(const char *s);
 int		ft_dollar_expansion(char **str, const char *opentag, const char *closetag);
 int		ft_bracket_expansion(char **str, const char *opentag, const char *closetag);
 

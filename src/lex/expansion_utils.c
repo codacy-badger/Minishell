@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "error.h"
 
-size_t	ft_alnumlen(const char *s)
+size_t	ft_varlen(const char *s)
 {
 	size_t	len;
 
@@ -50,7 +50,7 @@ char	*getenv_content(char *str, const char *closetag)
 	}
 	else
 	{
-		len = ft_alnumlen(str);
+		len = ft_varlen(str);
 		c = str[len];
 		str[len] = '\0';
 		end = ft_getenv(str);

@@ -29,7 +29,7 @@ int	ft_dollar_expansion(char **str, const char *opentag, const char *closetag)
 	while ((word = ft_strchr(*str, '$')))
 	{
 		++word;
-		len = ft_alnumlen(word);
+		len = ft_varlen(word);
 		++len;
 		if (len)
 		{
