@@ -77,3 +77,4 @@ echo 47$}
 echo {${LOGNAME}
 echo {${LOGNAME}}
 echo ${~}
+echo echo $?$?$?$?$?$?$?$?sadfsdafsadfas$?asdfsa${LOGNAME}df$LOGNAME

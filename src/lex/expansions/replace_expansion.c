@@ -15,6 +15,24 @@
 #include "error.h"
 #include "expansions.h"
 
+/*
+static int	replace_by_retval(char **str, int ret)
+{
+	char	*value;
+
+	value = ft_itoa(ret);
+	if (!value)
+		return (e_cannot_allocate_memory);
+	if (!(*str = ft_strrep(str, value, "$?")))
+		return (e_cannot_allocate_memory);
+	else
+	{
+		ft_memdel((void**)&value);
+		return (e_success);
+	}
+}
+*/
+
 int	ft_replace_expansion(char **str, const char *opentag, const char *closetag)
 {
 	char	*word;
@@ -39,23 +57,21 @@ int	ft_replace_expansion(char **str, const char *opentag, const char *closetag)
 			ft_memdel((void**)&varname);
 			return (e_cannot_allocate_memory);
 		}
+		ft_memdel((void**)&varname);
 		content = getenv_content(word, closetag);
 		if (content && previous == content)
 		{
-			ft_memdel((void**)&varname);
 			ft_memdel((void**)&expansion);
 			break;
 		}
 		previous = content;
 		if ((*str = ft_strrep(str, content ? content : "", expansion)))
 		{
-			ft_memdel((void**)&varname);
 			ft_memdel((void**)&expansion);
 			break;
 		}
 		else
 		{
-			ft_memdel((void**)&varname);
 			ft_memdel((void**)&expansion);
 			return (e_cannot_allocate_memory);
 		}
