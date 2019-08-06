@@ -40,14 +40,14 @@ int	ft_replace_expansion(char **str, const char *opentag, const char *closetag)
 			return (e_cannot_allocate_memory);
 		}
 		content = getenv_content(word, closetag);
-		if (previous == content)
+		if (content && previous == content)
 		{
 			ft_memdel((void**)&varname);
 			ft_memdel((void**)&expansion);
 			break;
 		}
 		previous = content;
-		if ((*str = ft_strrep(str, content, expansion)))
+		if ((*str = ft_strrep(str, content ? content : "", expansion)))
 		{
 			ft_memdel((void**)&varname);
 			ft_memdel((void**)&expansion);
