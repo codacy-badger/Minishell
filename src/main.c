@@ -22,6 +22,17 @@
 #include "jcont.h"
 #include "synt.h"
 
+int	set_minimal_env(void)
+{
+	extern char	**environ;
+	/* call env setenv ft 
+	   PWD=/home/antoine/Minishell
+	   SHLVL=1
+	   _=/usr/bin/env*/
+	ft_print_tables(environ);
+	return (e_success);
+}
+
 int	main(int argc, char **argv)
 {
 	extern char	**environ;
@@ -33,8 +44,8 @@ int	main(int argc, char **argv)
 	g_progname = argv[0];
 	environ = ft_tabcpy(environ);
 	ret = e_success;
-	args = NULL;
-	while (prompt_display(ret) && get_stdin(&input) >= 0)
+/*	set_minimal_env();
+*/	while (prompt_display(ret) && get_stdin(&input) >= 0)
 	{
 		args = lexer(input);
 		ft_memdel((void**)&input);

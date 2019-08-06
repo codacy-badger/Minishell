@@ -38,4 +38,17 @@ echo $LAST
 env LAST=\$LAST ./minishell
 echo $LAST
 echo $LAST$LAST
+echo $~
+echo $
+echo $$
+echo $$$
+echo $?
+echo $??
+echo $$?
+echo $?$
+$
+$$
+$?
+~$
+$~
 exit

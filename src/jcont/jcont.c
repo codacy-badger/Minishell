@@ -75,11 +75,12 @@ int	jcont(char **cmd, char **envp)
 	int		ret;
 
 	ret = 0;
-	cmd = jump_sep(cmd); /* make leak */
+	cmd = jump_sep(cmd);
 	while (cmd && *cmd)
  	{
 		argv = ft_sequence(cmd);
-		ret = job(argv, envp);
+		if (**argv)
+			ret = job(argv, envp);
 		ft_tabdel(&argv);
 		cmd = position_token(cmd);
 	}
