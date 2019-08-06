@@ -55,18 +55,18 @@ echo 31${LOGNAME""}
 echo 32${LOGNAME"endif"}
 echo 33${LOG""NAME}
 echo 34${ LOGNAME}
-export LAST=\${LAST}
-#setenv LAST \${LAST}
-echo 34${LAST}
-env LAST=\${LAST} ./minishell
-echo 35${LAST}
-echo 36${LAST}${LAST}
-echo 37$LAST${LAST}
-echo 38${LAST}$LAST
-echo 39${LAST}$LAST${LAST}
-echo 40$LAST$LAST${LAST}
-echo 41$LAST${LAST}${LAST}
-echo 42$LASTokok${LAST}okok$LAST
+export LAST2=\${LAST2}
+#setenv LAST2 \${LAST2}
+echo 34${LAST2}
+env LAST2=\${LAST2} ./minishell
+echo 35${LAST2}
+echo 36${LAST2}${LAST2}
+echo 37$LAST2${LAST2}
+echo 38${LAST2}$LAST2
+echo 39${LAST2}$LAST2${LAST2}
+echo 40$LAST2$LAST2${LAST2}
+echo 41$LAST2${LAST2}${LAST2}
+echo 42$LAST2okok${LAST2}okok$LAST2
 exit
 echo 43/${LOGNAMEhome/${LOGNAME}/${LOGNAME}endf
 echo 44/${LOGNAME

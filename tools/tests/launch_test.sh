@@ -24,7 +24,7 @@ function make_test_launch
 	for file in "${tests_array[@]}"
 	do
 		printf "\n\n\e[4m\e[36m"$file" (env -i)\e[0m\n"
-		env -i ./minishell < $file
+		env -i LAST=\$LAST LAST2=\${LAST2} ./minishell < $file
 	done
 	#make fclean
 }
@@ -42,7 +42,7 @@ function direct_launch
 	for file in "${tests_array[@]}"
 	do
 		printf "\n\n\e[4m\e[36m"$file" (env -i)\e[0m\n"
-		env -i $MINISHELL_PATH./minishell < $file
+		env -i LAST=\$LAST LAST2=\${LAST2} $MINISHELL_PATH./minishell < $file
 	done
 	#make fclean -C $MINISHELL_PATH
 }
