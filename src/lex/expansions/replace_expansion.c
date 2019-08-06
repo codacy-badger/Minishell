@@ -31,7 +31,7 @@ int	ft_replace_expansion(char **str, const char *opentag, const char *closetag)
 		lopen = ft_strlen(opentag);
 		word += lopen;
 		if (!(len = ft_varlen(word, closetag)))
-			return (e_bad_substitution);
+			return (e_success);
 		if (!(varname = ft_strndup(word, len)))
 			return (e_cannot_allocate_memory);
 		if (!(expansion = ft_strnjoin(3, (char*)opentag, (char*)varname, closetag)))
