@@ -1,0 +1,17 @@
+echo ~$LOGNAME
+echo ~
+echo ~+
+echo ~-
+echo ~a
+echo ~@
+echo ~#
+echo ~++
+echo ~--
+echo ~~
+echo ~~~
+echo ~nootherthing
+echo ~/hello.test
+echo ~-withminusaftertilde
+echo ~-/hello.test
+echo ~+withplusaftertilde
+echo ~+/hello.test

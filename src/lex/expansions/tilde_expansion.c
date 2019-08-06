@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions.c                                       :+:      :+:    :+:   */
+/*   tilde_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,48 +15,36 @@
 #include "error.h"
 #include "expansions.h"
 
-const struct s_tags	g_tags[] =
+int	ft_tilde_expansion(char **str)
 {
-	{"${", "}"},
-	{"$", ""},
-	{"\0", NULL}
-};
+	char	*env;
+	char	*cpy;
+	char	*start;
 
-static int		expansion_dispatcher(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*(g_tags[i].opentag))
+	start = &(*str)[1];
+	if (!(*str)[1] || (*str)[1] == '/')
 	{
-		if (ft_strstr(str, g_tags[i].opentag))
-			return (i);
-		++i;
+		if (!(env = ft_getenv("HOME")))
+			return (e_success);
 	}
-	return (-1);
-}
-
-int			treat_expansions(char **tokens)
-{
-	int	ref;
-	int	i;
-	int	ret;
-
-	i = 0;
-	if (!tokens)
-		return (e_invalid_input);
-	while (tokens[i])
+	else if ((*str)[1] == '-' && ((*str)[2] == '/' || !(*str)[2]))
 	{
-		if (*(tokens[i]) == '~')
-		{
-			if ((ret = ft_tilde_expansion(&tokens[i])))
-				psherror(ret, tokens[i], e_cmd_type);
-		}
-		ref = expansion_dispatcher(tokens[i]);
-		if (ref != -1)
-			if ((ret = ft_replace_expansion(&tokens[i], g_tags[ref].opentag, g_tags[ref].closetag)))
-				psherror(ret, tokens[i], e_cmd_type);
-		++i;
+		if (!(env = ft_getenv("OLDPWD")))
+			return (e_success);
+		start = &(*str)[2];
+
 	}
+	else if ((*str)[1] == '+' && ((*str)[2] == '/' || !(*str)[2]))
+	{
+		if (!(env = ft_getenv("PWD")))
+			return (e_success);
+		start = &(*str)[2];
+	}
+	/* does not handle proper chr */
+	ft_printf("|%s|\n", start);
+	cpy = ft_strjoin(env, start);
+	ft_memdel((void**)str);
+	*str = cpy;
+	ft_printf(">%s\n", cpy);
 	return (e_success);
 }

@@ -23,5 +23,6 @@ int		treat_expansions(char **tokens);
 char		*getenv_content(char *str, const char *closetag);
 size_t		ft_varlen(const char *s, const char *closetag);
 int		ft_replace_expansion(char **str, const char *opentag, const char *closetag);
+int		ft_tilde_expansion(char **str);
 
 #endif

@@ -23,6 +23,7 @@ SOURCES :=	main.c \
 			lex/expansions/expansions.c \
 			lex/expansions/expansion_utils.c \
 			lex/expansions/replace_expansion.c \
+			lex/expansions/tilde_expansion.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \
