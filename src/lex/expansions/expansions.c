@@ -15,11 +15,11 @@
 #include "error.h"
 #include "expansions.h"
 
-const struct s_opening_tag	g_function_list[] =
+const struct s_tags	g_tags[] =
 {
-	{"${", &ft_bracket_expansion, "}"},
-	{"$", &ft_bracket_expansion, ""},
-	{"\0", NULL, NULL}
+	{"${", "}"},
+	{"$", ""},
+	{"\0", NULL}
 };
 
 static int		expansion_dispatcher(char *str)
@@ -27,9 +27,9 @@ static int		expansion_dispatcher(char *str)
 	int	i;
 
 	i = 0;
-	while (*(g_function_list[i].opentag))
+	while (*(g_tags[i].opentag))
 	{
-		if (ft_strstr(str, g_function_list[i].opentag))
+		if (ft_strstr(str, g_tags[i].opentag))
 			return (i);
 		++i;
 	}
@@ -47,13 +47,10 @@ int			treat_expansions(char **tokens)
 		return (e_invalid_input);
 	while (tokens[i])
 	{
-		if ((ref = expansion_dispatcher(tokens[i]) != -1))
-		{
-			if ((ret = g_function_list[ref].function(&tokens[i],
-					g_function_list[ref].opentag, g_function_list[ref].closetag)))
+		ref = expansion_dispatcher(tokens[i]);
+		if (ref != -1)
+			if ((ret = ft_replace_expansion(&tokens[i], g_tags[ref].opentag, g_tags[ref].closetag)))
 				psherror(ret, tokens[i], e_cmd_type);
-		/*	ft_printf("after|%s\n", tokens[i]);  check expansion */
-		}
 		++i;
 	}
 	return (e_success);

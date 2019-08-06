@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bracket_expansion.c                                :+:      :+:    :+:   */
+/*   replace_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,7 +15,7 @@
 #include "error.h"
 #include "expansions.h"
 
-int	ft_bracket_expansion(char **str, const char *opentag, const char *closetag)
+int	ft_replace_expansion(char **str, const char *opentag, const char *closetag)
 {
 	char	*word;
 	char	*content;
