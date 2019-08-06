@@ -20,22 +20,22 @@ SOURCES :=	main.c \
 			input/prompt.c \
 			input/input.c \
 			lex/lexer.c \
-			lex/expansions.c \
-			lex/expansion_utils.c \
-			lex/dollar_expansion.c \
-			lex/bracket_expansion.c \
+			lex/expansions/expansions.c \
+			lex/expansions/expansion_utils.c \
+			lex/expansions/dollar_expansion.c \
+			lex/expansions/bracket_expansion.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \
-			job/builtins_cd.c \
-			job/builtins_echo.c \
-			job/builtins_env.c \
-			job/builtins_exit.c \
-			job/builtins_pwd.c \
-			job/builtins_dispatcher.c \
-			job/builtins_dispatcher.c \
-			job/path_concat.c \
 			job/job.c \
+			job/path_concat.c \
+			job/builtins/builtins_cd.c \
+			job/builtins/builtins_echo.c \
+			job/builtins/builtins_env.c \
+			job/builtins/builtins_exit.c \
+			job/builtins/builtins_pwd.c \
+			job/builtins/builtins_dispatcher.c \
+			job/builtins/builtins_dispatcher.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 
