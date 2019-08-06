@@ -18,66 +18,47 @@
 int	ft_bracket_expansion(char **str, const char *opentag, const char *closetag)
 {
 	char	*word;
-	while ((word = ft_strstr(*str, "${")))
-	{
+	char	*content;
+	char	*expansion;
+	char	*varname;
+	char	*previous;
+	size_t	len;
+	size_t	lopen;
 
+	previous = NULL;
+	while ((word = ft_strstr(*str, opentag)))
+	{
+		lopen = ft_strlen(opentag);
+		word += lopen;
+		if (!(len = ft_varlen(word, closetag)))
+			return (e_bad_substitution);
+		if (!(varname = ft_strndup(word, len)))
+			return (e_cannot_allocate_memory);
+		if (!(expansion = ft_strnjoin(3, (char*)opentag, (char*)varname, closetag)))
+		{
+			ft_memdel((void**)&varname);
+			return (e_cannot_allocate_memory);
+		}
+		content = getenv_content(word, closetag);
+		if (previous == content)
+		{
+			ft_memdel((void**)&varname);
+			ft_memdel((void**)&expansion);
+			break;
+		}
+		previous = content;
+		if ((*str = ft_strrep(str, content, expansion)))
+		{
+			ft_memdel((void**)&varname);
+			ft_memdel((void**)&expansion);
+			break;
+		}
+		else
+		{
+			ft_memdel((void**)&varname);
+			ft_memdel((void**)&expansion);
+			return (e_cannot_allocate_memory);
+		}
 	}
 	return (e_success);
 }
-
-/* OLD
-int	ft_bracket_expansion(char **str, const char *opentag, const char *closetag)
-{
-	char	*word;
-	char	*varname;
-	char	*envvar;
-	char	*previous;
-	size_t	len;
-
-	(void)closetag;
-	(void)opentag;
-	previous = NULL;	
-	while ((word = ft_strstr(*str, "${")))
-	{
-		word += 2;
-		len = ft_alnumlen(word);
-		len += 3;
-		if (len)
-		{
-			if (!(varname = (char*)ft_memalloc(sizeof(char) * (len + 1))))
-				return (e_cannot_allocate_memory);
-			word -= 2;
-			while (len)
-			{
-				--len;
-				varname[len] = word[len];
-			}
-			envvar = ft_getenv(&varname[1]);
-			if (envvar == previous)
-			{
-				ft_memdel((void**)&varname);
-				break;
-			}
-			previous = envvar;
-			if (!envvar)
-			{
-				if (!(*str = ft_strrep(str, "", varname)))
-				{
-					ft_memdel((void**)&varname);
-					return (e_cannot_allocate_memory);
-				}
-			}
-			else
-			{
-				if (!(*str = ft_strrep(str, envvar, varname)))
-				{
-					ft_memdel((void**)&varname);
-					return (e_cannot_allocate_memory);
-				}
-			}
-			ft_memdel((void**)&varname);
-		}
-
-	}
-	return (e_success);
-}*/

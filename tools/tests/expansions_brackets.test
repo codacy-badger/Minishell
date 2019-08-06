@@ -70,3 +70,6 @@ echo 42$LASTokok${LAST}okok$LAST
 exit
 echo 43/${LOGNAMEhome/${LOGNAME}/${LOGNAME}endf
 echo 44/${LOGNAME
+echo 45/${LOGNAME{
+echo 46Hello${LOGNAME }}
+

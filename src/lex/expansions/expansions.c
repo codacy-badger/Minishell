@@ -18,7 +18,7 @@
 const struct s_opening_tag	g_function_list[] =
 {
 	{"${", &ft_bracket_expansion, "}"},
-	{"$", &ft_dollar_expansion, ""},
+	{"$", &ft_bracket_expansion, ""},
 	{"\0", NULL, NULL}
 };
 
