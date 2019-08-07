@@ -53,18 +53,22 @@ int	parameter_expansions(size_t *index, char **str, const char *opentag, const c
 	lvarname = ft_varlen(&(*str)[lopen], closetag);
 	lclose = ft_strlen(closetag);
 
+
 	rest = &(*str)[lopen + lvarname + lclose];
 	lrest = ft_strlen(rest);
+
 
 	if ((ret = getenv_content(&content, &(*str)[lopen], closetag)))
 		return (ret);
 	lcontent = ft_strlen(content);
+
 
 	if (!(new = (char*)ft_memalloc(sizeof(char) * (lrest + lcontent + 1))))
 		return (e_cannot_allocate_memory);
 	if (content)
 		ft_strncat(new, content, lcontent);
 	ft_strncat(new, rest, lrest);
+
 
 	*str = new;
 	*index = lcontent;

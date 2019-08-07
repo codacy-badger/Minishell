@@ -72,7 +72,6 @@ static int		replace_expansion(char **token, char **next, int ref)
 	size_t	index;
 	int	ret;
 
-	ret = e_success;
 	lprefix = (size_t)((*next) - (*token));
 	if (!(ret = g_tags[ref].f(&index, next, g_tags[ref].opentag, g_tags[ref].closetag)))
 	{
@@ -86,7 +85,7 @@ static int		replace_expansion(char **token, char **next, int ref)
 		*token = new;
 		return (ret);
 	}
-	return (ret);
+	return (e_success);
 }
 
 int			treat_expansions(char **tokens)
