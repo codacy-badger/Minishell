@@ -74,7 +74,7 @@ static int		replace_expansion(char **token, char **next, int ref)
 
 	ret = e_success;
 	lprefix = (size_t)((*next) - (*token));
-	if ((ret = g_tags[ref].f(&index, next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
+	if (!(ret = g_tags[ref].f(&index, next, g_tags[ref].opentag, g_tags[ref].closetag)))
 	{
 		lnew = lprefix + ft_strlen(*next);
 		new = (char*)ft_memalloc(sizeof(char) * (lnew + 1));
