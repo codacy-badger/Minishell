@@ -17,14 +17,20 @@
 struct	s_tags
 {
 	char	*opentag;
-	size_t	(*f)(char**, const char*, const char*);
+	int	(*f)(size_t*, char**, const char*, const char*);
 	char	*closetag;
 };
 
 int		treat_expansions(char **tokens);
+
 char		*getenv_content(char *str, const char *closetag);
+
 size_t		ft_varlen(const char *s, const char *closetag);
-size_t		parameter_expansions(char **str, const char *opentag, const char *closetag);
-size_t		tilde_expansion(char **str, const char *opentag, const char *closetag);
+
+int		parameter_expansions(size_t *index, char **str,
+		const char *opentag, const char *closetag);
+
+int		tilde_expansion(size_t *index, char **str,
+		const char *opentag, const char *closetag);
 
 #endif

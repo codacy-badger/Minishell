@@ -14,6 +14,15 @@
 #include "libft.h"
 #include "error.h"
 
+int	isvalid_param(const char c)
+{
+	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		 || (c >= '0' && c <= '9') || c == '_'))
+		return (1);
+	else
+		return (0);
+}
+
 size_t	ft_varlen(const char *s, const char *closetag)
 {
 	size_t	len;
@@ -22,11 +31,7 @@ size_t	ft_varlen(const char *s, const char *closetag)
 	len = 0;
 	if (*s && !*closetag)
 	{
-		while (s[len] &&
-				((s[len] >= 'a' && s[len] <= 'z')
-				 || (s[len] >= 'A' && s[len] <= 'Z')
-				 || (s[len] >= '0' && s[len] <= '9')
-				 || s[len] == '_'))
+		while (s[len] && isvalid_param(s[len]))
 			++len;
 	}
 	else if (*s && *closetag)

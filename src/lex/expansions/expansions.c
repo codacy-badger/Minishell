@@ -70,9 +70,11 @@ static int		replace_expansion(char **token, char **next, int ref)
 	size_t	lnew;
 	size_t	lprefix;
 	size_t	index;
+	int	ret;
 
+	ret = e_success;
 	lprefix = (size_t)((*next) - (*token));
-	if ((index = g_tags[ref].f(next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
+	if ((ret = g_tags[ref].f(&index, next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
 	{
 		lnew = lprefix + ft_strlen(*next);
 		new = (char*)ft_memalloc(sizeof(char) * (lnew + 1));
@@ -82,9 +84,9 @@ static int		replace_expansion(char **token, char **next, int ref)
 		ft_memdel((void**)next);
 		*next = &(new)[index];
 		*token = new;
-		return (e_success);
+		return (ret);
 	}
-	return (e_success);
+	return (ret);
 }
 
 int			treat_expansions(char **tokens)
