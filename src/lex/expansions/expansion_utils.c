@@ -14,13 +14,35 @@
 #include "libft.h"
 #include "error.h"
 
-int	isvalid_param(const char c)
+static int	is_a_valid_chr(const char c)
 {
 	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		 || (c >= '0' && c <= '9') || c == '_'))
 		return (1);
 	else
 		return (0);
+}
+
+static int	is_valid_param(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_a_valid_chr(str[i]))
+		{
+			str[len] = c;
+			return (e_bad_substitution);
+		}
+		++i;
+	}
+	return (e_success);
+}
+
+static int	has_special_param(const char *str)
+{
+	if ()
 }
 
 size_t	ft_varlen(const char *s, const char *closetag)
@@ -31,7 +53,7 @@ size_t	ft_varlen(const char *s, const char *closetag)
 	len = 0;
 	if (*s && !*closetag)
 	{
-		while (s[len] && isvalid_param(s[len]))
+		while (s[len] && is_a_valid_chr(s[len]))
 			++len;
 	}
 	else if (*s && *closetag)
@@ -47,25 +69,23 @@ size_t	ft_varlen(const char *s, const char *closetag)
 int	getenv_content(char **content, char *str, const char *closetag)
 {
 	size_t	len;
-	size_t	i;
+	int	ret;
 	char	c;
 
-	i = 0;
 	len = ft_varlen(str, closetag);
 	if (!len)
 		return (e_bad_substitution);
 	c = str[len];
 	str[len] = '\0';
-	while (str[i])
+	/* prarameter dispatcher starts here */
+	if (!ft_strcmp(str, "?"))
+	else if ((ret = is_valid_param(str)))
 	{
-		if (!isvalid_param(str[i]))
-		{
-			str[len] = c;
-			return (e_bad_substitution);
-		}
-		++i;
+		str[len] = c;
+		return (ret);
 	}
 	*content = ft_getenv(str);
+	/* dispatcher ends here */
 	str[len] = c;
 	return (e_success);
 }
