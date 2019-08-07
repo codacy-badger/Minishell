@@ -27,11 +27,13 @@ int	replace_tilde(char **str, char *start, char *env)
 	return (e_success);
 }
 
-int	ft_tilde_expansion(char **str)
+int	ft_tilde_expansion(char **str, const char *opentag, const char *closetag)
 {
 	char	*env;
 	int	ret;
 
+	(void)opentag;
+	(void)closetag;
 	if (!(*str)[1] || (*str)[1] == '/')
 	{
 		env = ft_getenv("HOME");
