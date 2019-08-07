@@ -30,6 +30,9 @@ char	**lexer(char *input)
 	tokens = ft_tabcpy(retsplit);
 	ft_tabdel(&retsplit);
 	if (treat_expansions(tokens))
+	{
+		ft_tabdel(&tokens);
 		return (NULL);
+	}
 	return (tokens);
 }

@@ -44,18 +44,28 @@ size_t	ft_varlen(const char *s, const char *closetag)
 	return (len);
 }
 
-char	*getenv_content(char *str, const char *closetag)
+int	getenv_content(char **content, char *str, const char *closetag)
 {
-	char	*end;
 	size_t	len;
+	size_t	i;
 	char	c;
 
+	i = 0;
 	len = ft_varlen(str, closetag);
 	if (!len)
-		return (NULL);
+		return (e_bad_substitution);
 	c = str[len];
 	str[len] = '\0';
-	end = ft_getenv(str);
+	while (str[i])
+	{
+		if (!isvalid_param(str[i]))
+		{
+			str[len] = c;
+			return (e_bad_substitution);
+		}
+		++i;
+	}
+	*content = ft_getenv(str);
 	str[len] = c;
-	return (end);
+	return (e_success);
 }

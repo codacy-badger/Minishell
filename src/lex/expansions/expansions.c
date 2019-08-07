@@ -106,7 +106,10 @@ int			treat_expansions(char **tokens)
 		{
 			ref = expansion_dispatcher(next);
 			if ((ret = replace_expansion(&tokens[i], &next, ref)))
+			{
 				psherror(ret, tokens[i], e_cmd_type);
+				return (ret);
+			}
 		}
 		++i;
 	}

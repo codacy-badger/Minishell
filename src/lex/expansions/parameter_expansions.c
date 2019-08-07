@@ -35,6 +35,8 @@ static int	replace_by_retval(char **str, int ret)
 
 int	parameter_expansions(size_t *index, char **str, const char *opentag, const char *closetag)
 {
+	int	ret;
+
 	size_t	lopen;
 	size_t	lvarname;
 	size_t	lclose;
@@ -54,12 +56,14 @@ int	parameter_expansions(size_t *index, char **str, const char *opentag, const c
 	rest = &(*str)[lopen + lvarname + lclose];
 	lrest = ft_strlen(rest);
 
-	content = getenv_content(&(*str)[lopen], closetag);
+	if ((ret = getenv_content(&content, &(*str)[lopen], closetag)))
+		return (ret);
 	lcontent = ft_strlen(content);
 
 	if (!(new = (char*)ft_memalloc(sizeof(char) * (lrest + lcontent + 1))))
 		return (e_cannot_allocate_memory);
-	ft_strncat(new, content, lcontent);
+	if (content)
+		ft_strncat(new, content, lcontent);
 	ft_strncat(new, rest, lrest);
 
 	*str = new;

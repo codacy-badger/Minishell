@@ -23,7 +23,7 @@ struct	s_tags
 
 int		treat_expansions(char **tokens);
 
-char		*getenv_content(char *str, const char *closetag);
+int		getenv_content(char **content, char *str, const char *closetag);
 
 size_t		ft_varlen(const char *s, const char *closetag);
 
