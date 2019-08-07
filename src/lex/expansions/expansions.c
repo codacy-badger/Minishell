@@ -82,7 +82,7 @@ static int		replace_expansion(char **token, char **next, int ref)
 		ft_memdel((void**)token);
 		ft_strcat(new, *next);
 		ft_memdel((void**)next);
-		*next = &(new)[index];
+		*next = &(new)[index + lprefix];
 		*token = new;
 		return (ret);
 	}
