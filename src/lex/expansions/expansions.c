@@ -68,18 +68,28 @@ static int		replace_expansion(char **token, char **next, int ref)
 {
 	char	*new;
 	size_t	lnew;
+	size_t	lprefix;
 	size_t	index;
 
+	ft_printf("1next:%s\n", *next);
+	ft_printf("1token:%s\n", *token);
+/*	lprefix = (size_t)((*next) - (*token));
+*/	lprefix = (size_t)(ft_strstr(*token, *next) - (*token));
+	ft_printf("prefix:%zu\n", lprefix);
 	if ((index = g_tags[ref].f(next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
 	{
-		lnew = ft_strlen(*next) + (*token - *next); /* how to recognize the diff between the 2 array ? */
-		ft_printf("index:%zu\n", lnew);
+		ft_printf("next:%s\n", *next);
+		ft_printf("token:%s\n", *token);
+		lnew = lprefix + ft_strlen(*next);
+		ft_printf("lnew:%zu\n", lprefix);
 		new = (char*)ft_memalloc(sizeof(char) * (lnew + 1));
-		ft_strncat(new, *token, (*next - *token));
+		ft_strncat(new, *token, lprefix);
 		ft_strcat(new, *next);
 		*next = &(*next)[index];
 		ft_memdel((void**)token);
 		*token = new;
+		ft_printf("Enext:%s\n", *next);
+		ft_printf("Etoken:%s\n\n", *token);
 		return (e_success);
 	}
 	return (e_success);
@@ -104,7 +114,6 @@ int			treat_expansions(char **tokens)
 			if ((ret = replace_expansion(&tokens[i], &next, ref)))
 				psherror(ret, tokens[i], e_cmd_type);
 		}
-		++next;
 		++i;
 	}
 	return (e_success);
