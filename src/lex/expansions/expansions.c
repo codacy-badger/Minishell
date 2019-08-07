@@ -71,25 +71,17 @@ static int		replace_expansion(char **token, char **next, int ref)
 	size_t	lprefix;
 	size_t	index;
 
-	ft_printf("1next:%s\n", *next);
-	ft_printf("1token:%s\n", *token);
-/*	lprefix = (size_t)((*next) - (*token));
-*/	lprefix = (size_t)(ft_strstr(*token, *next) - (*token));
-	ft_printf("prefix:%zu\n", lprefix);
+	lprefix = (size_t)((*next) - (*token));
 	if ((index = g_tags[ref].f(next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
 	{
-		ft_printf("next:%s\n", *next);
-		ft_printf("token:%s\n", *token);
 		lnew = lprefix + ft_strlen(*next);
-		ft_printf("lnew:%zu\n", lprefix);
 		new = (char*)ft_memalloc(sizeof(char) * (lnew + 1));
 		ft_strncat(new, *token, lprefix);
-		ft_strcat(new, *next);
-		*next = &(*next)[index];
 		ft_memdel((void**)token);
+		ft_strcat(new, *next);
+		ft_memdel((void**)next);
+		*next = &(new)[index];
 		*token = new;
-		ft_printf("Enext:%s\n", *next);
-		ft_printf("Etoken:%s\n\n", *token);
 		return (e_success);
 	}
 	return (e_success);
