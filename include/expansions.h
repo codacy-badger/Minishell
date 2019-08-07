@@ -12,18 +12,19 @@
 
 #ifndef EXPANSIONS_H
 # define EXPANSIONS_H
+# include <stdlib.h>
 
 struct	s_tags
 {
 	char	*opentag;
-	int	(*f)(char**, const char*, const char*);
+	size_t	(*f)(char**, const char*, const char*);
 	char	*closetag;
 };
 
 int		treat_expansions(char **tokens);
 char		*getenv_content(char *str, const char *closetag);
 size_t		ft_varlen(const char *s, const char *closetag);
-int		ft_replace_expansion(char **str, const char *opentag, const char *closetag);
-int		ft_tilde_expansion(char **str, const char *opentag, const char *closetag);
+size_t		parameter_expansions(char **str, const char *opentag, const char *closetag);
+size_t		tilde_expansion(char **str, const char *opentag, const char *closetag);
 
 #endif

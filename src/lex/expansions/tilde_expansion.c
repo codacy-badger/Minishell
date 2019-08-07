@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "error.h"
 
-int	replace_tilde(char **str, char *start, char *env)
+static int	replace_tilde(char **str, char *start, char *env)
 {
 	char	*cpy;
 	
@@ -27,7 +27,7 @@ int	replace_tilde(char **str, char *start, char *env)
 	return (e_success);
 }
 
-int	ft_tilde_expansion(char **str, const char *opentag, const char *closetag)
+size_t		tilde_expansion(char **str, const char *opentag, const char *closetag)
 {
 	char	*env;
 	int	ret;

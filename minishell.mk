@@ -22,7 +22,7 @@ SOURCES :=	main.c \
 			lex/lexer.c \
 			lex/expansions/expansions.c \
 			lex/expansions/expansion_utils.c \
-			lex/expansions/replace_expansion.c \
+			lex/expansions/parameter_expansions.c \
 			lex/expansions/tilde_expansion.c \
 			synt/synt.c \
 			synt/synt_const.c \

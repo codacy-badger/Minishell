@@ -17,9 +17,9 @@
 
 const struct s_tags	g_tags[] =
 {
-	{"${", &ft_replace_expansion, "}"},
-	{"$", &ft_replace_expansion, ""},
-	{"~", &ft_tilde_expansion, ""},
+	{"${", &parameter_expansions, "}"},
+	{"$", &parameter_expansions, ""},
+	{"~", &tilde_expansion, ""},
 	{"\0", NULL, NULL}
 };
 
@@ -64,6 +64,27 @@ static char	*get_closest_exp(char *str)
 	return (closest);
 }
 
+static int		replace_expansion(char **token, char **next, int ref)
+{
+	char	*new;
+	size_t	lnew;
+	size_t	index;
+
+	if ((index = g_tags[ref].f(next, g_tags[ref].opentag, g_tags[ref].closetag)) >= 1)
+	{
+		lnew = ft_strlen(*next) + (*token - *next); /* how to recognize the diff between the 2 array ? */
+		ft_printf("index:%zu\n", lnew);
+		new = (char*)ft_memalloc(sizeof(char) * (lnew + 1));
+		ft_strncat(new, *token, (*next - *token));
+		ft_strcat(new, *next);
+		*next = &(*next)[index];
+		ft_memdel((void**)token);
+		*token = new;
+		return (e_success);
+	}
+	return (e_success);
+}
+
 int			treat_expansions(char **tokens)
 {
 	int	ref;
@@ -79,25 +100,11 @@ int			treat_expansions(char **tokens)
 		next = tokens[i];
 		while ((next = get_closest_exp(next)))
 		{
-			ft_printf("next |%s\n", next);
 			ref = expansion_dispatcher(next);
-			ft_printf("ref:%d\n", ref);
-			if ((ret = g_tags[ref].f(&tokens[i], g_tags[ref].opentag, g_tags[ref].closetag)))
-				psherror(ret, tokens[i], e_cmd_type);
-			++next;
-		}
-
-		/*
-		if (*(tokens[i]) == '~')
-		{
-			if ((ret = ft_tilde_expansion(&tokens[i])))
+			if ((ret = replace_expansion(&tokens[i], &next, ref)))
 				psherror(ret, tokens[i], e_cmd_type);
 		}
-		ref = expansion_dispatcher(tokens[i]);
-		if (ref != -1)
-			if ((ret = ft_replace_expansion(&tokens[i], g_tags[ref].opentag, g_tags[ref].closetag)))
-				psherror(ret, tokens[i], e_cmd_type);
-		*/
+		++next;
 		++i;
 	}
 	return (e_success);
