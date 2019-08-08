@@ -22,8 +22,7 @@
 #include "jcont.h"
 #include "synt.h"
 
-char	g_alret[3] = {0};
-int	g_retval = 0;
+int	g_retval;
 
 int	set_minimal_env(void)
 {

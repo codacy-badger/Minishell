@@ -16,23 +16,32 @@
 #include "expansions.h"
 #include "jcont.h"
 
-static char	*getretval(const char *str)
+static char	*get_retval(const char *str)
 {
+	char	*value;
+
 	(void)str;
-	ft_bzero((void*)g_alret, sizeof(g_alret));
-	/* itoa without malloc, that writes on buffer */
-	g_alret[0] = '1';
-	g_alret[1] = '2';
-	g_alret[2] = '3';
-	return (g_alret);
+	value = ft_itoa(g_retval);
+	return (value);
+}
+
+static char	*get_envcontent(const char *str)
+{
+	char	*content;
+	char	*cpy;
+
+	content = ft_getenv(str);
+	if (content)
+		cpy = ft_strdup(content);
+	return (cpy);
 }
 
 const struct s_param	g_param[] =
 {
-	{"?", &getretval},
-/*	{"$", &ft_getenv},
-	{"@", &ft_getenv},
-*/	{"", &ft_getenv}
+	{"?", &get_retval},
+/*	{"$", NULL},
+	{"@", NULL},
+*/	{"", &get_envcontent}
 };
 
 static int	parameter_dispacther(char **content, const char *str)

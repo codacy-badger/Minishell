@@ -15,24 +15,6 @@
 #include "error.h"
 #include "expansions.h"
 
-/*
-static int	replace_by_retval(char **str, int ret)
-{
-	char	*value;
-
-	value = ft_itoa(ret);
-	if (!value)
-		return (e_cannot_allocate_memory);
-	if (!(*str = ft_strrep(str, value, "$?")))
-		return (e_cannot_allocate_memory);
-	else
-	{
-		ft_memdel((void**)&value);
-		return (e_success);
-	}
-}
-*/
-
 int	parameter_expansions(size_t *index, char **str, const char *opentag, const char *closetag)
 {
 	int	ret;
@@ -64,9 +46,13 @@ int	parameter_expansions(size_t *index, char **str, const char *opentag, const c
 
 
 	if (!(new = (char*)ft_memalloc(sizeof(char) * (lrest + lcontent + 1))))
+	{
+		ft_memdel((void**)&content);
 		return (e_cannot_allocate_memory);
+	}
 	if (content)
 		ft_strncat(new, content, lcontent);
+	ft_memdel((void**)&content);
 	ft_strncat(new, rest, lrest);
 
 
