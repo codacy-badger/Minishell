@@ -39,7 +39,6 @@ int	parameter_expansions(size_t *index, char **str, const char *opentag, const c
 	rest = &(*str)[lopen + lvarname + lclose];
 	lrest = ft_strlen(rest);
 
-
 	if ((ret = getenv_content(&content, &(*str)[lopen], closetag)))
 		return (ret);
 	lcontent = ft_strlen(content);

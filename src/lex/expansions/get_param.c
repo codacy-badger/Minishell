@@ -74,6 +74,11 @@ int	getenv_content(char **content, char *str, const char *closetag)
 	char	c;
 
 	ret = e_success;
+	if (!*closetag && *(str - 1) == '$' && !is_a_valid_chr(*str) && *str != '?')
+	{
+		*content = ft_strdup("$");
+		return (ret);
+	}
 	len = ft_varlen(str, closetag);
 	if (!len)
 		return (e_bad_substitution);

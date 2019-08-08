@@ -33,6 +33,8 @@ int		getenv_content(char **content, char *str, const char *closetag);
 
 size_t		ft_varlen(const char *s, const char *closetag);
 
+int		is_a_valid_chr(const char c);
+
 int		is_valid_param(const char *str);
 
 int		parameter_expansions(size_t *index, char **str,
