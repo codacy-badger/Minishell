@@ -19,9 +19,15 @@ static int	replace_tilde(char **str, char *start, char *env)
 	char	*cpy;
 	
 	if (!env)
-		return (e_success);
-	if (!(cpy = ft_strjoin(env, start)))
-		return (e_cannot_allocate_memory);
+	{
+		if (!(cpy = ft_strjoin("", start)))
+			return (e_cannot_allocate_memory);
+	}
+	else
+	{
+		if (!(cpy = ft_strjoin(env, start)))
+			return (e_cannot_allocate_memory);
+	}
 	*str = cpy;
 	return (e_success);
 }

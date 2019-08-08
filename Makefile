@@ -12,13 +12,12 @@
 
 -include minishell.mk
 
-WARNING := -Wall -Wextra -Werror
-ANSI := -ansi
-DEBUGGING := -g
-SANITIZE := -fsanitize=address
-#SANITIZE :=
-#OPTIMIZATION := -O2 -fno-builtin
-OPTIMIZATION :=
+#OPTIMIZATION	:= -O2 -fno-builtin
+OPTIMIZATION	:=
+DEBUGGING	:= -g
+SANITIZE	:= -fsanitize=address
+WARNING		:= -Wall -Wextra -Werror
+ANSI		:= -ansi
 
 CFLAGS += $(WARNING) $(ANSI) $(DEBUGGING) $(SANITIZE) $(OPTIMIZATION)
 
