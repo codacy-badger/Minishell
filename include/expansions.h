@@ -21,11 +21,19 @@ struct	s_tags
 	char	*closetag;
 };
 
+struct	s_param
+{
+	char	*pname;
+	char	*(*g)(const char*);
+};
+
 int		treat_expansions(char **tokens);
 
 int		getenv_content(char **content, char *str, const char *closetag);
 
 size_t		ft_varlen(const char *s, const char *closetag);
+
+int		is_valid_param(const char *str);
 
 int		parameter_expansions(size_t *index, char **str,
 		const char *opentag, const char *closetag);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   get_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,47 +13,53 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "error.h"
+#include "expansions.h"
 
-static int	is_a_valid_chr(const char c)
+const struct s_param	g_param[] =
 {
-	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		 || (c >= '0' && c <= '9') || c == '_'))
-		return (1);
-	else
-		return (0);
-}
+	{"?", &ft_getenv},
+/*	{"$", &ft_getenv},
+	{"@", &ft_getenv},
+*/	{"", &ft_getenv}
+};
 
-int	is_valid_param(const char *str)
+static int	parameter_dispacther(char **content, const char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (str[i])
+	while (*(g_param[i].pname))
 	{
-		if (!is_a_valid_chr(str[i]))
-			return (e_bad_substitution);
+		if (ft_strcmp(g_param[i].pname, str))
+			break;
 		++i;
 	}
+	if (!*(g_param[i].pname))
+	{
+		if (is_valid_param(str))
+		{
+			*content = NULL;
+			return (e_bad_substitution);
+		}
+	}
+	else
+		*content = g_param[i].g(str);
 	return (e_success);
 }
 
-size_t	ft_varlen(const char *s, const char *closetag)
+int	getenv_content(char **content, char *str, const char *closetag)
 {
 	size_t	len;
-	char	*end;
+	int	ret;
+	char	c;
 
-	len = 0;
-	if (*s && !*closetag)
-	{
-		while (s[len] && is_a_valid_chr(s[len]))
-			++len;
-	}
-	else if (*s && *closetag)
-	{
-		end = ft_strstr(s, closetag);
-		if (!end)
-			return (len);
-		len = (size_t)(end - s);
-	}
-	return (len);
+	ret = e_success;
+	len = ft_varlen(str, closetag);
+	if (!len)
+		return (e_bad_substitution);
+	c = str[len];
+	str[len] = '\0';
+	ret = parameter_dispacther(content, str);
+	str[len] = c;
+	return (ret);
 }

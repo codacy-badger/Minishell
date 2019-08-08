@@ -98,13 +98,19 @@ int			treat_expansions(char **tokens)
 	i = 0;
 	if (!tokens)
 		return (e_invalid_input);
+	/* Tokens might be wrong, strsplit is not ok */
+	ft_print_tables(tokens);
+	exit(1);
+	/* END debugg */
 	while (tokens[i])
 	{
 		next = tokens[i];
 		while ((next = get_closest_exp(next)))
 		{
 			ref = expansion_dispatcher(next);
-			if ((ret = replace_expansion(&tokens[i], &next, ref)))
+			ret = replace_expansion(&tokens[i], &next, ref);
+			psherror(ret, tokens[i], e_cmd_type);
+			if (ret)
 			{
 				psherror(ret, tokens[i], e_cmd_type);
 				return (ret);
