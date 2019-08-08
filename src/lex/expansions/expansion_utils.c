@@ -18,7 +18,7 @@ static int	is_a_valid_chr(const char c)
 {
 	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		 || (c >= '0' && c <= '9') || c == '_'))
-		return (1);
+		return (c);
 	else
 		return (0);
 }
@@ -46,6 +46,8 @@ size_t	ft_varlen(const char *s, const char *closetag)
 	if (*s && !*closetag)
 	{
 		while (s[len] && is_a_valid_chr(s[len]))
+			++len;
+		if (s[len] == '?' && len == 0)
 			++len;
 	}
 	else if (*s && *closetag)

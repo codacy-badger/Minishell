@@ -14,10 +14,22 @@
 #include "libft.h"
 #include "error.h"
 #include "expansions.h"
+#include "jcont.h"
+
+static char	*getretval(const char *str)
+{
+	(void)str;
+	ft_bzero((void*)g_alret, sizeof(g_alret));
+	/* itoa without malloc, that writes on buffer */
+	g_alret[0] = '1';
+	g_alret[1] = '2';
+	g_alret[2] = '3';
+	return (g_alret);
+}
 
 const struct s_param	g_param[] =
 {
-	{"?", &ft_getenv},
+	{"?", &getretval},
 /*	{"$", &ft_getenv},
 	{"@", &ft_getenv},
 */	{"", &ft_getenv}
@@ -30,7 +42,7 @@ static int	parameter_dispacther(char **content, const char *str)
 	i = 0;
 	while (*(g_param[i].pname))
 	{
-		if (ft_strcmp(g_param[i].pname, str))
+		if (!ft_strcmp(g_param[i].pname, str))
 			break;
 		++i;
 	}
@@ -42,8 +54,7 @@ static int	parameter_dispacther(char **content, const char *str)
 			return (e_bad_substitution);
 		}
 	}
-	else
-		*content = g_param[i].g(str);
+	*content = g_param[i].g(str);
 	return (e_success);
 }
 

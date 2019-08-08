@@ -98,19 +98,17 @@ int			treat_expansions(char **tokens)
 	i = 0;
 	if (!tokens)
 		return (e_invalid_input);
-	/* Tokens might be wrong, strsplit is not ok */
-	ft_print_tables(tokens);
+	/* Tokens might be wrong, strsplit is not ok fpor instance "echo ${LOGNAME }KO" does not work*/
+	/*ft_print_tables(tokens);
 	exit(1);
-	/* END debugg */
+*/	/* END debugg */
 	while (tokens[i])
 	{
 		next = tokens[i];
 		while ((next = get_closest_exp(next)))
 		{
 			ref = expansion_dispatcher(next);
-			ret = replace_expansion(&tokens[i], &next, ref);
-			psherror(ret, tokens[i], e_cmd_type);
-			if (ret)
+			if ((ret = replace_expansion(&tokens[i], &next, ref)))
 			{
 				psherror(ret, tokens[i], e_cmd_type);
 				return (ret);

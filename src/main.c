@@ -22,6 +22,9 @@
 #include "jcont.h"
 #include "synt.h"
 
+char	g_alret[3] = {0};
+int	g_retval = 0;
+
 int	set_minimal_env(void)
 {
 	extern char	**environ;
@@ -36,28 +39,27 @@ int	set_minimal_env(void)
 int	main(int argc, char **argv)
 {
 	extern char	**environ;
-	int			ret;
 	char		*input;
 	char		**args;
 
 	(void)argc;
 	g_progname = argv[0];
 	environ = ft_tabcpy(environ);
-	ret = e_success;
+	g_retval = e_success;
 /*	set_minimal_env();
-*/	while (prompt_display(ret) && get_stdin(&input) >= 0)
+*/	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
 		args = lexer(input);
 		ft_memdel((void**)&input);
 		if (!args)
 			continue;
-		ret = synt(args);
-		if (ret != e_success)
+		g_retval = synt(args);
+		if (g_retval != e_success)
 		{
 			ft_tabdel(&args);
 			continue;
 		}
-		ret = jcont(args, environ);
+		g_retval = jcont(args, environ);
 		ft_tabdel(&args);
 	}
 	ft_tabdel(&environ);

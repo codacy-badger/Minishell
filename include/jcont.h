@@ -15,4 +15,7 @@
 
 int	jcont(char **cmd, char **envp);
 
+extern int	g_retval;
+extern char	g_alret[3];
+
 #endif
