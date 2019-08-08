@@ -66,13 +66,15 @@ static char	*get_closest_exp(char *str)
 
 static int		replace_expansion(char **token, char **next, int ref)
 {
-	char	*new;
-	size_t	lnew;
-	size_t	lprefix;
-	size_t	index;
-	int	ret;
+	static size_t	index;
+	char		*new;
+	size_t		lnew;
+	size_t		lprefix;
+	int		ret;
 
 	ret = e_success;
+	if (*token == *next)
+		index = 0;
 	lprefix = (size_t)((*next) - (*token));
 	if (!(ret = g_tags[ref].f(&index, next, g_tags[ref].opentag, g_tags[ref].closetag)))
 	{

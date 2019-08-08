@@ -25,7 +25,7 @@ static char	*get_retval(const char *str)
 	return (value);
 }
 
-static char	*get_envcontent(const char *str)
+static char	*get_content(const char *str)
 {
 	char	*content;
 	char	*cpy;
@@ -33,6 +33,8 @@ static char	*get_envcontent(const char *str)
 	content = ft_getenv(str);
 	if (content)
 		cpy = ft_strdup(content);
+	else
+		cpy = NULL;
 	return (cpy);
 }
 
@@ -41,7 +43,7 @@ const struct s_param	g_param[] =
 	{"?", &get_retval},
 /*	{"$", NULL},
 	{"@", NULL},
-*/	{"", &get_envcontent}
+*/	{"", &get_content}
 };
 
 static int	parameter_dispacther(char **content, const char *str)
@@ -58,10 +60,7 @@ static int	parameter_dispacther(char **content, const char *str)
 	if (!*(g_param[i].pname))
 	{
 		if (is_valid_param(str))
-		{
-			*content = NULL;
 			return (e_bad_substitution);
-		}
 	}
 	*content = g_param[i].g(str);
 	return (e_success);
