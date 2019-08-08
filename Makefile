@@ -12,17 +12,15 @@
 
 -include minishell.mk
 
+WARNING := -Wall -Wextra -Werror
+ANSI := -ansi
+DEBUGGING := -g
 SANITIZE := -fsanitize=address
 #SANITIZE :=
-
 #OPTIMIZATION := -O2 -fno-builtin
 OPTIMIZATION :=
 
-DEBUGGING := -g
-
-WARNING := -Wall -Wextra -Werror
-
-ANSI := -ansi
+CFLAGS += $(WARNING) $(ANSI) $(DEBUGGING) $(SANITIZE) $(OPTIMIZATION)
 
 .PHONY: all clean fclean re
 
@@ -30,7 +28,7 @@ all: $(NAME)
 
 $(NAME)	: $(OBJECTS)
 	@make lib -j -C $(PATH_LIB)
-	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $(SANITIZE) $^ -o $@ $(LIB)
+	@$(CC) $(CFLAGS) $^ -o $@ $(LIB)
 	@printf "\n\e[38;5;44m%4s [\e[1m$(NAME) built]\n\n\e[0m"
 
 clean:
@@ -49,5 +47,5 @@ test: all
 -include $(DEPENDS)
 
 %.o: %.c Makefile
-	@$(CC) $(WARNING) $(CFLAGS) $(DEBUGGING) $(ANSI) $(SANITIZE) $(INCLUDES) -MMD -MP -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 	@printf "\e[38;5;155m%-24s \e[38;5;37mobject built\n\e[0m" $(notdir $(basename $@))
