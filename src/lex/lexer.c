@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
 #include "libft.h"
 #include "expansions.h"
 
@@ -21,7 +22,7 @@ char	**lexer(char *input)
 	char	**tokens;
 	char	**retsplit;
 
-	retsplit = ft_strsplit_whitespaces(input);
+	retsplit = split_special(input);
 	if (!retsplit || !retsplit[0])
 	{
 		ft_tabdel(&retsplit);
