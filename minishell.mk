@@ -25,6 +25,7 @@ SOURCES :=	main.c \
 			lex/expansions/get_param.c \
 			lex/expansions/parameter_expansions.c \
 			lex/expansions/tilde_expansion.c \
+			lex/separators/unglue_sep.c \
 			synt/synt.c \
 			synt/synt_const.c \
 			jcont/jcont.c \

@@ -13,6 +13,7 @@
 #include "lexer.h"
 #include "libft.h"
 #include "expansions.h"
+#include "separators.h"
 
 /* The lexer should tokenize || ; & && ect even if glued to words
  * example : echo ok;ls||env 
@@ -22,6 +23,7 @@ char	**lexer(char *input)
 	char	**tokens;
 	char	**retsplit;
 
+	unglue_sep(input);
 	retsplit = ft_strsplit_whitespaces(input);
 	if (!retsplit || !retsplit[0])
 	{
