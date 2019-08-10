@@ -22,7 +22,7 @@ char	**lexer(char *input)
 	char	**tokens;
 	char	**retsplit;
 
-	retsplit = split_special(input);
+	retsplit = ft_strsplit_whitespaces(input);
 	if (!retsplit || !retsplit[0])
 	{
 		ft_tabdel(&retsplit);

@@ -20,7 +20,6 @@ SOURCES :=	main.c \
 			input/prompt.c \
 			input/input.c \
 			lex/lexer.c \
-			lex/split_special.c \
 			lex/expansions/expansions.c \
 			lex/expansions/expansion_utils.c \
 			lex/expansions/get_param.c \
@@ -56,3 +55,4 @@ TESTS_PATH := ./tools/tests/
 TESTS_SCRIPT := launch_test.sh "launch from makefile"
 
 CFLAGS += -fsanitize=address
+#CFLAGS += -fno-builtin -O2

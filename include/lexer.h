@@ -13,7 +13,6 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-char	**split_special(char *str);
 char	**lexer(char *input);
 
 #endif
