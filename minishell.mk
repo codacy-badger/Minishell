@@ -49,6 +49,10 @@ LIB = $(PATH_LIB)libft.a
 
 DEPENDS := $(patsubst %.c,%.d,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 
+SH := bash
+
 TESTS_PATH := ./tools/tests/
 
 TESTS_SCRIPT := launch_test.sh "launch from makefile"
+
+CFLAGS += -fsanitize=address

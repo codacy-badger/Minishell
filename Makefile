@@ -12,36 +12,29 @@
 
 -include minishell.mk
 
-#OPTIMIZATION	:= -O2 -fno-builtin
-OPTIMIZATION	:=
-DEBUGGING	:= -g
-SANITIZE	:= -fsanitize=address
-WARNING		:= -Wall -Wextra -Werror
-ANSI		:= -ansi
-
-CFLAGS += $(WARNING) $(ANSI) $(DEBUGGING) $(SANITIZE) $(OPTIMIZATION)
+CFLAGS += -g -ansi -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME)	: $(OBJECTS)
-	@make lib -j -C $(PATH_LIB)
+	@$(MAKE) lib -j -C $(PATH_LIB)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LIB)
 	@printf "\n\e[38;5;44m%4s [\e[1m$(NAME) built]\n\n\e[0m"
 
 clean:
 	@$(RM) $(OBJECTS) $(DEPENDS)
-	@make clean -C $(PATH_LIB)
+	@$(MAKE) clean -C $(PATH_LIB)
 
 fclean:
 	@$(RM) $(OBJECTS) $(DEPENDS) $(NAME)
-	@make fclean -C $(PATH_LIB)
+	@$(MAKE) fclean -C $(PATH_LIB)
 
 re: fclean $(NAME)
 
 test: all
-	@bash $(TESTS_PATH)$(TESTS_SCRIPT)
+	@$(SH) $(TESTS_PATH)$(TESTS_SCRIPT)
 
 -include $(DEPENDS)
 
