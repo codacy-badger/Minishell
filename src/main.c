@@ -27,16 +27,27 @@ int		g_retval;
 static int	set_minimal_env(void)
 {
 	/* call env setenv ft 
-	   PWD=/home/antoine/Minishell
-	   SHLVL=1
 	   _=/usr/bin/env*/
-	char	*cwd;
+	char	*tmp;
+	int	shlvl;
 
-	cwd = getcwd(NULL, 0);
-	if (ft_setenv("PWD", cwd, 1)
-		|| ft_setenv("SHLVL", "1", 1))
+	tmp = getcwd(NULL, 0);
+	if (ft_setenv("PWD", tmp, 1))
 		return (e_cannot_allocate_memory);
-	ft_memdel((void**)&cwd);
+	ft_memdel((void**)&tmp);
+	if (!(tmp = ft_getenv("SHLVL")))
+	{
+		if (ft_setenv("SHLVL", "1", 1))
+			return (e_cannot_allocate_memory);
+	}
+	else
+	{
+		shlvl = ft_atoi(tmp) + 1;
+		tmp = ft_itoa(shlvl);
+		if (ft_setenv("SHLVL", tmp, 1))
+			return (e_cannot_allocate_memory);
+		ft_memdel((void**)&tmp);
+	}
 	return (e_success);
 }
 
