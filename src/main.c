@@ -22,20 +22,25 @@
 #include "jcont.h"
 #include "synt.h"
 
-int	g_retval;
+int		g_retval;
 
-int	set_minimal_env(void)
+static int	set_minimal_env(void)
 {
-	extern char	**environ;
 	/* call env setenv ft 
 	   PWD=/home/antoine/Minishell
 	   SHLVL=1
 	   _=/usr/bin/env*/
-	ft_print_tables(environ);
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (ft_setenv("PWD", cwd, 1)
+		|| ft_setenv("SHLVL", "1", 1))
+		return (e_cannot_allocate_memory);
+	ft_memdel((void**)&cwd);
 	return (e_success);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	extern char	**environ;
 	char		*input;
@@ -45,8 +50,8 @@ int	main(int argc, char **argv)
 	g_progname = argv[0];
 	environ = ft_tabcpy(environ);
 	g_retval = e_success;
-/*	set_minimal_env();
-*/	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
+	set_minimal_env();
+	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
 		args = lexer(&input);
 		ft_memdel((void**)&input);
