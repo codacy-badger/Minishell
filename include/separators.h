@@ -18,6 +18,6 @@ struct	s_separators
 	char	*sep;
 };
 
-char	*unglue_sep(char *s);
+int	unglue_sep(char **input);
 
 #endif

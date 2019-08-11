@@ -38,6 +38,6 @@ test: all
 
 -include $(DEPENDS)
 
-%.o: %.c Makefile
+%.o: %.c Makefile $(NAME).mk
 	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 	@printf "\e[38;5;155m%-24s \e[38;5;37mobject built\n\e[0m" $(notdir $(basename $@))

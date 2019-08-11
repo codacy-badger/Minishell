@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 /*	set_minimal_env();
 */	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
-		args = lexer(input);
+		args = lexer(&input);
 		ft_memdel((void**)&input);
 		if (!args)
 			continue;

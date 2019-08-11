@@ -18,13 +18,13 @@
 /* The lexer should tokenize || ; & && ect even if glued to words
  * example : echo ok;ls||env 
  * It manages expansions subsitution in ech tokens*/
-char	**lexer(char *input)
+char	**lexer(char **input)
 {
 	char	**tokens;
 	char	**retsplit;
 
 	unglue_sep(input);
-	retsplit = ft_strsplit_whitespaces(input);
+	retsplit = ft_strsplit_whitespaces(*input);
 	if (!retsplit || !retsplit[0])
 	{
 		ft_tabdel(&retsplit);

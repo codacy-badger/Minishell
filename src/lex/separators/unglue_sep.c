@@ -10,34 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 #include "separators.h"
+#include "error.h"
 
 const struct s_separators	g_separators[] =
 {
 	{";"},
 	{"\0"}
 };
-/*
-static _Bool	isseparator(char *s)
-{
-	size_t	len;
-	size_t	i;
 
-	i = 0;
-	while ((len = ft_strlen(g_separators[i].sep))
-			&& ft_strncmp(g_separators[i].sep, s, len))
-	{
-		ft_printf("-|%s\n", s);
-		++i;
-	}
-	if (!len)
-		return (0);
-	else
-		return (1);
-}
-*/
-static char	*get_closest_sep(char *str)
+static char	*get_closest_sep(char *str, int *lsep)
 {
 	int	i;
 	char	*ptr;
@@ -49,23 +33,59 @@ static char	*get_closest_sep(char *str)
 	{
 		ptr = ft_strstr(str, g_separators[i].sep);
 		if (ptr && (!closest || (ptr < closest && closest)))
+		{
+			*lsep = ft_strlen(g_separators[i].sep);
 			closest = ptr;
+		}
 		++i;
 	}
 	return (closest);
 }
 
-char	*unglue_sep(char *input)
+static char	*extend(char *prefix, char *ptr, size_t lprefix, int lsep)
 {
+	int	lsep_cpy;
+	size_t	len;
+	char	*new;
+
+	lsep_cpy = lsep;
+	len = ft_strlen(prefix) + 2;
+	if (!(new = (char*)ft_memalloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	ft_strncpy(new, prefix, lprefix);
+	new[lprefix] = ' ';
+	while (lsep_cpy)
+	{
+		new[lprefix + lsep_cpy] = *ptr;
+		--lsep_cpy;
+		++ptr;
+	}
+	new[lprefix + lsep + 1] = ' ';
+	ft_strcat(new, ptr);
+	/* need to protect everything in ft and add value ret for e_cannot allocate memory */
+	return (new);
+}
+
+int	unglue_sep(char **input)
+{
+	int	lsep;
+	size_t	lprefix;
 	char	*new;
 	char	*ptr;
+	char	*origin;
 
-	new = input;
-	while ((ptr = get_closest_sep(new)))
+	new = *input;
+	origin = *input;
+	lprefix = 0;
+	lsep = 0;
+	while ((ptr = get_closest_sep(&new[lprefix + lsep], &lsep)))
 	{
-		ft_printf("%s\n", ptr);
-		new = ptr;
-		/* HERE IT ENDS FOR TODAY */
+		lprefix = (size_t)(ptr - origin);
+		new = extend(origin, ptr, lprefix, lsep);
+		origin = new;
+		ft_memdel((void**)input);
+		*input = new;
+		lsep += 2;
 	}
-	return (new);
+	return (e_success);
 }
