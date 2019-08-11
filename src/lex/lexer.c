@@ -23,7 +23,8 @@ char	**lexer(char **input)
 	char	**tokens;
 	char	**retsplit;
 
-	unglue_sep(input);
+	if (unglue_sep(input))
+		return (NULL);
 	retsplit = ft_strsplit_whitespaces(*input);
 	if (!retsplit || !retsplit[0])
 	{

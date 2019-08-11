@@ -62,7 +62,6 @@ static char	*extend(char *prefix, char *ptr, size_t lprefix, int lsep)
 	}
 	new[lprefix + lsep + 1] = ' ';
 	ft_strcat(new, ptr);
-	/* need to protect everything in ft and add value ret for e_cannot allocate memory */
 	return (new);
 }
 
@@ -72,17 +71,15 @@ int	unglue_sep(char **input)
 	size_t	lprefix;
 	char	*new;
 	char	*ptr;
-	char	*origin;
 
 	new = *input;
-	origin = *input;
 	lprefix = 0;
 	lsep = 0;
 	while ((ptr = get_closest_sep(&new[lprefix + lsep], &lsep)))
 	{
-		lprefix = (size_t)(ptr - origin);
-		new = extend(origin, ptr, lprefix, lsep);
-		origin = new;
+		lprefix = (size_t)(ptr - *input);
+		if (!(new = extend(*input, ptr, lprefix, lsep)))
+			return (e_cannot_allocate_memory);
 		ft_memdel((void**)input);
 		*input = new;
 		lsep += 2;
