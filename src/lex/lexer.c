@@ -12,6 +12,7 @@
 
 #include "lexer.h"
 #include "libft.h"
+#include "error.h"
 #include "expansions.h"
 #include "separators.h"
 
@@ -22,9 +23,13 @@ char	**lexer(char **input)
 {
 	char	**tokens;
 	char	**retsplit;
+	int	ret;
 
-	if (unglue_sep(input))
+	if ((ret = unglue_sep(input)))
+	{
+		psherror(ret, g_progname, e_cmd_type);
 		return (NULL);
+	}
 	retsplit = ft_strsplit_whitespaces(*input);
 	if (!retsplit || !retsplit[0])
 	{

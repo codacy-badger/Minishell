@@ -26,8 +26,6 @@ int		g_retval;
 
 static int	set_minimal_env(void)
 {
-	/* call env setenv ft 
-	   _=/usr/bin/env*/
 	char	*tmp;
 	int	shlvl;
 
@@ -59,9 +57,18 @@ int		main(int argc, char **argv)
 
 	(void)argc;
 	g_progname = argv[0];
-	environ = ft_tabcpy(environ);
+	if (!(environ = ft_tabcpy(environ)))
+	{
+		psherror(e_cannot_allocate_memory, argv[0], e_cmd_type);
+		return (1);
+	}
 	g_retval = e_success;
-	set_minimal_env();
+	if ((g_retval = set_minimal_env()))
+	{
+		psherror(g_retval, argv[0], e_cmd_type);
+		ft_tabdel(&environ);
+		return (1);
+	}
 	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
 		args = lexer(&input);
