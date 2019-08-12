@@ -13,12 +13,34 @@
 #include <unistd.h>
 #include "libft.h"
 #include "error.h"
-#include "expansions.h"
 
 static void	print_setenv_syntax_error(char *cmd_name, char *str)
 {
 	ft_dprintf(STDERR_FILENO, "%s: %s: \'%s\': not a valid identifier\n",
 					g_progname, cmd_name, str);
+}
+
+static int	is_valid_chr(const char c)
+{
+	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		 || (c >= '0' && c <= '9') || c == '_' || c == '/'))
+		return (1);
+	else
+		return (0);
+}
+
+static int	has_invalid_syntax(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_valid_chr(str[i]))
+			return (e_invalid_input);
+		++i;
+	}
+	return (e_success);
 }
 
 int		cmd_setenv(int argc, char **argv)
@@ -29,12 +51,12 @@ int		cmd_setenv(int argc, char **argv)
 		ft_dprintf(STDERR_FILENO, "Usage: %s VAR [VALUE]\n", argv[0]);
 		return (g_errordesc[e_invalid_input].code);
 	}
-	if (is_valid_param(argv[1]) != e_success)
+	if (has_invalid_syntax(argv[1]))
 	{
 		print_setenv_syntax_error(argv[0], argv[1]);
 		return (g_errordesc[e_invalid_input].code);
 	}
-	else if (is_valid_param(argv[2]) != e_success)
+	else if (has_invalid_syntax(argv[2]))
 	{
 		print_setenv_syntax_error(argv[0], argv[2]);
 		return (g_errordesc[e_invalid_input].code);

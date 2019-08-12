@@ -14,6 +14,12 @@
 # define BUILTINS_H
 
 /*
+** Utils for builtins
+*/
+int				ft_putenv_table(char ***env, const char *name,
+				const char *value, int overwrite);
+
+/*
 ** Functions in builtins.c
 */
 int				cmd_setenv(int argc, char **argv);
