@@ -27,6 +27,12 @@ int		cmd_env(int argc, char **argv)
 	while ((opt = ft_getopt(argc, argv, ":i")) != -1)
 		if (opt == 'i')
 			i |= 1;
+	if (g_optind == 1) /* case only env */
+	{
+		ft_print_tables(environ);
+		g_optind = 0;
+		return (0);
+	}
 	if (i)
 	{
 		if (argv[2])
