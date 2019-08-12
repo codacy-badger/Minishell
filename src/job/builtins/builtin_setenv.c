@@ -16,7 +16,11 @@
 
 int		cmd_setenv(int argc, char **argv)
 {
-	(void)argv;
-	(void)argc;
+	if (argc != 3)
+	{
+		psherror(e_invalid_input, argv[0], e_cmd_type);
+		ft_dprintf(STDERR_FILENO, "Usage: %s VAR [VALUE]\n", argv[0]);
+		return (g_errordesc[e_invalid_input].code);
+	}
 	return (0);
 }
