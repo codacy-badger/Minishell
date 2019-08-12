@@ -36,6 +36,7 @@ SOURCES :=	main.c \
 			job/builtins/builtin_env.c \
 			job/builtins/builtin_exit.c \
 			job/builtins/builtin_pwd.c \
+			job/builtins/builtin_setenv.c \
 			job/builtins/builtins_dispatcher.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))

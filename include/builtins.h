@@ -16,6 +16,7 @@
 /*
 ** Functions in builtins.c
 */
+int				cmd_setenv(int argc, char **argv);
 int				cmd_echo(int agrc, char **argv);
 int				cmd_exit(int argc, char **argv);
 int				cmd_env(int argc, char **argv);

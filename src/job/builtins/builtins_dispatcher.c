@@ -20,6 +20,7 @@ static const t_builtins	g_builtins[] =
 	{ "echo", &cmd_echo},
 	{ "exit", &cmd_exit},
 	{ "env", &cmd_env},
+	{ "setenv", &cmd_setenv},
 	{ "pwd", &cmd_pwd},
 	{ "cd", &cmd_cd},
 	{ "\0", NULL}
@@ -31,17 +32,11 @@ static void	*dispatcher(char *cmd)
 
 	i = 0;
 	while (g_builtins[i].key[0] && ft_strcmp(cmd, g_builtins[i].key))
-	{
 		++i;
-	}
 	if (!(g_builtins[i].key[0]))
-	{
 		return (NULL);
-	}
 	else
-	{
 		return ((void*)g_builtins[i].f);
-	}
 }
 
 int			builtins_dispatcher(char **argv)
