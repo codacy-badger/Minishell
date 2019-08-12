@@ -31,12 +31,11 @@ SOURCES :=	main.c \
 			jcont/jcont.c \
 			job/job.c \
 			job/path_concat.c \
-			job/builtins/builtins_cd.c \
-			job/builtins/builtins_echo.c \
-			job/builtins/builtins_env.c \
-			job/builtins/builtins_exit.c \
-			job/builtins/builtins_pwd.c \
-			job/builtins/builtins_dispatcher.c \
+			job/builtins/builtin_cd.c \
+			job/builtins/builtin_echo.c \
+			job/builtins/builtin_env.c \
+			job/builtins/builtin_exit.c \
+			job/builtins/builtin_pwd.c \
 			job/builtins/builtins_dispatcher.c \
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))

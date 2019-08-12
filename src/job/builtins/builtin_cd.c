@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_echo.c                                    :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/21 19:13:09 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/01 12:43:08 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+/*
+** https://www.unix.com/man-page/posix/1posix/cd/
+*/
 
-int	cmd_echo(char **argv)
+int	cmd_cd(int argc, char **argv)
 {
-	int	i;
-
-	i = 1;
-	while (argv[i])
-	{
-		if (argv[i + 1])
-		{
-			ft_printf("%s ", argv[i]);
-		}
-		else
-		{
-			ft_printf("%s\n", argv[i]);
-		}
-		++i;
-	}
+	(void)argc;
+	(void)argv;
+	
 	return (0);
 }

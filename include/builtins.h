@@ -16,11 +16,11 @@
 /*
 ** Functions in builtins.c
 */
-int				cmd_echo(char **argv);
-int				cmd_exit(char **argv);
-int				cmd_env(char **argv);
-int				cmd_pwd(char **argv);
-int				cmd_cd(char **argv);
+int				cmd_echo(int agrc, char **argv);
+int				cmd_exit(int argc, char **argv);
+int				cmd_env(int argc, char **argv);
+int				cmd_pwd(int argc, char **argv);
+int				cmd_cd(int argc, char **argv);
 
 /*
 ** Functions in builtins_dispatcher.c
@@ -29,7 +29,7 @@ int				builtins_dispatcher(char **argv);
 typedef struct	s_builtins
 {
 	char	*key;
-	int		(*f)(char**);
+	int		(*f)(int, char**);
 }				t_builtins;
 
 #endif

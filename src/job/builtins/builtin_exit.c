@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_cd.c                                      :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/01 12:43:08 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:14:19 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** https://www.unix.com/man-page/posix/1posix/cd/
-*/
+#include <unistd.h>
+#include "libft.h"
 
-int	cmd_cd(char **argv)
+int	cmd_exit(int argc, char **argv)
 {
-	(void)argv;
-	
-	return (0);
+	extern char **environ;
+
+	(void)argc;
+	ft_tabdel(&argv);
+	ft_tabdel(&environ);
+	exit(0);
 }

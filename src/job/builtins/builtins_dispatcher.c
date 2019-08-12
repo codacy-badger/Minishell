@@ -46,13 +46,17 @@ static void	*dispatcher(char *cmd)
 
 int			builtins_dispatcher(char **argv)
 {
-	int			(*f)(char**);
+	int			(*f)(int, char**);
 	int			ret;
+	int			argc;
 
+	argc = 0;
 	ret = e_command_not_found;
 	if ((f = dispatcher(*argv)))
 	{
-		ret = f(argv);
+		while (argv[argc])
+			++argc;
+		ret = f(argc, argv);
 	}
 	return (ret);
 }
