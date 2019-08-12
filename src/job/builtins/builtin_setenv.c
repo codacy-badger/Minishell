@@ -22,5 +22,10 @@ int		cmd_setenv(int argc, char **argv)
 		ft_dprintf(STDERR_FILENO, "Usage: %s VAR [VALUE]\n", argv[0]);
 		return (g_errordesc[e_invalid_input].code);
 	}
-	return (0);
+	else
+	{
+		if ((ft_setenv(argv[1], argv[2], 1)))
+			return (g_errordesc[e_cannot_allocate_memory].code);
+	}
+	return (e_success);
 }
