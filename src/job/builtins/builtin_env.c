@@ -58,8 +58,20 @@ int		cmd_env(int argc, char **argv)
 		set_envcpy(argv[g_optind], &env_copy, pequal);
 		++g_optind;
 	}
-	job(&argv[g_optind], env_copy);
-/*	ft_tabdel(&test);
+	ft_printf("before:");
+	ft_printf("environ%s", *environ); /* there is a free in ft_putenv_table that clear the environ
+					     it should not be there*/
+/*	ft_print_tables(environ);
+	ft_print_tables(env_copy);
+*/	job(&argv[g_optind], env_copy);
+	ft_printf("after:");
+	ft_printf("environ%s", (char*)environ);
+/*	ft_print_tables(environ);
+	ft_print_tables(env_copy);
+*//*	ft_printf("%s\n", (char*)env_copy);
+	ft_tabdel(&env_copy);
+	env_copy = NULL;
+	ft_printf("%s\n", (char*)env_copy);
 */	g_optind = 0;
 	return (0);
 }

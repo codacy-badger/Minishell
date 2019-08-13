@@ -16,3 +16,7 @@ echo shouldreturn0
 ./minishell
 exit -257
 echo shouldreturn255
+./minishell
+sfasfdasdfsafsa
+exit
+echo shouldreturn127

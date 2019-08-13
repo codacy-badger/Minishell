@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+
 #include "libft.h"
 #include "error.h"
+#include "jcont.h"
 
 int	cmd_exit(int argc, char **argv)
 {
 	extern char	**environ;
 	unsigned char	status;
 
-	status = 0;
+	status = g_retval;
 	if (argc == 2)
 	{
 		if (*argv[1]
