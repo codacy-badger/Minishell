@@ -18,6 +18,7 @@
 */
 int				ft_putenv_table(char ***env, const char *name,
 				const char *value, int overwrite);
+int				is_a_builtin(char *cmd);
 
 /*
 ** Functions in builtins.c

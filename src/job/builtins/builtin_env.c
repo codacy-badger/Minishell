@@ -65,9 +65,15 @@ int		cmd_env(int argc, char **argv)
 		set_envcpy(argv[g_optind], &env_copy, pequal);
 		++g_optind;
 	}
-	job(&argv[g_optind], env_copy);
+	if (argv[g_optind] && !is_a_builtin(argv[g_optind]))
+		opt = job(&argv[g_optind], env_copy);
+	else
+	{
+		psherror(e_invalid_input, "[builtin [argument...]]", e_cmd_type);
+		ft_dprintf(STDERR_FILENO, "Usage: env [-i] [name=value]... [utility [argument...]]\n");
+		opt = 1;
+	}
 	ft_tabdel(&env_copy);
-/*	env_copy = NULL;
-*/	g_optind = 0;
-	return (0);
+	g_optind = 0;
+	return (opt);
 }

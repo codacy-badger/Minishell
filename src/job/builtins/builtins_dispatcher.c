@@ -39,6 +39,14 @@ static void	*dispatcher(char *cmd)
 		return ((void*)g_builtins[i].f);
 }
 
+int		is_a_builtin(char *cmd)
+{
+	if (dispatcher(cmd))
+		return (1);
+	else
+		return (0);
+}
+
 int			builtins_dispatcher(char **argv)
 {
 	int			(*f)(int, char**);
