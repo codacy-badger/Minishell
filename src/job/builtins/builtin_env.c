@@ -59,6 +59,7 @@ int		cmd_env(int argc, char **argv)
 		++g_optind;
 	}
 	job(&argv[g_optind], env_copy);
+	ft_tabdel(&env_copy);
 	g_optind = 0;
 	return (0);
 }
