@@ -14,10 +14,39 @@
 ** https://www.unix.com/man-page/posix/1posix/cd/
 */
 
-int	cmd_cd(int argc, char **argv)
+#include <unistd.h>
+
+#include "libft.h"
+#include "error.h"
+
+static int	refresh_pwd(void)
 {
-	(void)argc;
-	(void)argv;
-	
+	char	*cwd;
+
+	if (!(cwd = getcwd(NULL, 0)))
+		return (e_system_call_error);
+	if (ft_setenv("PWD", cwd, 1))
+		return (e_cannot_allocate_memory);
+	ft_memdel((void**)&cwd);
 	return (0);
+}
+
+int		cmd_cd(int argc, char **argv)
+{
+	int	ret;
+
+	(void)argc;
+	/* options are to be parsed */
+	ret = e_success;
+	if (chdir(argv[1]))
+	{
+		psherror(e_system_call_error, argv[0], e_cmd_type);
+		return (g_errordesc[e_system_call_error].code);
+	}
+	if ((ret = refresh_pwd()))
+	{
+		psherror(ret, argv[0], e_cmd_type);
+		return (g_errordesc[ret].code);
+	}
+	return (ret);
 }
