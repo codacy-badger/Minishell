@@ -42,6 +42,37 @@ static int	change_dir(const char *path)
 	return (e_success);
 }
 
+static int	cdpath_concat(char **path)
+{
+	char	*beg;
+	char	*env;
+	char	*dir;
+	char	*pathname;
+
+	if (!(beg = ft_getenv("CDPATH")))
+	{
+		ft_memdel((void**)path);
+		return (e_command_not_found);
+	}
+	env = ft_strdup(beg);
+	beg = env;
+	while ((dir = ft_strsep(&env, ":")))
+	{
+		pathname = ft_strnjoin(3, dir, "/", *path);
+		if (!access(pathname, F_OK))
+			break;
+		ft_memdel((void**)&pathname);
+	}
+	ft_memdel((void**)&beg);
+	ft_memdel((void**)path);
+	if (dir)
+	{
+		*path = pathname;
+		return (e_success);
+	}
+	return (e_command_not_found);
+}
+
 int		cmd_cd(int argc, char **argv)
 {
 	char	*path;
@@ -49,7 +80,9 @@ int		cmd_cd(int argc, char **argv)
 
 	(void)argc;
 	ret = e_success;
+
 	/* options are to be parsed */
+
 	if (argc < 2)
 	{
 		if (!(path = ft_getenv("HOME")))
@@ -57,7 +90,11 @@ int		cmd_cd(int argc, char **argv)
 				return (1);
 	}
 	else
-		path = argv[1];
+	{
+		path = ft_strdup(argv[1]);
+		if (cdpath_concat(&path))
+			path = argv[1];
+	}
 	if ((ret = change_dir(path)))
 	{
 		if (ret != e_invalid_input)
@@ -72,5 +109,11 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
+	if (argv[1] != path) /* free is path has been allocated */
+	{
+		ft_printf("%s\n", path);
+		ft_memdel((void**)&path);
+	}
 	return (ret);
 }
+
