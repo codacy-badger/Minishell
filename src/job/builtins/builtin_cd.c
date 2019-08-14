@@ -36,7 +36,7 @@ static int	change_dir(const char *path)
 	int	ret;
 
 	if (chdir(path))
-		return (e_system_call_error);
+		return (e_invalid_input);
 	if ((ret = refresh_pwd()))
 		return (ret);
 	return (e_success);
@@ -60,8 +60,17 @@ int		cmd_cd(int argc, char **argv)
 		path = argv[1];
 	if ((ret = change_dir(path)))
 	{
-		psherror(ret, argv[0], e_cmd_type);
-		return (g_errordesc[ret].code);
+		if (ret != e_invalid_input)
+		{
+			psherror(ret, argv[0], e_cmd_type);
+			return (g_errordesc[ret].code);
+		}
+		else
+		{
+			ft_dprintf(STDERR_FILENO, "%s: %s: %s: %s\n",
+			g_progname, argv[0], path, g_errordesc[e_no_such_file_or_directory].message);
+			return (e_invalid_input);
+		}
 	}
 	return (ret);
 }
