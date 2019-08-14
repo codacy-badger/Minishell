@@ -19,6 +19,29 @@
 #include "libft.h"
 #include "error.h"
 
+static int	set_oldpwd(void)
+{
+	char	*cwd;
+	_Bool	allocated;
+
+	allocated = 0;
+	if (!(cwd = ft_getenv("PWD")))
+	{
+		allocated = 1;
+		if (!(cwd = getcwd(NULL, 0)))
+			return (e_system_call_error);
+	}
+	if (ft_setenv("OLDPWD", cwd, 1))
+	{
+		if (allocated)
+			ft_memdel((void**)&cwd);
+		return (e_cannot_allocate_memory);
+	}
+	if (allocated)
+		ft_memdel((void**)&cwd);
+	return (0);
+}
+
 static int	refresh_pwd(void)
 {
 	char	*cwd;
@@ -37,6 +60,8 @@ static int	change_dir(const char *path)
 
 	if (chdir(path))
 		return (e_invalid_input);
+	if ((ret = set_oldpwd()))
+		return (ret);
 	if ((ret = refresh_pwd()))
 		return (ret);
 	return (e_success);
@@ -76,6 +101,7 @@ static int	cdpath_concat(char **path)
 int		cmd_cd(int argc, char **argv)
 {
 	char	*path;
+	char	*oldpwd;
 	int	ret;
 
 	(void)argc;
@@ -88,6 +114,12 @@ int		cmd_cd(int argc, char **argv)
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
+	}
+	else if (!ft_strcmp(argv[1], "-"))
+	{
+		if (!(oldpwd = ft_getenv("OLDPWD")))
+			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
+		path = ft_strdup(oldpwd);
 	}
 	else
 	{
@@ -116,4 +148,3 @@ int		cmd_cd(int argc, char **argv)
 	}
 	return (ret);
 }
-
