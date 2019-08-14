@@ -109,6 +109,7 @@ int		cmd_cd(int argc, char **argv)
 
 	/* options are to be parsed */
 
+	path = ft_strdup(argv[1]);
 	if (argc < 2)
 	{
 		if (!(path = ft_getenv("HOME")))
@@ -118,7 +119,10 @@ int		cmd_cd(int argc, char **argv)
 	else if (!ft_strcmp(argv[1], "-"))
 	{
 		if (!(oldpwd = ft_getenv("OLDPWD")))
+		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
+			return (e_invalid_input);
+		}
 		path = ft_strdup(oldpwd);
 	}
 	else
