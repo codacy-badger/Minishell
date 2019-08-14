@@ -23,6 +23,7 @@ int				is_a_builtin(char *cmd);
 /*
 ** Functions in builtins.c
 */
+int				cmd_unsetenv(int argc, char **argv);
 int				cmd_setenv(int argc, char **argv);
 int				cmd_echo(int agrc, char **argv);
 int				cmd_exit(int argc, char **argv);

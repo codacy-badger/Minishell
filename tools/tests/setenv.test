@@ -2,6 +2,9 @@ setenv
 setenv PATH
 env
 setenv PATH /bin
+setenv PATH /usr/bin
+setenv PATH /usr//bin
+setenv PATH /bin
 env
 setenv PATH /bin/
 env

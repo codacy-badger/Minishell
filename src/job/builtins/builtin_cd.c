@@ -31,19 +31,34 @@ static int	refresh_pwd(void)
 	return (0);
 }
 
-int		cmd_cd(int argc, char **argv)
+static int	change_dir(const char *path)
 {
 	int	ret;
 
-	(void)argc;
-	/* options are to be parsed */
-	ret = e_success;
-	if (chdir(argv[1]))
-	{
-		psherror(e_system_call_error, argv[0], e_cmd_type);
-		return (g_errordesc[e_system_call_error].code);
-	}
+	if (chdir(path))
+		return (e_system_call_error);
 	if ((ret = refresh_pwd()))
+		return (ret);
+	return (e_success);
+}
+
+int		cmd_cd(int argc, char **argv)
+{
+	char	*path;
+	int	ret;
+
+	(void)argc;
+	ret = e_success;
+	/* options are to be parsed */
+	if (argc < 2)
+	{
+		if (!(path = ft_getenv("HOME")))
+			if (!(path = ft_getenv("PWD")))
+				return (1);
+	}
+	else
+		path = argv[1];
+	if ((ret = change_dir(path)))
 	{
 		psherror(ret, argv[0], e_cmd_type);
 		return (g_errordesc[ret].code);

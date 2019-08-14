@@ -52,18 +52,18 @@ static int		ft_unset_alloc_env(const char *name)
 
 	if (!name || !*name || ft_strstr(name, "="))
 	{
-		g_errno = EINVAL;
-		errno = EINVAL;
+		g_errno = E_EINVAL;
 		return (-1);
 	}
 	else
 	{
 		if (!(dst = getenvvar(name)))
 			return (0);
-		free(dst);
+		ft_memdel((void**)dst);
 		src = dst + 1;
 		tlen = ft_tablen(src);
 		ft_memmove(dst, src, sizeof(char*) * tlen);
+		dst[tlen] = NULL;
 		return (0);
 	}
 }

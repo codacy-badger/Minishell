@@ -22,6 +22,7 @@ static const t_builtins	g_builtins[] =
 	{ "exit", &cmd_exit},
 	{ "env", &cmd_env},
 	{ "setenv", &cmd_setenv},
+	{ "unsetenv", &cmd_unsetenv},
 	{ "pwd", &cmd_pwd},
 	{ "cd", &cmd_cd},
 	{ "\0", NULL}

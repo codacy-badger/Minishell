@@ -37,6 +37,7 @@ SOURCES :=	main.c \
 			job/builtins/builtin_exit.c \
 			job/builtins/builtin_pwd.c \
 			job/builtins/builtin_setenv.c \
+			job/builtins/builtin_unsetenv.c \
 			job/builtins/builtins_dispatcher.c \
 			job/builtins/ft_putenv_table.c \
 
