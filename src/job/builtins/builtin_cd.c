@@ -16,9 +16,10 @@
 
 #include <unistd.h>
 
+#include "ft_getopt.h"
 #include "libft.h"
 #include "error.h"
-
+/*
 static int	set_oldpwd(void)
 {
 	char	*cwd;
@@ -97,24 +98,52 @@ static int	cdpath_concat(char **path)
 	}
 	return (e_command_not_found);
 }
-
+*/
 int		cmd_cd(int argc, char **argv)
 {
-	char	*path;
+/*	char	*path;
 	char	*oldpwd;
+*/	int	opt;
 	int	ret;
+	_Bool	p;
 
-	(void)argc;
+	/* set variables */
 	ret = e_success;
+	p = 0;
+ 	
+	/* parse options */
+	g_opterr = 1;
+	while ((opt = ft_getopt(argc, argv, "LP")) != -1)
+	{
+		if (opt == 'P')
+			p |= 1;
+		else if (opt == '?')
+		{
+			ft_dprintf(STDERR_FILENO, "%1$s: usage: %1$s [-L|-P] [dir]\n", argv[0]);
+			return (2);
+		}
+	}
 
-	/* options are to be parsed */
-
-	path = ft_strdup(argv[1]);
-	if (argc < 2)
+	ft_printf("%s\n", argv[g_optind]);
+	
+	
+	
+	/* case no arg */
+/*	if (argc < 2)
 	{
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
+		path = ft_strdup(path);
+	}
+
+
+
+
+
+
+
+	path = ft_strdup(argv[1]);
 	}
 	else if (!ft_strcmp(argv[1], "-"))
 	{
@@ -145,10 +174,10 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-	if (argv[1] != path) /* free is path has been allocated */
+	if (argv[1] != path)
 	{
 		ft_printf("%s\n", path);
 		ft_memdel((void**)&path);
 	}
-	return (ret);
+*/	return (ret);
 }
