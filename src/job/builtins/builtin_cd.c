@@ -19,7 +19,7 @@
 #include "ft_getopt.h"
 #include "libft.h"
 #include "error.h"
-/*
+
 static int	set_oldpwd(void)
 {
 	char	*cwd;
@@ -43,19 +43,29 @@ static int	set_oldpwd(void)
 	return (0);
 }
 
-static int	refresh_pwd(void)
+static int	refresh_pwd(const char *path, _Bool p)
 {
 	char	*cwd;
 
-	if (!(cwd = getcwd(NULL, 0)))
-		return (e_system_call_error);
+	if (p)
+	{
+		if (!(cwd = getcwd(NULL, 0)))
+			return (e_system_call_error);
+	}
+	else
+	{ /* to concat in a logical way */
+		ft_printf("adding: %s\n", path);
+		ft_printf("pwd: %s\n", ft_getenv("PWD"));
+		if (!(cwd = getcwd(NULL, 0)))
+			return (e_system_call_error);
+	}
 	if (ft_setenv("PWD", cwd, 1))
 		return (e_cannot_allocate_memory);
 	ft_memdel((void**)&cwd);
 	return (0);
 }
 
-static int	change_dir(const char *path)
+static int	change_dir(const char *path, _Bool p)
 {
 	int	ret;
 
@@ -63,11 +73,11 @@ static int	change_dir(const char *path)
 		return (e_invalid_input);
 	if ((ret = set_oldpwd()))
 		return (ret);
-	if ((ret = refresh_pwd()))
+	if ((ret = refresh_pwd(path, p)))
 		return (ret);
 	return (e_success);
 }
-*/
+
 static int	non_concatenable_operand(const char *str)
 {
 	if (*str == '.')
@@ -161,8 +171,11 @@ int		cmd_cd(int argc, char **argv)
 	_Bool	p;
 
 	path = NULL;
+
+	/* Parse options */
 	if ((ret = parse_opt(argc, argv, &p)))
 		return (ret);
+
 	/* Set path for the changedir call  */
 	if (!argv[g_optind])
 	{
@@ -179,6 +192,7 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 		path = ft_strdup(oldpwd);
+		ft_printf("%s\n", path);
 	}
 	else if (!non_concatenable_operand(argv[g_optind]))
 	{
@@ -193,10 +207,11 @@ int		cmd_cd(int argc, char **argv)
 	{
 		path = ft_strdup(argv[g_optind]);
 	}
-	ft_printf("|%s\n", path);
 
-	/* Execute changedir */
-/*	if ((ret = change_dir(path)))
+
+	ft_printf("|%s\n", path);
+	/* Execute changedir */ /* Under building */
+	if ((ret = change_dir(path, p)))
 	{
 		if (ret != e_invalid_input)
 		{
@@ -210,6 +225,6 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-*/	ft_memdel((void**)&path);
+	ft_memdel((void**)&path);
 	return (ret);
 }
