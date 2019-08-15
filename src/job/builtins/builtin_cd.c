@@ -67,7 +67,7 @@ static int	change_dir(const char *path)
 		return (ret);
 	return (e_success);
 }
-
+*/
 static int	cdpath_concat(char **path)
 {
 	char	*beg;
@@ -76,15 +76,14 @@ static int	cdpath_concat(char **path)
 	char	*pathname;
 
 	if (!(beg = ft_getenv("CDPATH")))
-	{
-		ft_memdel((void**)path);
 		return (e_command_not_found);
-	}
-	env = ft_strdup(beg);
+	if (!(env = ft_strdup(beg)))
+		return (e_cannot_allocate_memory);
 	beg = env;
 	while ((dir = ft_strsep(&env, ":")))
 	{
-		pathname = ft_strnjoin(3, dir, "/", *path);
+		if (!(pathname = ft_strnjoin(3, dir, "/", *path)))
+			return (e_cannot_allocate_memory);
 		if (!access(pathname, F_OK))
 			break;
 		ft_memdel((void**)&pathname);
@@ -98,7 +97,7 @@ static int	cdpath_concat(char **path)
 	}
 	return (e_command_not_found);
 }
-*/
+
 int		cmd_cd(int argc, char **argv)
 {
 	char	*path;
@@ -124,6 +123,8 @@ int		cmd_cd(int argc, char **argv)
 			return (2);
 		}
 	}
+
+	/* Execute  */
 	if (!argv[g_optind])
 	{
 		if (!(path = ft_getenv("HOME")))
@@ -143,8 +144,10 @@ int		cmd_cd(int argc, char **argv)
 	else
 	{
 		path = ft_strdup(argv[g_optind]);
-/*		if (cdpath_concat(&path))  leaks ??? 
-*/			ft_printf("%s\n", path);
+		if ((ret = cdpath_concat(&path)) == e_cannot_allocate_memory)
+			return (g_errordesc[e_cannot_allocate_memory].code);
+		else if (!ret)
+			ft_printf("%s\n", path);
 	}
 /*	if ((ret = change_dir(path)))
 	{
