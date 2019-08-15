@@ -101,19 +101,20 @@ static int	cdpath_concat(char **path)
 */
 int		cmd_cd(int argc, char **argv)
 {
-/*	char	*path;
+	char	*path;
 	char	*oldpwd;
-*/	int	opt;
+	int	opt;
 	int	ret;
 	_Bool	p;
 
 	/* set variables */
+	path = NULL;
 	ret = e_success;
 	p = 0;
  	
 	/* parse options */
 	g_opterr = 1;
-	while ((opt = ft_getopt(argc, argv, "LP")) != -1)
+	while ((opt = ft_getopt(argc, argv, "+LP")) != -1)
 	{
 		if (opt == 'P')
 			p |= 1;
@@ -123,29 +124,14 @@ int		cmd_cd(int argc, char **argv)
 			return (2);
 		}
 	}
-
-	ft_printf("%s\n", argv[g_optind]);
-	
-	
-	
-	/* case no arg */
-/*	if (argc < 2)
+	if (!argv[g_optind])
 	{
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
 		path = ft_strdup(path);
 	}
-
-
-
-
-
-
-
-	path = ft_strdup(argv[1]);
-	}
-	else if (!ft_strcmp(argv[1], "-"))
+	else if (!ft_strcmp(argv[g_optind], "-"))
 	{
 		if (!(oldpwd = ft_getenv("OLDPWD")))
 		{
@@ -156,11 +142,11 @@ int		cmd_cd(int argc, char **argv)
 	}
 	else
 	{
-		path = ft_strdup(argv[1]);
-		if (cdpath_concat(&path))
-			path = argv[1];
+		path = ft_strdup(argv[g_optind]);
+/*		if (cdpath_concat(&path))  leaks ??? 
+*/			ft_printf("%s\n", path);
 	}
-	if ((ret = change_dir(path)))
+/*	if ((ret = change_dir(path)))
 	{
 		if (ret != e_invalid_input)
 		{
@@ -174,10 +160,6 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-	if (argv[1] != path)
-	{
-		ft_printf("%s\n", path);
-		ft_memdel((void**)&path);
-	}
-*/	return (ret);
+*/	ft_memdel((void**)&path);
+	return (ret);
 }
