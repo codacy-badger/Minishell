@@ -41,15 +41,23 @@ int		cmd_env(int argc, char **argv)
 	_Bool		i;
 
 	i = 0;
+	g_opterr = 1;
 	if (argc == 1)
 	{
 		ft_print_tables(environ);
 		g_optind = 0;
 		return (0);
 	}
-	while ((opt = ft_getopt(argc, argv, ":i")) != -1)
+	while ((opt = ft_getopt(argc, argv, "+i")) != -1)
+	{
 		if (opt == 'i')
 			i |= 1;
+		else if (opt == '?')
+		{
+			g_optind = 0;
+			return (125);
+		}
+	}
 	if (i)
 	{
 		if (argc == 2)
