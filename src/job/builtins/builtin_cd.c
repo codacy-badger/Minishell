@@ -68,6 +68,42 @@ static int	change_dir(const char *path)
 	return (e_success);
 }
 */
+static int	non_concatenable_operand(const char *str)
+{
+	if (*str == '.')
+	{
+		++str;
+		if (*str == '.')
+		{
+			++str;
+			while (*str)
+			{
+				if (*str != '/')
+					return (0);
+				++str;
+			}
+			return (1);
+		}
+		else
+		{
+			while (*str)
+			{
+				if (*str != '/')
+					return (0);
+				++str;
+			}
+			return (1);
+		}
+	}
+	while (*str)
+	{
+		if (*str != '/')
+			return (0);
+		++str;
+	}
+	return (1);
+}
+
 static int	cdpath_concat(char **path)
 {
 	char	*beg;
@@ -76,7 +112,7 @@ static int	cdpath_concat(char **path)
 	char	*pathname;
 
 	if (!(beg = ft_getenv("CDPATH")))
-		return (e_command_not_found);
+		return (e_success);
 	if (!(env = ft_strdup(beg)))
 		return (e_cannot_allocate_memory);
 	beg = env;
@@ -89,42 +125,45 @@ static int	cdpath_concat(char **path)
 		ft_memdel((void**)&pathname);
 	}
 	ft_memdel((void**)&beg);
-	ft_memdel((void**)path);
 	if (dir)
 	{
+		ft_memdel((void**)path);
 		*path = pathname;
-		return (e_success);
+		return (3);
 	}
-	return (e_command_not_found);
+	return (e_success);
 }
 
-int		cmd_cd(int argc, char **argv)
+static int	parse_opt(int argc, char **argv, _Bool *p)
 {
-	char	*path;
-	char	*oldpwd;
 	int	opt;
-	int	ret;
-	_Bool	p;
 
-	/* set variables */
-	path = NULL;
-	ret = e_success;
-	p = 0;
- 	
-	/* parse options */
+	*p = 0;
 	g_opterr = 1;
 	while ((opt = ft_getopt(argc, argv, "+LP")) != -1)
 	{
 		if (opt == 'P')
-			p |= 1;
+			*p |= 1;
 		else if (opt == '?')
 		{
 			ft_dprintf(STDERR_FILENO, "%1$s: usage: %1$s [-L|-P] [dir]\n", argv[0]);
 			return (2);
 		}
 	}
+	return (e_success);
+}
 
-	/* Execute  */
+int		cmd_cd(int argc, char **argv)
+{
+	char	*path;
+	char	*oldpwd;
+	int	ret;
+	_Bool	p;
+
+	path = NULL;
+	if ((ret = parse_opt(argc, argv, &p)))
+		return (ret);
+	/* Set path for the changedir call  */
 	if (!argv[g_optind])
 	{
 		if (!(path = ft_getenv("HOME")))
@@ -141,14 +180,22 @@ int		cmd_cd(int argc, char **argv)
 		}
 		path = ft_strdup(oldpwd);
 	}
-	else
+	else if (!non_concatenable_operand(argv[g_optind]))
 	{
 		path = ft_strdup(argv[g_optind]);
 		if ((ret = cdpath_concat(&path)) == e_cannot_allocate_memory)
 			return (g_errordesc[e_cannot_allocate_memory].code);
-		else if (!ret)
+		else if (ret == 3)
 			ft_printf("%s\n", path);
+		ret = e_success;
 	}
+	else
+	{
+		path = ft_strdup(argv[g_optind]);
+	}
+	ft_printf("|%s\n", path);
+
+	/* Execute changedir */
 /*	if ((ret = change_dir(path)))
 	{
 		if (ret != e_invalid_input)
