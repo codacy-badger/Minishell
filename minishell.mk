@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/08/01 17:23:09 by abarthel         ###   ########.fr        #
+#    Updated: 2019/08/16 16:00:12 by abarthel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,5 +57,4 @@ TESTS_PATH := ./tools/tests/
 
 TESTS_SCRIPT := launch_test.sh "launch from makefile"
 
-CFLAGS += -fsanitize=address
-#CFLAGS += -fno-builtin -O2
+CFLAGS += -fno-builtin -O2
