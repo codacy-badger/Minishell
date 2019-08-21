@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/21 15:00:44 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:09:39 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		main(int argc, char **argv)
 	}
 	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
-		ft_printf("%s\n", g_pwd); /* DEBUGG */
 		args = lexer(&input);
 		ft_memdel((void**)&input);
 		if (!args)
