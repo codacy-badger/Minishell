@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/21 14:50:17 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:00:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	g_pwd[] = {0};
 static int	set_minimal_env(void)
 {
 	char	*tmp;
-	int	shlvl;
+	int		shlvl;
 
 	tmp = getcwd(NULL, 0);
 	if (ft_setenv("PWD", tmp, 1))
@@ -50,6 +50,12 @@ static int	set_minimal_env(void)
 			return (e_cannot_allocate_memory);
 		ft_memdel((void**)&tmp);
 	}
+	if (PATH_MAX > 0)
+	{
+		tmp = ft_getenv("PWD");
+		if (ft_strlen(tmp) <= PATH_MAX)
+			ft_strcpy(g_pwd, ft_getenv("PWD"));
+	}
 	return (e_success);
 }
 
@@ -59,7 +65,6 @@ int		main(int argc, char **argv)
 	char		*input;
 	char		**args;
 
-	printf("%zu\n", sizeof(g_pwd));
 	(void)argc;
 	g_progname = argv[0];
 	if (!(environ = ft_tabcpy(environ)))
@@ -76,6 +81,7 @@ int		main(int argc, char **argv)
 	}
 	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
+		ft_printf("%s\n", g_pwd); /* DEBUGG */
 		args = lexer(&input);
 		ft_memdel((void**)&input);
 		if (!args)

@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/21 14:29:48 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:51:24 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 
 #include "libft.h"
+#include "path.h"
 
 int	cmd_pwd(int argc, char **argv)
 {
