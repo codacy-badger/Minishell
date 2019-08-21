@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/21 16:07:18 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 17:22:00 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,20 @@ static int	refresh_pwd(const char *path, _Bool p)
 	return (0);
 }
 
+static char	*resolve_path(const char *str)
+{
+	char	*curpath;
+
+	curpath = ft_strnjoin(3, g_pwd, "/", str);
+	ft_bzero(g_pwd, sizeof(g_pwd));
+	ft_strcpy(g_pwd, curpath);
+	return (curpath);
+}
+
 static int	change_dir(const char *path, _Bool p)
 {
 	int	ret;
+	char	*logical;
 
 	if (p || !*g_pwd)
 	{ /* physical */
@@ -82,12 +93,15 @@ static int	change_dir(const char *path, _Bool p)
 			return (ret);
 	}
 	else
-	{
-		if (chdir(path))
+	{ /* logical */ 
+		ft_printf(">%s\n", g_pwd);
+		ft_printf("+%s\n", path);
+		logical = resolve_path(path);
+		if (chdir(logical))
 			return (e_invalid_input);
 		if ((ret = set_oldpwd()))
 			return (ret);
-		if ((ret = refresh_pwd(path, p)))
+		if ((ret = refresh_pwd(logical, p)))
 			return (ret);
 	}
 	return (e_success);
