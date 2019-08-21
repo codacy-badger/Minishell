@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/21 15:13:03 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:07:18 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int		cmd_cd(int argc, char **argv)
 	_Bool	p;
 
 	path = NULL;
-
+	
 	/* Parse options */
 	if ((ret = parse_opt(argc, argv, &p)))
 		return (ret);

@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 13:03:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/25 21:48:17 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:20:30 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int 	check_type(char **arg)
 
 	buf = (struct stat){.st_mode = 0};
 	pathname = *arg;
+	if (!ft_strcmp(*arg, "cd")) /* check priority builtin */
+		return (e_command_not_found);
 	if (!ft_strcmp(*arg, "."))
 		return (e_filename_arg_required);
 	if (ft_strstr(*arg, "/"))
@@ -44,10 +46,7 @@ static int 	check_type(char **arg)
 		if (stat(*arg, &buf))
 			return (e_command_not_found);
 	}
-	if (S_ISDIR(buf.st_mode)) /* is it necessary to keep this test ? Proove it with a test */
-		return (e_is_a_directory);
-	else
-		return (e_success);
+	return (e_success);
 }
 
 static int	check_access(char *arg)
