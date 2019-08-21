@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 20:52:32 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/01 12:43:08 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:50:36 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "ft_getopt.h"
 #include "libft.h"
 #include "error.h"
+#include "path.h"
 
 static int	set_oldpwd(void)
 {

@@ -6,13 +6,14 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:32:13 by abarthel          #+#    #+#             */
-/*   Updated: 2019/08/01 18:04:00 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:50:17 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "libft.h"
 #include "builtins.h"
@@ -22,8 +23,10 @@
 #include "lexer.h"
 #include "jcont.h"
 #include "synt.h"
+#include "path.h"
 
 int		g_retval;
+char	g_pwd[] = {0};
 
 static int	set_minimal_env(void)
 {
@@ -56,6 +59,7 @@ int		main(int argc, char **argv)
 	char		*input;
 	char		**args;
 
+	printf("%zu\n", sizeof(g_pwd));
 	(void)argc;
 	g_progname = argv[0];
 	if (!(environ = ft_tabcpy(environ)))
