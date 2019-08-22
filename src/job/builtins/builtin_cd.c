@@ -220,6 +220,7 @@ int		cmd_cd(int argc, char **argv)
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
+		old = 1;
 		path = ft_strdup(path);
 	}
 	else if (!ft_strcmp(argv[g_optind], "-"))
@@ -240,6 +241,7 @@ int		cmd_cd(int argc, char **argv)
 			return (g_errordesc[e_cannot_allocate_memory].code);
 		else if (ret == 3)
 			ft_printf("%s\n", path);
+		old = 1;
 		ret = e_success;
 	}
 	else
