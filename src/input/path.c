@@ -12,7 +12,25 @@
 
 #include <unistd.h>
 
-char	*short_path(char **cwd)
+#include "path.h"
+
+char	*short_logical_path(char **cwd)
+{
+	int		i;
+
+	i = 0;
+	*cwd = g_pwd;
+	while ((*cwd)[i])
+		++i;
+	if (i > 0)
+		--i;
+	while ((*cwd)[i] != '/')
+		--i;
+	++i;
+	return (&(*cwd)[i]);
+}
+
+char	*short_physical_path(char **cwd)
 {
 	int		i;
 

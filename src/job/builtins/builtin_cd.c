@@ -51,20 +51,18 @@ static int	refresh_pwd(const char *path, _Bool p)
 	char	*cwd;
 
 	if (p)
-	{
+	{ /* physical */
 		if (!(cwd = getcwd(NULL, 0)))
 			return (e_system_call_error);
+		if (ft_setenv("PWD", cwd, 1))
+			return (e_cannot_allocate_memory);
+		ft_memdel((void**)&cwd);
 	}
 	else
-	{ /* to concat in a logical way */
-		ft_printf("adding: %s\n", path);
-		ft_printf("pwd: %s\n", ft_getenv("PWD"));
-		if (!(cwd = getcwd(NULL, 0)))
-			return (e_system_call_error);
+	{ /* logical */
+		if (ft_setenv("PWD", path, 1))
+			return (e_cannot_allocate_memory);
 	}
-	if (ft_setenv("PWD", cwd, 1))
-		return (e_cannot_allocate_memory);
-	ft_memdel((void**)&cwd);
 	return (0);
 }
 
@@ -76,7 +74,8 @@ static char	*resolve_path(const char *str)
 	curpath = ft_resolvepath(curpath);
 	ft_bzero(g_pwd, sizeof(g_pwd));
 	ft_strcpy(g_pwd, curpath);
-	return (curpath);
+	ft_memdel((void**)&curpath);
+	return (g_pwd);
 }
 
 static int	change_dir(const char *path, _Bool p)
@@ -94,21 +93,14 @@ static int	change_dir(const char *path, _Bool p)
 			return (ret);
 	}
 	else
-	{ /* logical */ 
+	{ /* logical */
 		logical = resolve_path(path);
 		if (chdir(logical))
-		{
-			ft_memdel((void**)&logical);
 			return (e_invalid_input);
-		}
 		if ((ret = set_oldpwd()))
 			return (ret);
 		if ((ret = refresh_pwd(logical, p)))
-		{
-			ft_memdel((void**)&logical);
 			return (ret);
-		}
-		ft_memdel((void**)&logical);
 	}
 	return (e_success);
 }
@@ -243,7 +235,6 @@ int		cmd_cd(int argc, char **argv)
 		path = ft_strdup(argv[g_optind]);
 	}
 
-	ft_printf("|%s\n", path);
 	/* Execute changedir */ /* Under building */
 	if ((ret = change_dir(path, p)))
 	{

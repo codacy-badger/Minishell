@@ -17,7 +17,8 @@
 # define PATH_MAX 1024
 # endif
 
-char	*short_path(char **cwd);
+char	*short_logical_path(char **cwd);
+char	*short_physical_path(char **cwd);
 
 extern char	g_pwd[PATH_MAX];
 

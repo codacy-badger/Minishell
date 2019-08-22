@@ -20,16 +20,33 @@ _Bool	prompt_display(int status)
 
 	if (status)
 	{
-		ret = ft_printf(
-				"\e[1m\e[38;5;14m%s \e[0m\e[38;5;160m⦗%d⦘ ➠ \e[0m",
-				short_path(&pwd), status);
-		ft_memdel((void**)&pwd);
+		if (*g_pwd)
+		{
+			ret = ft_printf(
+					"\e[1m\e[38;5;14m%s \e[0m\e[38;5;160m⦗%d⦘ ➠ \e[0m",
+					short_logical_path(&pwd), status);
+		}
+		else
+		{
+			ret = ft_printf(
+					"\e[1m\e[38;5;14m%s \e[0m\e[38;5;160m⦗%d⦘ ➠ \e[0m",
+					short_physical_path(&pwd), status);
+			ft_memdel((void**)&pwd);
+		}
 	}
 	else
 	{
-		ret = ft_printf("\e[1m\e[38;5;14m%s\e[0m\e[38;5;82m ➠ \e[0m",
-				short_path(&pwd));
-		ft_memdel((void**)&pwd);
+		if (*g_pwd)
+		{
+			ret = ft_printf("\e[1m\e[38;5;14m%s\e[0m\e[38;5;82m ➠ \e[0m",
+					short_logical_path(&pwd));
+		}
+		else
+		{
+			ret = ft_printf("\e[1m\e[38;5;14m%s\e[0m\e[38;5;82m ➠ \e[0m",
+					short_physical_path(&pwd));
+			ft_memdel((void**)&pwd);
+		}
 	}
 	return (ret);
 }
