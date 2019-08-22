@@ -73,6 +73,7 @@ static char	*resolve_path(const char *str)
 	char	*curpath;
 
 	curpath = ft_strnjoin(3, g_pwd, "/", str);
+	curpath = ft_resolvepath(curpath);
 	ft_bzero(g_pwd, sizeof(g_pwd));
 	ft_strcpy(g_pwd, curpath);
 	return (curpath);
@@ -94,15 +95,20 @@ static int	change_dir(const char *path, _Bool p)
 	}
 	else
 	{ /* logical */ 
-		ft_printf(">%s\n", g_pwd);
-		ft_printf("+%s\n", path);
 		logical = resolve_path(path);
 		if (chdir(logical))
+		{
+			ft_memdel((void**)&logical);
 			return (e_invalid_input);
+		}
 		if ((ret = set_oldpwd()))
 			return (ret);
 		if ((ret = refresh_pwd(logical, p)))
+		{
+			ft_memdel((void**)&logical);
 			return (ret);
+		}
+		ft_memdel((void**)&logical);
 	}
 	return (e_success);
 }
