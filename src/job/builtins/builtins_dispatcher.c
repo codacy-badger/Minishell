@@ -16,6 +16,8 @@
 #include "builtins.h"
 #include "error.h"
 
+
+
 static const t_builtins	g_builtins[] =
 {
 	{ "echo", &cmd_echo},
@@ -27,6 +29,24 @@ static const t_builtins	g_builtins[] =
 	{ "cd", &cmd_cd},
 	{ "\0", NULL}
 };
+
+_Bool	reserved_keyword(char *str)
+{
+	struct s_reserved_keyword	keyword_list[] =
+	{ {"echo"}, {"exit"}, {"setenv"}, {"unsetenv"}, {"cd"}, {"\0"} };
+	int	i;
+
+	i = 0;
+	while (*(keyword_list[i].keyword))
+	{
+		if (!ft_strcmp(str, keyword_list[i].keyword))
+		{
+			return (1);
+		}
+		++i;
+	}
+	return (0);
+}
 
 static void	*dispatcher(char *cmd)
 {

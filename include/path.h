@@ -13,6 +13,9 @@
 #ifndef PATH_H
 # define PATH_H
 # include <limits.h>
+# ifndef PATH_MAX
+# define PATH_MAX 1024
+# endif
 
 char	*short_path(char **cwd);
 

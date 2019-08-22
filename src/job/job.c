@@ -28,7 +28,7 @@ static int 	check_type(char **arg)
 
 	buf = (struct stat){.st_mode = 0};
 	pathname = *arg;
-	if (!ft_strcmp(*arg, "cd")) /* check priority builtin */
+	if (reserved_keyword(*arg)) /* check for reserved keyword */
 		return (e_command_not_found);
 	if (!ft_strcmp(*arg, "."))
 		return (e_filename_arg_required);

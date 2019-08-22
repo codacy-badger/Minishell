@@ -41,4 +41,9 @@ typedef struct	s_builtins
 	int		(*f)(int, char**);
 }				t_builtins;
 
+_Bool				reserved_keyword(char *str);
+struct	s_reserved_keyword
+{
+	char	*keyword;
+};
 #endif
