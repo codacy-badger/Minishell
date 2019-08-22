@@ -66,19 +66,28 @@ static int	refresh_pwd(const char *path, _Bool p)
 	return (0);
 }
 
-static char	*resolve_path(const char *str)
+static char	*resolve_path(const char *str, _Bool old)
 {
 	char	*curpath;
 
-	curpath = ft_strnjoin(3, g_pwd, "/", str);
-	curpath = ft_resolvepath(curpath);
-	ft_bzero(g_pwd, sizeof(g_pwd));
-	ft_strcpy(g_pwd, curpath);
-	ft_memdel((void**)&curpath);
+	if (old)
+	{
+		curpath = (char*)str;
+		ft_bzero(g_pwd, sizeof(g_pwd));
+		ft_strcpy(g_pwd, curpath);
+	}
+	else
+	{
+		curpath = ft_strnjoin(3, g_pwd, "/", str);
+		curpath = ft_resolvepath(curpath);
+		ft_bzero(g_pwd, sizeof(g_pwd));
+		ft_strcpy(g_pwd, curpath);
+		ft_memdel((void**)&curpath);
+	}
 	return (g_pwd);
 }
 
-static int	change_dir(const char *path, _Bool p)
+static int	change_dir(const char *path, _Bool p, _Bool old)
 {
 	int	ret;
 	char	*logical;
@@ -94,7 +103,7 @@ static int	change_dir(const char *path, _Bool p)
 	}
 	else
 	{ /* logical */
-		logical = resolve_path(path);
+		logical = resolve_path(path, old);
 		if (chdir(logical))
 			return (e_invalid_input);
 		if ((ret = set_oldpwd()))
@@ -196,7 +205,9 @@ int		cmd_cd(int argc, char **argv)
 	char	*oldpwd;
 	int	ret;
 	_Bool	p;
+	_Bool	old;
 
+	old = 0;
 	path = NULL;
 	
 	/* Parse options */
@@ -218,6 +229,7 @@ int		cmd_cd(int argc, char **argv)
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
 			return (e_invalid_input);
 		}
+		old = 1;
 		path = ft_strdup(oldpwd);
 		ft_printf("%s\n", path);
 	}
@@ -236,7 +248,7 @@ int		cmd_cd(int argc, char **argv)
 	}
 
 	/* Execute changedir */ /* Under building */
-	if ((ret = change_dir(path, p)))
+	if ((ret = change_dir(path, p, old)))
 	{
 		if (ret != e_invalid_input)
 		{
