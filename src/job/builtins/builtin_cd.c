@@ -194,9 +194,11 @@ int		cmd_cd(int argc, char **argv)
 	}
 	else if (!ft_strcmp(argv[g_optind], "-"))
 	{
-		/*
 		if (p)
-			 resolve_path physical */
+		{
+			oldpwd = ft_getenv("OLDPWD");
+			oldpwd = ft_realpath(oldpwd, NULL);
+		}
 		if (!(oldpwd = ft_getenv("OLDPWD")))
 		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
