@@ -31,7 +31,7 @@ static const t_builtins	g_builtins[] =
 _Bool	reserved_keyword(char *str)
 {
 	struct s_reserved_keyword	keyword_list[] =
-	{ {"echo"}, {"exit"}, {"setenv"}, {"unsetenv"}, {"cd"}, {"\0"} };
+	{ {"echo"}, {"exit"}, {"setenv"}, {"unsetenv"}, {"pwd"}, {"cd"}, {"\0"} };
 	int	i;
 
 	i = 0;

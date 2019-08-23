@@ -156,6 +156,7 @@ static int	parse_opt(int argc, char **argv, _Bool *p)
 
 	*p = 0;
 	g_opterr = 1;
+	g_optind = 0;
 	while ((opt = ft_getopt(argc, argv, "+LP")) != -1)
 	{
 		if (opt == 'P')
@@ -183,7 +184,6 @@ int		cmd_cd(int argc, char **argv)
 	/* Parse options */
 	if ((ret = parse_opt(argc, argv, &p)))
 		return (ret);
-
 	/* Set full path for the changedir call  */
 	if (!argv[g_optind])
 	{
@@ -200,6 +200,7 @@ int		cmd_cd(int argc, char **argv)
 		if (!(oldpwd = ft_getenv("OLDPWD")))
 		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
+			g_optind = 0;
 			return (e_invalid_input);
 		}
 		if (p)
@@ -285,7 +286,6 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-	ft_printf("g_pwd:%s\n", g_pwd);
 	ft_memdel((void**)&path);
 	return (ret);
 }

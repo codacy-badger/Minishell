@@ -42,10 +42,10 @@ int		cmd_env(int argc, char **argv)
 
 	i = 0;
 	g_opterr = 1;
+	g_optind = 0;
 	if (argc == 1)
 	{
 		ft_print_tables(environ);
-		g_optind = 0;
 		return (0);
 	}
 	while ((opt = ft_getopt(argc, argv, "+i")) != -1)
@@ -53,18 +53,12 @@ int		cmd_env(int argc, char **argv)
 		if (opt == 'i')
 			i |= 1;
 		else if (opt == '?')
-		{
-			g_optind = 0;
 			return (125);
-		}
 	}
 	if (i)
 	{
 		if (argc == 2)
-		{
-			g_optind = 0;
 			return (0);
-		}
 		env_copy = NULL;
 	}
 	else
@@ -83,6 +77,5 @@ int		cmd_env(int argc, char **argv)
 		opt = 1;
 	}
 	ft_tabdel(&env_copy);
-	g_optind = 0;
 	return (opt);
 }
