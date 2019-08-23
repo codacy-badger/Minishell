@@ -250,6 +250,11 @@ int		cmd_cd(int argc, char **argv)
 
 	/* Control access */
 	ft_printf("%s\n", path);
+	if (access(path, F_OK))
+	{
+		ft_memdel((void**)&path);
+		return (e_permission_denied);
+	}
 	ft_memdel((void**)&path);
 
 
@@ -268,6 +273,6 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-*/	ft_memdel((void**)&path);
+*/	
 	return (ret);
 }
