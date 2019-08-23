@@ -23,14 +23,14 @@
 #include "path.h"
 
 extern char	g_pwd[];
-/*
+
 static int	set_oldpwd(void)
 {
 	char	*cwd;
 	_Bool	allocated;
 
 	allocated = 0;
-	if (!(cwd = ft_getenv("PWD")))
+	if (!(cwd = g_pwd))
 	{
 		allocated = 1;
 		if (!(cwd = getcwd(NULL, 0)))
@@ -67,42 +67,19 @@ static int	refresh_pwd(const char *path, _Bool p)
 	return (0);
 }
 
-static void	resolve_path(char *str)
-{
-	char	*curpath;
-
-	curpath = ft_resolvepath(str);
-	ft_bzero(g_pwd, sizeof(g_pwd));
-	ft_strcpy(g_pwd, curpath);
-}
-
-static int	change_dir(const char *path, _Bool p, _Bool old)
+static int	change_dir(const char *path, _Bool p)
 {
 	int	ret;
-	char	*logical;
 
-	if (p || !*g_pwd)
-	{
-		if (chdir(path))
-			return (e_invalid_input);
-		if ((ret = set_oldpwd()))
-			return (ret);
-		if ((ret = refresh_pwd(path, p)))
-			return (ret);
-	}
-	else
-	{
-		logical = resolve_path(path, old);
-		if (chdir(logical))
-			return (e_invalid_input);
-		if ((ret = set_oldpwd()))
-			return (ret);
-		if ((ret = refresh_pwd(logical, p)))
-			return (ret);
-	}
+	if (chdir(path))
+		return (e_invalid_input);
+	if ((ret = set_oldpwd()))
+		return (ret);
+	if ((ret = refresh_pwd(path, p)))
+		return (ret);
 	return (e_success);
 }
-*/
+
 static int	concatenable_operand(const char *str)
 {
 	if (*str == '.')
@@ -251,8 +228,6 @@ int		cmd_cd(int argc, char **argv)
 
 
 	/* Control access */
-	ft_printf("%s\n", path);
-	ft_printf("%s\n", g_pwd);
 	if (stat(path, &buf))
 	{
 		ft_dprintf(STDERR_FILENO,
@@ -269,11 +244,13 @@ int		cmd_cd(int argc, char **argv)
 		ft_memdel((void**)&path);
 		return (1);
 	}
-	ft_memdel((void**)&path);
+/*	ft_printf("%s\n", path);
+	ft_printf("%s\n", g_pwd);
+*/	ft_memdel((void**)&path);
 
 
 	/* Execute changedir */
-/*	if ((ret = change_dir(path, p, old)))
+	if ((ret = change_dir(g_pwd, p)))
 	{
 		if (ret != e_invalid_input)
 		{
@@ -283,10 +260,10 @@ int		cmd_cd(int argc, char **argv)
 		else
 		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: %s: %s\n",
-			g_progname, argv[0], path, g_errordesc[e_no_such_file_or_directory].message);
+			g_progname, argv[0], g_pwd, g_errordesc[e_no_such_file_or_directory].message);
 			return (e_invalid_input);
 		}
 	}
-*/	
+
 	return (ret);
 }
