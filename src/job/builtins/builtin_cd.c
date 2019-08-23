@@ -73,6 +73,11 @@ static int	change_dir(const char *path, _Bool p)
 
 	if (chdir(path))
 		return (e_invalid_input);
+	else
+	{
+		ft_bzero((void*)g_pwd, sizeof(g_pwd));
+		ft_strncpy(g_pwd, path, sizeof(g_pwd));
+	}
 	if ((ret = set_oldpwd()))
 		return (ret);
 	if ((ret = refresh_pwd(path, p)))
@@ -244,26 +249,24 @@ int		cmd_cd(int argc, char **argv)
 		ft_memdel((void**)&path);
 		return (1);
 	}
-/*	ft_printf("%s\n", path);
-	ft_printf("%s\n", g_pwd);
-*/	ft_memdel((void**)&path);
-
 
 	/* Execute changedir */
-	if ((ret = change_dir(g_pwd, p)))
+	if ((ret = change_dir(path, p)))
 	{
 		if (ret != e_invalid_input)
 		{
 			psherror(ret, argv[0], e_cmd_type);
+			ft_memdel((void**)&path);
 			return (g_errordesc[ret].code);
 		}
 		else
 		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: %s: %s\n",
-			g_progname, argv[0], g_pwd, g_errordesc[e_no_such_file_or_directory].message);
+			g_progname, argv[0], path, g_errordesc[e_no_such_file_or_directory].message);
+			ft_memdel((void**)&path);
 			return (e_invalid_input);
 		}
 	}
-
+	ft_memdel((void**)&path);
 	return (ret);
 }
