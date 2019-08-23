@@ -28,9 +28,12 @@ static int 	check_type(char **arg)
 
 	buf = (struct stat){.st_mode = 0};
 	pathname = *arg;
-/*	if (reserved_keyword(*arg))  check for reserved keyword adding leaks
+	if (reserved_keyword(*arg))
+	{
+		ft_memdel((void**)arg);
 		return (e_command_not_found);
-*/	if (!ft_strcmp(*arg, "."))
+	}
+	if (!ft_strcmp(*arg, "."))
 		return (e_filename_arg_required);
 	if (ft_strstr(*arg, "/"))
 	{
