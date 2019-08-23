@@ -190,21 +190,25 @@ int		cmd_cd(int argc, char **argv)
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
-		path = ft_strdup(path);
+		if (p)
+			path = ft_realpath(path, NULL);
+		else
+			path = ft_strdup(path);
 	}
 	else if (!ft_strcmp(argv[g_optind], "-"))
 	{
-		if (p)
-		{
-			oldpwd = ft_getenv("OLDPWD");
-			oldpwd = ft_realpath(oldpwd, NULL);
-		}
 		if (!(oldpwd = ft_getenv("OLDPWD")))
 		{
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
 			return (e_invalid_input);
 		}
-		path = ft_strdup(oldpwd);
+		if (p)
+		{
+			oldpwd = ft_realpath(oldpwd, NULL);
+			path = oldpwd;
+		}
+		else
+			path = ft_strdup(oldpwd);
 		ft_printf("%s\n", path);
 	}
 	else if (*(argv[g_optind]) == '/')
@@ -234,14 +238,24 @@ int		cmd_cd(int argc, char **argv)
 	
 	/* Resolve path */
 	path = ft_resolvepath(path);
-
+	if (!path)
+		return (1);
 
 	/* Control access */
 	if (stat(path, &buf))
 	{
-		ft_dprintf(STDERR_FILENO,
-		"%s: %s: %s: No such file or directory\n",
-		g_progname, argv[0], argv[g_optind]);
+		if (!argv[g_optind] || !*argv[g_optind])
+		{
+			ft_dprintf(STDERR_FILENO,
+			"%s: %s: %s: No such file or directory\n",
+			g_progname, argv[0], path);
+		}
+		else
+		{
+			ft_dprintf(STDERR_FILENO,
+			"%s: %s: %s: No such file or directory\n",
+			g_progname, argv[0], argv[g_optind]);
+		}
 		ft_memdel((void**)&path);
 		return (1);
 	}
@@ -271,6 +285,7 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
+	ft_printf("g_pwd:%s\n", g_pwd);
 	ft_memdel((void**)&path);
 	return (ret);
 }
