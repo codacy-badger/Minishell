@@ -15,6 +15,7 @@
 */
 
 #include <unistd.h>
+#include <sys/stat.h>
 
 #include "ft_getopt.h"
 #include "libft.h"
@@ -189,6 +190,7 @@ static int	parse_opt(int argc, char **argv, _Bool *p)
 
 int		cmd_cd(int argc, char **argv)
 {
+	struct stat buf;
 	char	*path;
 	char	*oldpwd;
 	char	*tmp;
@@ -250,6 +252,13 @@ int		cmd_cd(int argc, char **argv)
 
 	/* Control access */
 	ft_printf("%s\n", path);
+	ft_printf("%s\n", g_pwd);
+	if (stat(path, &buf))
+	{
+		ft_dprintf(STDERR_FILENO, "%s: %s: %s: No such file or directory\n", g_progname, argv[0], argv[g_optind]);
+		ft_memdel((void**)&path);
+		return ();
+	}
 	if (access(path, F_OK))
 	{
 		ft_memdel((void**)&path);
