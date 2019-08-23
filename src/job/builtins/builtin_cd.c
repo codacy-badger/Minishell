@@ -57,12 +57,16 @@ static int	refresh_pwd(const char *path, _Bool p)
 			return (e_system_call_error);
 		if (ft_setenv("PWD", cwd, 1))
 			return (e_cannot_allocate_memory);
+		ft_bzero((void*)g_pwd, sizeof(g_pwd));
+		ft_strncpy(g_pwd, cwd, sizeof(g_pwd));
 		ft_memdel((void**)&cwd);
 	}
 	else
 	{
 		if (ft_setenv("PWD", path, 1))
 			return (e_cannot_allocate_memory);
+		ft_bzero((void*)g_pwd, sizeof(g_pwd));
+		ft_strncpy(g_pwd, path, sizeof(g_pwd));
 	}
 	return (0);
 }
@@ -73,11 +77,6 @@ static int	change_dir(const char *path, _Bool p)
 
 	if (chdir(path))
 		return (e_invalid_input);
-	else
-	{
-		ft_bzero((void*)g_pwd, sizeof(g_pwd));
-		ft_strncpy(g_pwd, path, sizeof(g_pwd));
-	}
 	if ((ret = set_oldpwd()))
 		return (ret);
 	if ((ret = refresh_pwd(path, p)))
