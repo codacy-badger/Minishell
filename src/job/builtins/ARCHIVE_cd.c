@@ -22,7 +22,7 @@
 #include "path.h"
 
 extern char	g_pwd[];
-/*
+
 static int	set_oldpwd(void)
 {
 	char	*cwd;
@@ -51,7 +51,7 @@ static int	refresh_pwd(const char *path, _Bool p)
 	char	*cwd;
 
 	if (p)
-	{
+	{ /* physical */
 		if (!(cwd = getcwd(NULL, 0)))
 			return (e_system_call_error);
 		if (ft_setenv("PWD", cwd, 1))
@@ -59,20 +59,32 @@ static int	refresh_pwd(const char *path, _Bool p)
 		ft_memdel((void**)&cwd);
 	}
 	else
-	{
+	{ /* logical */
 		if (ft_setenv("PWD", path, 1))
 			return (e_cannot_allocate_memory);
 	}
 	return (0);
 }
 
-static void	resolve_path(char *str)
+static char	*resolve_path(const char *str, _Bool old)
 {
 	char	*curpath;
 
-	curpath = ft_resolvepath(str);
-	ft_bzero(g_pwd, sizeof(g_pwd));
-	ft_strcpy(g_pwd, curpath);
+	if (old)
+	{
+		curpath = (char*)str;
+		ft_bzero(g_pwd, sizeof(g_pwd));
+		ft_strcpy(g_pwd, curpath);
+	}
+	else
+	{
+		curpath = ft_strnjoin(3, g_pwd, "/", str);
+		curpath = ft_resolvepath(curpath);
+		ft_bzero(g_pwd, sizeof(g_pwd));
+		ft_strcpy(g_pwd, curpath);
+		ft_memdel((void**)&curpath);
+	}
+	return (g_pwd);
 }
 
 static int	change_dir(const char *path, _Bool p, _Bool old)
@@ -81,7 +93,7 @@ static int	change_dir(const char *path, _Bool p, _Bool old)
 	char	*logical;
 
 	if (p || !*g_pwd)
-	{
+	{ /* physical */
 		if (chdir(path))
 			return (e_invalid_input);
 		if ((ret = set_oldpwd()))
@@ -90,7 +102,7 @@ static int	change_dir(const char *path, _Bool p, _Bool old)
 			return (ret);
 	}
 	else
-	{
+	{ /* logical */
 		logical = resolve_path(path, old);
 		if (chdir(logical))
 			return (e_invalid_input);
@@ -101,8 +113,8 @@ static int	change_dir(const char *path, _Bool p, _Bool old)
 	}
 	return (e_success);
 }
-*/
-static int	concatenable_operand(const char *str)
+
+static int	non_concatenable_operand(const char *str)
 {
 	if (*str == '.')
 	{
@@ -113,29 +125,29 @@ static int	concatenable_operand(const char *str)
 			while (*str)
 			{
 				if (*str != '/')
-					return (1);
+					return (0);
 				++str;
 			}
-			return (0);
+			return (1);
 		}
 		else
 		{
 			while (*str)
 			{
 				if (*str != '/')
-					return (1);
+					return (0);
 				++str;
 			}
-			return (0);
+			return (1);
 		}
 	}
 	while (*str)
 	{
 		if (*str != '/')
-			return (1);
+			return (0);
 		++str;
 	}
-	return (0);
+	return (1);
 }
 
 static int	cdpath_concat(char **path)
@@ -191,22 +203,24 @@ int		cmd_cd(int argc, char **argv)
 {
 	char	*path;
 	char	*oldpwd;
-	char	*tmp;
 	int	ret;
 	_Bool	p;
+	_Bool	old;
 
+	old = 0;
 	path = NULL;
 	
 	/* Parse options */
 	if ((ret = parse_opt(argc, argv, &p)))
 		return (ret);
 
-	/* Set full path for the changedir call  */
+	/* Set path for the changedir call  */
 	if (!argv[g_optind])
 	{
 		if (!(path = ft_getenv("HOME")))
 			if (!(path = ft_getenv("PWD")))
 				return (1);
+		old = 1;
 		path = ft_strdup(path);
 	}
 	else if (!ft_strcmp(argv[g_optind], "-"))
@@ -216,45 +230,27 @@ int		cmd_cd(int argc, char **argv)
 			ft_dprintf(STDERR_FILENO, "%s: %s: OLDPWD not set\n", g_progname, argv[0]);
 			return (e_invalid_input);
 		}
+		old = 1;
 		path = ft_strdup(oldpwd);
 		ft_printf("%s\n", path);
 	}
-	else if (*(argv[g_optind]) == '/')
-		path = ft_strdup(argv[g_optind]);
-	else if (concatenable_operand(argv[g_optind]))
+	else if (!non_concatenable_operand(argv[g_optind]))
 	{
 		path = ft_strdup(argv[g_optind]);
 		if ((ret = cdpath_concat(&path)) == e_cannot_allocate_memory)
 			return (g_errordesc[e_cannot_allocate_memory].code);
 		else if (ret == 3)
 			ft_printf("%s\n", path);
-		else
-		{
-			tmp = path;
-			path = ft_strnjoin(3, g_pwd, "/", tmp);
-			ft_memdel((void**)&tmp);
-		}
+		old = 1;
 		ret = e_success;
 	}
 	else
 	{
 		path = ft_strdup(argv[g_optind]);
-		tmp = path;
-		path = ft_strnjoin(3, g_pwd, "/", tmp);
-		ft_memdel((void**)&tmp);
 	}
-	
-	/* Resolve path */
-	path = ft_resolvepath(path);
 
-
-	/* Control access */
-	ft_printf("%s\n", path);
-	ft_memdel((void**)&path);
-
-
-	/* Execute changedir */
-/*	if ((ret = change_dir(path, p, old)))
+	/* Execute changedir */ /* Under building */
+	if ((ret = change_dir(path, p, old)))
 	{
 		if (ret != e_invalid_input)
 		{
@@ -268,6 +264,6 @@ int		cmd_cd(int argc, char **argv)
 			return (e_invalid_input);
 		}
 	}
-*/	ft_memdel((void**)&path);
+	ft_memdel((void**)&path);
 	return (ret);
 }
