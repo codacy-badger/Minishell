@@ -255,14 +255,19 @@ int		cmd_cd(int argc, char **argv)
 	ft_printf("%s\n", g_pwd);
 	if (stat(path, &buf))
 	{
-		ft_dprintf(STDERR_FILENO, "%s: %s: %s: No such file or directory\n", g_progname, argv[0], argv[g_optind]);
+		ft_dprintf(STDERR_FILENO,
+		"%s: %s: %s: No such file or directory\n",
+		g_progname, argv[0], argv[g_optind]);
 		ft_memdel((void**)&path);
-		return ();
+		return (1);
 	}
 	if (access(path, F_OK))
 	{
+		ft_dprintf(STDERR_FILENO,
+		"%s: %s: %s: Permission denied\n",
+		g_progname, argv[0], argv[g_optind]);
 		ft_memdel((void**)&path);
-		return (e_permission_denied);
+		return (1);
 	}
 	ft_memdel((void**)&path);
 
