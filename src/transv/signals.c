@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "libft.h"
 #include "sig_handler.h"
@@ -27,6 +28,7 @@ void	kill_child(int sig)
 	{
 		kill(g_childpid, SIGKILL);
 		g_childpid = 0;
+		write(STDOUT_FILENO, "\n", sizeof(char));
 	}
 }
 
