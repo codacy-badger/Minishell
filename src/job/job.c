@@ -83,13 +83,14 @@ static int	builtin_keyword_exec(char **argv)
 
 static int	process_launch(char **argv, char **envp, char *pathname)
 {
-	int	stat;
+	int	wstatus;
 	int	ret;
+	pid_t	child;
 
-	stat = 0;
+	wstatus = 0;
 	ret = e_success;
 	ft_swap((void**)&argv[0], (void**)&pathname);
-	if (fork() == 0) /*add fork protection, check SHLVL and resources */
+	if ((child = fork()) == 0) /*add fork protection, check SHLVL and resources */
 	{
 		ret = execve(pathname, argv, envp);
 		ft_tabdel(&argv);
@@ -99,8 +100,8 @@ static int	process_launch(char **argv, char **envp, char *pathname)
 	}
 	else
 	{
-		wait(&stat);
-		ret = WEXITSTATUS(stat);
+		waitpid(child, &wstatus, WUNTRACED);
+		ret = WEXITSTATUS(wstatus);
 		ft_memdel((void**)&pathname);
 		return (ret);
 	}
