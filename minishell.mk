@@ -16,6 +16,7 @@ SOURCES_PATH := ./src/
 
 SOURCES :=	main.c \
 			transv/error.c \
+			transv/signals.c \
 			input/path.c \
 			input/prompt.c \
 			input/input.c \

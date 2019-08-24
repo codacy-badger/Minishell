@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
 
 #include "libft.h"
+#include "sig_handler.h"
 #include "builtins.h"
 #include "prompt.h"
 #include "input.h"
@@ -79,6 +81,7 @@ int		main(int argc, char **argv)
 		ft_tabdel(&environ);
 		return (1);
 	}
+	set_signals(0);
 	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
 		args = lexer(&input);

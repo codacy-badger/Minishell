@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   job.h                                              :+:      :+:    :+:   */
+/*   sig_handler.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/16 13:12:45 by abarthel          #+#    #+#             */
-/*   Updated: 2019/07/16 13:49:44 by abarthel         ###   ########.fr       */
+/*   Created: 2019/07/02 16:51:41 by abarthel          #+#    #+#             */
+/*   Updated: 2019/07/21 18:54:34 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_H
-# define JOB_H
-# include <sys/types.h>
+#ifndef SIG_HANDLER_H
+# define SIG_HANDLER_H
 
-int	job(char **argv, char **envp);
-int	path_concat(char **bin);
-
-extern pid_t	g_childpid;
+int		set_signals(int type);
 
 #endif

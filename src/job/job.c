@@ -12,14 +12,18 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include <signal.h>
 #include <unistd.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
+#include "sig_handler.h"
 #include "builtins.h"
 #include "error.h"
 #include "libft.h"
 #include "job.h"
+
+pid_t		g_childpid = 0;
 
 static int 	check_type(char **arg)
 {
@@ -83,14 +87,15 @@ static int	builtin_keyword_exec(char **argv)
 
 static int	process_launch(char **argv, char **envp, char *pathname)
 {
-	int	wstatus;
-	int	ret;
-	pid_t	child;
+	extern pid_t	g_childpid;
+	int		wstatus;
+	int		ret;
 
 	wstatus = 0;
 	ret = e_success;
 	ft_swap((void**)&argv[0], (void**)&pathname);
-	if ((child = fork()) == 0) /*add fork protection, check SHLVL and resources */
+
+	if ((g_childpid = fork()) == 0) /*add fork protection, check SHLVL and resources */
 	{
 		ret = execve(pathname, argv, envp);
 		ft_tabdel(&argv);
@@ -100,7 +105,8 @@ static int	process_launch(char **argv, char **envp, char *pathname)
 	}
 	else
 	{
-		waitpid(child, &wstatus, WUNTRACED);
+		set_signals(1);
+		waitpid(g_childpid, &wstatus, WUNTRACED);
 		ret = WEXITSTATUS(wstatus);
 		ft_memdel((void**)&pathname);
 		return (ret);
