@@ -15,4 +15,6 @@
 
 int	get_stdin(char **line);
 
+extern _Bool	g_stopinput;
+
 #endif

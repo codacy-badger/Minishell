@@ -31,6 +31,8 @@
 ** ' -> quote
 */
 
+_Bool			g_stopinput;
+
 static void		print_quote(char mask)
 {
 	if (mask == '`')
