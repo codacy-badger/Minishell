@@ -30,15 +30,10 @@
 int		g_retval;
 char	g_pwd[] = {0};
 
-static int	set_minimal_env(void)
+static int	set_shlvl(char *tmp)
 {
-	char	*tmp;
-	int		shlvl;
+	int shlvl;
 
-	tmp = getcwd(NULL, 0);
-	if (ft_setenv("PWD", tmp, 1))
-		return (e_cannot_allocate_memory);
-	ft_memdel((void**)&tmp);
 	if (!(tmp = ft_getenv("SHLVL")))
 	{
 		if (ft_setenv("SHLVL", "1", 1))
@@ -52,6 +47,19 @@ static int	set_minimal_env(void)
 			return (e_cannot_allocate_memory);
 		ft_memdel((void**)&tmp);
 	}
+	return (e_success);
+}
+
+static int	set_minimal_env(void)
+{
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	if (ft_setenv("PWD", tmp, 1))
+		return (e_cannot_allocate_memory);
+	ft_memdel((void**)&tmp);
+	if (set_shlvl(tmp))
+		return (e_cannot_allocate_memory);
 	if (PATH_MAX > 0)
 	{
 		tmp = ft_getenv("PWD");
@@ -61,19 +69,17 @@ static int	set_minimal_env(void)
 	return (e_success);
 }
 
-int		main(int argc, char **argv)
+static int	startsh(char **argv)
 {
 	extern char	**environ;
-	char		*input;
-	char		**args;
 	
-	(void)argc;
-	g_progname = argv[0];
+	set_signals(0);
 	if (!(environ = ft_tabcpy(environ)))
 	{
 		psherror(e_cannot_allocate_memory, argv[0], e_cmd_type);
 		return (1);
 	}
+	g_progname = argv[0];
 	g_retval = e_success;
 	if ((g_retval = set_minimal_env()))
 	{
@@ -81,7 +87,19 @@ int		main(int argc, char **argv)
 		ft_tabdel(&environ);
 		return (1);
 	}
-	set_signals(0);
+	return (0);
+}
+
+int		main(int argc, char **argv)
+{
+	extern char	**environ;
+	char		*input;
+	char		**args;
+	int		start;
+	
+	(void)argc;
+	if ((start = startsh(argv)))
+		return (start);
 	while (prompt_display(g_retval) && get_stdin(&input) >= 0)
 	{
 		args = lexer(&input);
