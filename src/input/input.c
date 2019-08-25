@@ -10,13 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Physical Module handling inputs in a zsh style.
-** It does not include termcaps.
-** Files: input.c, input.h
-** Use: call get_stdin in your program in a get_next_line alike fashion.
-*/
-
 #include <stdlib.h>
 
 #include "libft.h"
@@ -30,8 +23,6 @@
 ** " -> dquote
 ** ' -> quote
 */
-
-_Bool			g_stopinput;
 
 static void		print_quote(char mask)
 {
@@ -47,13 +38,6 @@ static void		print_quote(char mask)
 		ft_printf("quote> ");
 }
 
-/*
-** IS_QUOTE_OPEN
-** Checks whether a quote or bracket is open in this case it return a mask.
-** As long as the mask has a different value from 0 the "print_quote" element
-** is display after a newline character.
-*/
-
 static char		is_quote_open(char c, char mask)
 {
 	if (c == '`' && (mask == '`' || !mask))
@@ -68,11 +52,6 @@ static char		is_quote_open(char c, char mask)
 		mask ^= '\'';
 	return (mask);
 }
-
-/*
-** CREATE_NEW_LINE
-** Reallocates memory (extends it). it "mimics" the realloc function.
-*/
 
 static char		*create_new_line(char *str, int *len)
 {
@@ -95,20 +74,15 @@ static char		*create_new_line(char *str, int *len)
 	}
 }
 
-/*
-** Gets characters from standard inputs as zsh does. Do not contain termcaps
-** '\n' needs to be define as separator by default when called.
-*/
-
 int				get_block(char **line, int len, char separator)
 {
-	int			ret;
+	int		ret;
 	static char	mask;
 	char		c;
 
 	ret = 0;
 	while (ret < len)
-	{
+	{	
 		c = ft_getch();
 		if (c == -1)
 			return (-2);
@@ -128,14 +102,6 @@ int				get_block(char **line, int len, char separator)
 	else
 		return (1);
 }
-
-/*
-** GET_STDIN
-** Manages to get blocks from stdin. it reallocates memory if needed and call
-** a function that get "lines" from stdin.
-** It gets the inputi (get_blocks) from stdin wich is written on 128b blocks
-** by default. If 128b are not enough, it extends it by its size, i.e. *2.
-*/
 
 int				get_stdin(char **line)
 {

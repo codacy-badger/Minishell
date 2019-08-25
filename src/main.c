@@ -66,7 +66,7 @@ int		main(int argc, char **argv)
 	extern char	**environ;
 	char		*input;
 	char		**args;
-
+	
 	(void)argc;
 	g_progname = argv[0];
 	if (!(environ = ft_tabcpy(environ)))

@@ -32,14 +32,6 @@ void	kill_child(int sig)
 	}
 }
 
-void	stop_input(int sig)
-{
-	extern _Bool	g_stopinput;
-	
-	(void)sig;
-	g_stopinput = 1;
-}
-
 int	set_signals(int type)
 {
 	if (!type)
