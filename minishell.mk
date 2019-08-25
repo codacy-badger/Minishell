@@ -58,5 +58,4 @@ TESTS_PATH := ./tools/tests/
 
 TESTS_SCRIPT := launch_test.sh "launch from makefile"
 
-#CFLAGS += -fno-builtin -O2
-CFLAGS += -fsanitize=address
+CFLAGS += -fno-builtin -O2
