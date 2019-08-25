@@ -19,21 +19,13 @@ static char **position_token(char **cmd)
 
 	i = 0;
 	while (cmd[i] && *(cmd[i]) == ';')
-	{
 		++i;
-	}
 	while (cmd[i] && *(cmd[i]) != ';')
-	{
 		++i;
-	}
 	while (cmd[i] && *(cmd[i]) == ';')
-	{
 		++i;
-	}
 	if (!(cmd[i]))
-	{
 		return (NULL);
-	}
 	return (&(cmd[i]));
 }
 

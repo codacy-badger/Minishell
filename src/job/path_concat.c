@@ -15,6 +15,16 @@
 #include "libft.h"
 #include "error.h"
 
+static int	getpath(char **beg, char **bin)
+{
+	if (!(*beg = ft_getenv("PATH")))
+	{
+		ft_memdel((void**)bin);
+		return (e_command_not_found);
+	}
+	return (e_success);
+}
+
 int	path_concat(char **bin)
 {
 	char	*beg;
@@ -22,11 +32,8 @@ int	path_concat(char **bin)
 	char	*dir;
 	char	*pathname;
 
-	if (!(beg = ft_getenv("PATH")))
-	{
-		ft_memdel((void**)bin);
+	if (getpath(&beg, bin))
 		return (e_command_not_found);
-	}
 	env = ft_strdup(beg);
 	beg = env;
 	while ((dir = ft_strsep(&env, ":")))
