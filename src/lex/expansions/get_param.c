@@ -42,9 +42,7 @@ static char	*get_content(const char *str)
 const struct s_param	g_param[] =
 {
 	{"?", &get_retval},
-/*	{"$", NULL},
-	{"@", NULL},
-*/	{"", &get_content}
+	{"", &get_content}
 };
 
 static int	parameter_dispacther(char **content, const char *str)

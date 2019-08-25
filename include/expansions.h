@@ -27,6 +27,19 @@ struct	s_param
 	char	*(*g)(const char*);
 };
 
+struct	s_param_exp
+{
+	int	ret;
+	size_t	lopen;
+	size_t	lvarname;
+	size_t	lclose;
+	char	*rest;
+	size_t	lrest;
+	char	*content;
+	size_t	lcontent;
+	char	*new;
+};
+
 int		treat_expansions(char **tokens);
 
 int		getenv_content(char **content, char *str, const char *closetag);

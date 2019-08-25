@@ -102,10 +102,6 @@ int			treat_expansions(char **tokens)
 	i = 0;
 	if (!tokens)
 		return (e_invalid_input);
-	/* Tokens might be wrong, strsplit is not ok fpor instance "echo ${LOGNAME }KO" does not work*/
-	/*ft_print_tables(tokens);
-	exit(1);
-*/	/* END debugg */
 	while (tokens[i])
 	{
 		next = tokens[i];

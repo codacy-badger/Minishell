@@ -16,9 +16,6 @@
 #include "expansions.h"
 #include "separators.h"
 
-/* The lexer should tokenize || ; & && ect even if glued to words
- * example : echo ok;ls||env 
- * It manages expansions subsitution in ech tokens*/
 char	**lexer(char **input)
 {
 	char	**tokens;
